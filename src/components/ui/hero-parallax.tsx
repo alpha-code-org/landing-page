@@ -52,7 +52,7 @@ export const HeroParallax = ({
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [-700, 0]),
     springConfig
   );
   return (
@@ -118,7 +118,7 @@ export const Header = () => {
         </span>{" "}
         <span className="text-brand-code z-10">Code</span>
       </h1>
-      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 z-10">
+      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 relative z-10">
         We build beautiful products.
       </p>
       <Button
