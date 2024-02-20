@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "./moving-border-button";
 
 export const HeroParallax = ({
   products,
@@ -111,9 +112,15 @@ export const Header = () => {
         </span>{" "}
         <span className="text-brand-code">Code</span>
       </h1>
-      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-8 dark:text-neutral-200">
+      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200">
         We build beautiful products.
       </p>
+      <Button
+        borderRadius="1.75rem"
+        className="bg-brand-code font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800 z-10"
+      >
+        Contact Us
+      </Button>
     </div>
   );
 };
