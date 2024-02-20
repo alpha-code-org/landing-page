@@ -106,13 +106,19 @@ export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
       <h1 className="flex items-center gap-2 text-2xl md:text-8xl font-bold dark:text-white">
-        <Image alt="ac-logo" src="/logo-base.png" width={80} height={80} />
-        <span className="text-brand-alpha dark:text-brand-alpha-dark">
+        <Image
+          alt="ac-logo"
+          src="/logo-base.png"
+          width={80}
+          height={80}
+          className="z-10"
+        />
+        <span className="text-brand-alpha dark:text-brand-alpha-dark z-10">
           Alpha
         </span>{" "}
-        <span className="text-brand-code">Code</span>
+        <span className="text-brand-code z-10">Code</span>
       </h1>
-      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200">
+      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 z-10">
         We build beautiful products.
       </p>
       <Button
