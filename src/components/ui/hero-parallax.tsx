@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./moving-border-button";
 
-export const HeroParallax = ({
+const HeroParallax = ({
   products,
 }: {
   products: {
@@ -104,14 +104,14 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
+    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full right-0 top-0">
       <h1 className="flex items-center gap-2 text-2xl md:text-8xl font-bold dark:text-white">
         <Image
           alt="ac-logo"
-          src="/logo-base.png"
+          src="/logo.png"
           width={80}
           height={80}
-          className="z-10"
+          className="mr-4 z-10"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark z-10">
           Alpha
@@ -172,3 +172,5 @@ export const ProductCard = ({
     </motion.div>
   );
 };
+
+export default HeroParallax;
