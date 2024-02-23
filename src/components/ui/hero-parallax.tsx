@@ -105,7 +105,7 @@ const HeroParallax = ({
 export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-[20vh]">
-      <h1 className="flex items-center gap-2 text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold dark:text-white">
+      <h1 className="flex items-center gap-2 text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold dark:text-white relative z-10">
         <Image
           alt="ac-logo"
           src="/logo.png"
