@@ -25,7 +25,7 @@ export const content: Array<ContentType> = [
     description:
       "Ensuring every line of code not only solves today's challenges but paves the way for tomorrow's success.",
 
-    imageSrc: "https://source.unsplash.com/PNbDkQ2DDgM",
+    imageSrc: "https://source.unsplash.com/kpGj50PWAG0",
 
     sideTitle:
       "Where code meets creativity, building the digital foundations from the ground up to sky-high innovations.",
@@ -44,7 +44,7 @@ export const content: Array<ContentType> = [
     title: "IT Consulting",
     description:
       "Transform your tech challenges into victories with our IT consulting services to propel your business forward.",
-    imageSrc: "/services/full-stack.jpg",
+    imageSrc: "https://source.unsplash.com/yapBRdPWxik",
     sideTitle:
       "Where technology meets strategy, IT consulting turns obstacles into opportunities for innovation and growth.",
     icon: HandHelping,
