@@ -111,7 +111,7 @@ export const Header = () => {
           src="/logo.png"
           width={80}
           height={80}
-          className="mr-4"
+          className="mr-2 md:mr-4 w-10 h-10 md:w-20 md:h-20"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">
           Alpha
