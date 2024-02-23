@@ -4,6 +4,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import ServiceCard from "../cards/ServiceCard";
 import { ServiceType } from "../utils/services";
+import useIntersectionObserver from "../hooks/useIntersectionObserver";
 
 export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const [activeCard, setActiveCard] = React.useState(0);
@@ -27,13 +28,16 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
 
   const Icon = services[activeCard].icon;
 
+  const { overflowY } = useIntersectionObserver({ containerRef: ref });
+
   return (
     <motion.div
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="h-[100vh] overflow-y-auto flex justify-center sticky top-0 space-x-10 rounded-md md:p-10"
+      className={`h-[100vh] ${overflowY} flex justify-center sticky top-0 space-x-10 rounded-md md:p-10`}
       ref={ref}
+      style={{ scrollSnapType: "y proximity" }}
     >
       <div className="div relative flex items-start px-4">
         <div className="max-w-2xl">
