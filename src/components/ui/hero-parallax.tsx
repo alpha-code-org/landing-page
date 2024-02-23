@@ -123,7 +123,7 @@ export const Header = () => {
       </p>
       <Button
         borderRadius="1.75rem"
-        className="bg-brand-code font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800"
+        className="bg-brand-code font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800 z-10"
       >
         Contact Us
       </Button>
