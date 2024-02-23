@@ -3,19 +3,19 @@ import React, { useRef } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import ServiceCard from "../cards/ServiceCard";
-import { ContentType } from "../utils/content";
+import { ServiceType } from "../utils/services";
 
-export const StickyScroll = ({ content }: { content: ContentType[] }) => {
+export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const [activeCard, setActiveCard] = React.useState(0);
   const ref = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     container: ref,
     offset: ["start start", "end start"],
   });
-  const cardLength = content.length;
+  const cardLength = services.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const cardsBreakpoints = content.map((_, index) => index / cardLength);
+    const cardsBreakpoints = services.map((_, index) => index / cardLength);
     cardsBreakpoints.forEach((breakpoint, index) => {
       if (latest > breakpoint - 0.1 && latest <= breakpoint + 0.2) {
         setActiveCard(() => index);
@@ -25,7 +25,7 @@ export const StickyScroll = ({ content }: { content: ContentType[] }) => {
 
   const backgroundColors = ["#000", "#1E2444", "#335AA6"];
 
-  const Icon = content[activeCard].icon;
+  const Icon = services[activeCard].icon;
 
   return (
     <motion.div
@@ -37,7 +37,7 @@ export const StickyScroll = ({ content }: { content: ContentType[] }) => {
     >
       <div className="div relative flex items-start px-4">
         <div className="max-w-2xl">
-          {content.map((item, index) => (
+          {services.map((item, index) => (
             <div key={item.title} className="my-20">
               <motion.div
                 initial={{
@@ -68,7 +68,7 @@ export const StickyScroll = ({ content }: { content: ContentType[] }) => {
           <div className="p-2">
             <p className="font-mono text-lg text-slate-200">
               <span className="text-green-300">~</span>{" "}
-              {content[activeCard].sideTitle}
+              {services[activeCard].sideTitle}
             </p>
           </div>
         </div>

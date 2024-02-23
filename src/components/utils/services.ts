@@ -2,14 +2,15 @@
 
 import { Brush, Code2, Container, HandHelping, LucideIcon } from "lucide-react";
 
-export type ContentType = {
+export type ServiceType = {
   title: string;
   description: string;
   imageSrc: string;
   sideTitle: string;
   icon: LucideIcon;
 };
-export const content: Array<ContentType> = [
+
+export const services: Array<ServiceType> = [
   {
     title: "UI/UX Design",
     description:
