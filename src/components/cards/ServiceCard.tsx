@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
+import Link from "next/link";
 
 interface Props {
   title: string;
@@ -37,13 +38,18 @@ function ServiceCard({ title, description, imageSrc }: Props) {
           />
         </CardItem>
         <div className="flex justify-between items-center mt-20">
-          <CardItem
-            translateZ={20}
-            as="button"
-            className="px-4 py-2 rounded-xl text-base font-normal dark:text-white"
+          <Link
+            href="https://calendly.com/alphacode/alpha-code"
+            target="__blank"
           >
-            Try now →
-          </CardItem>
+            <CardItem
+              translateZ={20}
+              as="button"
+              className="px-4 py-2 rounded-xl text-base font-normal dark:text-white"
+            >
+              Try now →
+            </CardItem>
+          </Link>
         </div>
       </CardBody>
     </CardContainer>

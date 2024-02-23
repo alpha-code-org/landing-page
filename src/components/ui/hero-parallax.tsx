@@ -111,7 +111,7 @@ export const Header = () => {
           src="/logo.png"
           width={80}
           height={80}
-          className="mr-2 md:mr-4 w-10 h-10 sm:h-16 sm:w-16 md:w-20 md:h-20"
+          className="mr-2 w-10 h-10 sm:h-16 sm:w-16 md:w-20 md:h-20"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">
           Alpha
@@ -121,12 +121,14 @@ export const Header = () => {
       <p className="max-w-2xl text-xl sm:text-3xl  md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 relative">
         We build beautiful products.
       </p>
-      <Button
-        borderRadius="1.75rem"
-        className="bg-brand-code font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800 z-10"
-      >
-        Contact Us
-      </Button>
+      <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
+        <Button
+          borderRadius="1.75rem"
+          className="bg-brand-code hover:bg-white hover:text-brand-code transition-colors font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800 z-10"
+        >
+          Book a meeting
+        </Button>
+      </Link>
     </div>
   );
 };
