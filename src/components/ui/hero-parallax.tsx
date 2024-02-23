@@ -104,26 +104,26 @@ const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full right-0 top-0">
+    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
       <h1 className="flex items-center gap-2 text-2xl md:text-8xl font-bold dark:text-white">
         <Image
           alt="ac-logo"
           src="/logo.png"
           width={80}
           height={80}
-          className="mr-4 z-10"
+          className="mr-4"
         />
-        <span className="text-brand-alpha dark:text-brand-alpha-dark z-10">
+        <span className="text-brand-alpha dark:text-brand-alpha-dark">
           Alpha
         </span>{" "}
-        <span className="text-brand-code z-10">Code</span>
+        <span className="text-brand-code">Code</span>
       </h1>
-      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 relative z-10">
+      <p className="max-w-2xl text-base md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 relative">
         We build beautiful products.
       </p>
       <Button
         borderRadius="1.75rem"
-        className="bg-brand-code font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800 z-10"
+        className="bg-brand-code font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800"
       >
         Contact Us
       </Button>
