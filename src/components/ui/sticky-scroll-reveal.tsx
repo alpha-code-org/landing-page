@@ -37,12 +37,11 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
       }}
       className={`h-[100vh] ${overflowY} flex justify-center sticky top-0 space-x-10 rounded-md md:p-10`}
       ref={ref}
-      style={{ scrollSnapType: "y proximity" }}
     >
       <div className="div relative flex items-start px-4">
         <div className="max-w-2xl">
           {services.map((item, index) => (
-            <div key={item.title} className="my-20">
+            <div key={item.title} className="my-10 lg:my-20">
               <motion.div
                 initial={{
                   opacity: 0,
@@ -62,7 +61,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           <div className="h-20" />
         </div>
       </div>
-      <motion.div className="hidden lg:block h-60 grow max-w-[40rem] rounded-md sticky top-[40%] translate-y-[-50%] overflow-hidden">
+      <motion.div className="hidden lg:block h-60 grow max-w-[40rem] rounded-md sticky top-0 translate-y-[20%]  overflow-hidden">
         <div className="relative h-96 w-full rounded-xl bg-slate-800 shadow-xl">
           <div className="flex w-full gap-1.5 rounded-t-xl bg-slate-900 p-3">
             <div className="h-3 w-3 rounded-full bg-red-500" />

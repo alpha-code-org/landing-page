@@ -5,7 +5,7 @@ import { products } from "@/components/utils/products";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-20">
+    <main className="flex flex-col gap-10">
       <HeroParallax products={products} />
       <StickyScroll services={services} />
       <div style={{ height: "50vh" }} />

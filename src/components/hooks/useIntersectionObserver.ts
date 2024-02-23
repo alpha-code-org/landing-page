@@ -28,7 +28,7 @@ const useIntersectionObserver = ({ containerRef }: Props) => {
     const options = {
       root: null, // Using the viewport as the root
       rootMargin: "0px",
-      threshold: 0.9,
+      threshold: 0.95,
     };
 
     // Create the observer
