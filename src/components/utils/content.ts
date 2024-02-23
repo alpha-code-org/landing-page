@@ -1,39 +1,52 @@
-export const content: Array<{
+"use client";
+
+import { Brush, Code2, Container, HandHelping, LucideIcon } from "lucide-react";
+
+export type ContentType = {
   title: string;
   description: string;
   imageSrc: string;
   sideTitle: string;
-}> = [
+  icon: LucideIcon;
+};
+export const content: Array<ContentType> = [
   {
     title: "UI/UX Design",
     description:
       "UI/UX is the bridge between users and your digital world, where first impressions become lasting engagements.",
-    imageSrc: "/services/ui-ux.jpg",
+    imageSrc: "https://source.unsplash.com/qC2n6RQU4Vw",
+
     sideTitle:
-      "Why did the UI designer break up with the UX designer? Because they couldn't find the right path to each other's buttons!",
+      "Blending creativity with functionality, ensuring every pixel serves both beauty and purpose.",
+    icon: Brush,
   },
   {
-    title: "Real time changes",
+    title: "Full Stack Development",
     description:
-      "See changes as they happen. With our platform, you can track every modification in real time.",
+      "Ensuring every line of code not only solves today's challenges but paves the way for tomorrow's success.",
+
+    imageSrc: "https://source.unsplash.com/PNbDkQ2DDgM",
+
+    sideTitle:
+      "Where code meets creativity, building the digital foundations from the ground up to sky-high innovations.",
+    icon: Code2,
+  },
+  {
+    title: "Blockchain Development",
+    description:
+      "Empower your business with smart contracts, turning complex agreements into automated protocols.",
+    imageSrc: "https://source.unsplash.com/_rZnChsIFuQ",
+    sideTitle:
+      "Where trust is coded  and every transaction paves the way for a revolution in security and efficiency.",
+    icon: Container,
+  },
+  {
+    title: "IT Consulting",
+    description:
+      "Transform your tech challenges into victories with our IT consulting services to propel your business forward.",
     imageSrc: "/services/full-stack.jpg",
     sideTitle:
-      "Work together in real time with your team, clients, and stakeholders 22.",
-  },
-  {
-    title: "Version control",
-    description:
-      "Experience real-time updates and never stress about version control again.",
-    imageSrc: "/services/ui-ux.jpg",
-    sideTitle:
-      "Work together in real time with your team, clients, and stakeholders 333.",
-  },
-  {
-    title: "Running out of content",
-    description:
-      "Experience real-time updates and never stress about version control again.",
-    imageSrc: "/services/full-stack.jpg",
-    sideTitle:
-      "Work together in real time with your team, clients, and stakeholders 4444.",
+      "Where technology meets strategy, IT consulting turns obstacles into opportunities for innovation and growth.",
+    icon: HandHelping,
   },
 ];
