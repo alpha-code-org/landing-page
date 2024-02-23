@@ -1,9 +1,11 @@
-import { HeroParallax } from "@/components/ui/hero-parallax";
+import HeroParallax from "@/components/ui/hero-parallax";
+import SwapColumn from "@/components/ui/swap-column";
 
 export default function Home() {
   return (
     <main className="flex flex-col gap-20">
       <HeroParallax products={products} />
+      <SwapColumn />
     </main>
   );
 }
