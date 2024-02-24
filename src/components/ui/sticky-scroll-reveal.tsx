@@ -32,14 +32,14 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           ))}
         </div>
       </div>
-      <motion.div className="hidden lg:block h-60 grow max-w-[40rem] rounded-md sticky top-0 translate-y-[20%]  overflow-hidden">
+      <motion.div className="hidden lg:block h-60 grow max-w-[40rem] min-w-[24rem] rounded-md sticky top-0 translate-y-[20%]  overflow-hidden">
         <div className="relative h-96 w-full rounded-xl bg-slate-800 shadow-xl">
           <div className="flex w-full gap-1.5 rounded-t-xl bg-slate-900 p-3">
             <div className="h-3 w-3 rounded-full bg-red-500" />
             <div className="h-3 w-3 rounded-full bg-yellow-500" />
             <div className="h-3 w-3 rounded-full bg-green-500" />
           </div>
-          <div className="p-2">
+          <div className="p-2 relative z-10">
             <p className="font-mono text-lg text-slate-200">
               <span className="text-green-300">~</span>{" "}
               {services[activeCard].sideTitle}

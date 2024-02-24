@@ -6,6 +6,7 @@ import {
   useTransform,
   useSpring,
   MotionValue,
+  useViewportScroll,
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,12 +23,14 @@ const HeroParallax = ({
 }) => {
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
+
+  const { scrollY } = useViewportScroll();
+  const headerOpacity = useTransform(scrollY, [0, 200], [1, 0]);
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
@@ -60,7 +63,7 @@ const HeroParallax = ({
       ref={ref}
       className="h-full pb-20 lg:pb-60 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
-      <Header />
+      <Header opacity={headerOpacity} />
       <motion.div
         style={{
           rotateX,
@@ -88,23 +91,17 @@ const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
-          ))}
-        </motion.div>
       </motion.div>
     </div>
   );
 };
 
-export const Header = () => {
+export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
   return (
-    <div className="max-w-7xl relative mx-auto  px-4 w-full left-0 top-[60vh] lg:top-[40vh]">
+    <motion.div
+      style={{ opacity }}
+      className="max-w-7xl relative mx-auto  px-4 w-full left-0 top-[60vh] lg:top-[40vh]"
+    >
       <h1 className="flex items-center gap-2 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold dark:text-white relative z-10">
         <Image
           alt="ac-logo"
@@ -129,7 +126,7 @@ export const Header = () => {
           Book a meeting
         </Button>
       </Link>
-    </div>
+    </motion.div>
   );
 };
 
