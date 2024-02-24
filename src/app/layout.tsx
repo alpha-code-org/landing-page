@@ -8,6 +8,19 @@ export const metadata: Metadata = {
   title: "Alpha Code | IT Solutions",
   description:
     "Dive into the future of IT with Alpha Code, where cutting-edge solutions meet unparalleled expertise. Our platform is designed to propel your business into a new era of efficiency, innovation, and growth. Discover the power of technology tailored to your unique needs.",
+  openGraph: {
+    title: "Alpha Code | IT Solutions",
+    description:
+      "Dive into the future of IT with Alpha Code, where cutting-edge solutions meet unparalleled expertise. Our platform is designed to propel your business into a new era of efficiency, innovation, and growth. Discover the power of technology tailored to your unique needs.",
+    images: [
+      {
+        url: "https://alpha-code.hr/logo-white-bg.jpg",
+        width: 1200,
+        height: 627,
+        alt: "Alpha Code | IT Solutions",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
