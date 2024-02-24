@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description:
     "Dive into the future of IT with Alpha Code, where cutting-edge solutions meet unparalleled expertise. Our platform is designed to propel your business into a new era of efficiency, innovation, and growth. Discover the power of technology tailored to your unique needs.",
   openGraph: {
+    type: "website",
+    url: "https://alpha-code.hr",
     title: "Alpha Code | IT Solutions",
     description:
       "Dive into the future of IT with Alpha Code, where cutting-edge solutions meet unparalleled expertise. Our platform is designed to propel your business into a new era of efficiency, innovation, and growth. Discover the power of technology tailored to your unique needs.",
