@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-interface Props {
-  containerRef: React.RefObject<HTMLDivElement>;
-}
+const useIntersectionObserver = () => {
+  // Ref to the container element
+  const containerRef = useRef<HTMLDivElement>(null);
 
-const useIntersectionObserver = ({ containerRef }: Props) => {
   // State to manage the overflow property
-  const [overflowY, setOverflowY] = useState("");
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -17,18 +16,16 @@ const useIntersectionObserver = ({ containerRef }: Props) => {
       const [entry] = entries;
       // Check if the container is fully visible
       if (entry.isIntersecting) {
-        setOverflowY("overflow-y-auto");
+        setInView(true);
       } else {
-        setOverflowY("");
+        setInView(false);
       }
     };
 
     // Options for the Intersection Observer
     // Set threshold to 1.0 to ensure the callback runs when 100% of the target is visible
     const options = {
-      root: null, // Using the viewport as the root
-      rootMargin: "0px",
-      threshold: 0.95,
+      threshold: 0.5,
     };
 
     // Create the observer
@@ -41,7 +38,7 @@ const useIntersectionObserver = ({ containerRef }: Props) => {
     return () => observer.disconnect();
   }, [containerRef]);
 
-  return { overflowY };
+  return { containerRef, inView };
 };
 
 export default useIntersectionObserver;

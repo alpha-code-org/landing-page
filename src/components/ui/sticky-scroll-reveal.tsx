@@ -1,64 +1,36 @@
 "use client";
-import React, { useRef } from "react";
-import { useMotionValueEvent, useScroll } from "framer-motion";
+
 import { motion } from "framer-motion";
 import ServiceCard from "../cards/ServiceCard";
 import { ServiceType } from "../utils/services";
 import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
-  const [activeCard, setActiveCard] = React.useState(0);
-  const ref = useRef<any>(null);
-  const { scrollYProgress } = useScroll({
-    container: ref,
-    offset: ["start start", "end start"],
-  });
-  const cardLength = services.length;
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const cardsBreakpoints = services.map((_, index) => index / cardLength);
-    cardsBreakpoints.forEach((breakpoint, index) => {
-      if (latest > breakpoint - 0.1 && latest <= breakpoint + 0.2) {
-        setActiveCard(() => index);
-      }
-    });
-  });
+  const [activeCard, setActiveCard] = useState(0);
 
   const backgroundColors = ["#000", "#1E2444", "#335AA6"];
 
   const Icon = services[activeCard].icon;
-
-  const { overflowY } = useIntersectionObserver({ containerRef: ref });
 
   return (
     <motion.div
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className={`h-[100vh] ${overflowY} flex justify-center sticky top-0 space-x-10 rounded-md md:p-10`}
-      ref={ref}
+      className="flex justify-center relativespace-x-10 rounded-md md:p-10"
     >
       <div className="div relative flex items-start px-4">
         <div className="max-w-2xl">
           {services.map((item, index) => (
-            <div key={item.title} className="my-10 lg:my-20">
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: activeCard === index ? 1 : 0.3,
-                }}
-              >
-                <ServiceCard
-                  title={item.title}
-                  description={item.description}
-                  imageSrc={item.imageSrc}
-                />
-              </motion.div>
-            </div>
+            <Card
+              key={item.title}
+              index={index}
+              item={item}
+              setActiveCard={setActiveCard}
+            />
           ))}
-          <div className="h-20" />
+          <div className="h-36" />
         </div>
       </div>
       <motion.div className="hidden lg:block h-60 grow max-w-[40rem] rounded-md sticky top-0 translate-y-[20%]  overflow-hidden">
@@ -81,5 +53,42 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
         </span>
       </motion.div>
     </motion.div>
+  );
+};
+
+const Card = ({
+  item,
+  index,
+  setActiveCard,
+}: {
+  item: ServiceType;
+  index: number;
+  setActiveCard: Dispatch<SetStateAction<number>>;
+}) => {
+  const { containerRef, inView } = useIntersectionObserver();
+
+  useEffect(() => {
+    if (inView) {
+      setActiveCard(index);
+    }
+  }, [inView, index, setActiveCard]);
+
+  return (
+    <div ref={containerRef} key={item.title} className="my-10 lg:my-20">
+      <motion.div
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: inView ? 1 : 0.3,
+        }}
+      >
+        <ServiceCard
+          title={item.title}
+          description={item.description}
+          imageSrc={item.imageSrc}
+        />
+      </motion.div>
+    </div>
   );
 };

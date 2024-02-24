@@ -8,7 +8,6 @@ export default function Home() {
     <main className="flex flex-col gap-10">
       <HeroParallax products={products} />
       <StickyScroll services={services} />
-      <div style={{ height: "50vh" }} />
     </main>
   );
 }
