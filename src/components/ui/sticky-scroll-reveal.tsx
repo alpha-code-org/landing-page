@@ -18,9 +18,9 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="flex justify-center relativespace-x-10 rounded-md md:p-10"
+      className="flex gap-16 justify-center relativespace-x-10 rounded-md md:p-10"
     >
-      <div className="div relative flex items-start px-4">
+      <div className="relative flex items-start px-4">
         <div className="max-w-2xl">
           {services.map((item, index) => (
             <Card
@@ -30,7 +30,6 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
               setActiveCard={setActiveCard}
             />
           ))}
-          <div className="h-36" />
         </div>
       </div>
       <motion.div className="hidden lg:block h-60 grow max-w-[40rem] rounded-md sticky top-0 translate-y-[20%]  overflow-hidden">
@@ -74,13 +73,17 @@ const Card = ({
   }, [inView, index, setActiveCard]);
 
   return (
-    <div ref={containerRef} key={item.title} className="my-10 lg:my-20">
+    <div
+      ref={containerRef}
+      key={item.title}
+      className="h-[100vh] my-10 lg:my-20"
+    >
       <motion.div
         initial={{
           opacity: 0,
         }}
         animate={{
-          opacity: inView ? 1 : 0.3,
+          opacity: inView ? 1 : 0.8,
         }}
       >
         <ServiceCard

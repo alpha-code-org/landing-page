@@ -25,7 +25,8 @@ const useIntersectionObserver = () => {
     // Options for the Intersection Observer
     // Set threshold to 1.0 to ensure the callback runs when 100% of the target is visible
     const options = {
-      threshold: 0.5,
+      root: null,
+      threshold: 0.8,
     };
 
     // Create the observer
