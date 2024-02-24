@@ -18,7 +18,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="flex gap-16 justify-center relativespace-x-10 rounded-md md:p-10"
+      className="flex gap-16 justify-center relativespace-x-10 rounded-md pt-20 md:p-36"
     >
       <div className="relative flex items-start px-4">
         <div className="max-w-2xl">

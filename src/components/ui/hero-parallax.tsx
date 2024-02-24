@@ -52,13 +52,13 @@ const HeroParallax = ({
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.1], [-200, 200]),
+    useTransform(scrollYProgress, [0, 0.1], [-200, 400]),
     springConfig
   );
   return (
     <div
       ref={ref}
-      className="h-full py-20 lg:py-60 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-full pb-20 lg:pb-60 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -104,7 +104,7 @@ const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto  px-4 w-full left-0 top-[40vh] lg:top-[30vh]">
+    <div className="max-w-7xl relative mx-auto  px-4 w-full left-0 top-[60vh] lg:top-[40vh]">
       <h1 className="flex items-center gap-2 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold dark:text-white relative z-10">
         <Image
           alt="ac-logo"
