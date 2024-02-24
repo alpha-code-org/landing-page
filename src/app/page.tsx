@@ -7,7 +7,7 @@ import Footer from "@/components/ui/footer";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-10">
+    <main className="flex flex-col">
       <HeroParallax products={products} />
       <StickyScroll services={services} />
       <Typewriter />
