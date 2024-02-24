@@ -43,7 +43,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[40rem]  ">
+    <div className="flex flex-col items-center justify-center h-[100vh]  ">
       <p className="text-neutral-600 dark:text-neutral-200 text-lg sm:text-xl  ">
         Looking forward meeting you.
       </p>
@@ -97,7 +97,7 @@ export const Typewriter = ({
             borderRadius="1.75rem"
             className="bg-brand-code hover:bg-white hover:text-brand-code transition-colors font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800 z-10"
           >
-            Book a meeting
+            Schedule a call
           </Button>
         </Link>
       </div>
