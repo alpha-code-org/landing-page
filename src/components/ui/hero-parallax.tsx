@@ -121,7 +121,7 @@ export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
         <Button
           borderRadius="1.75rem"
-          className="bg-brand-code hover:bg-white hover:text-brand-code transition-colors font-bold text-black dark:text-white border-neutral-200 dark:border-slate-800 z-10"
+          className="bg-brand-code hover:bg-white hover:text-brand-code transition-colors font-bold text-white border-neutral-200 dark:border-slate-800 z-10"
         >
           Book a meeting
         </Button>
