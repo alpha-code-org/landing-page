@@ -67,6 +67,7 @@ export const Typewriter = ({
             className="text-xs sm:text-base md:text-xl lg:text:3xl xl:text-5xl font-bold"
             style={{
               whiteSpace: "nowrap",
+              lineHeight: "1.2",
             }}
           >
             {renderWords()}{" "}
@@ -86,9 +87,10 @@ export const Typewriter = ({
             repeatType: "reverse",
           }}
           className={cn(
-            "block rounded-sm w-[4px]  h-4 sm:h-6 xl:h-12 bg-blue-500",
+            "block rounded-sm w-[4px] sm:h-6 xl:h-12 bg-blue-500",
             cursorClassName
           )}
+          style={{ height: "100%" }}
         ></motion.span>
       </div>
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
