@@ -73,21 +73,22 @@ const Card = ({
   }, [inView, index, setActiveCard]);
 
   return (
-    <div ref={containerRef} key={item.title} className="lg:h-[100vh]">
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: inView ? 1 : 0.8,
-        }}
-      >
-        <ServiceCard
-          title={item.title}
-          description={item.description}
-          imageSrc={item.imageSrc}
-        />
-      </motion.div>
-    </div>
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: inView ? 1 : 0.8,
+      }}
+      ref={containerRef}
+      key={item.title}
+      className="lg:h-[100vh]"
+    >
+      <ServiceCard
+        title={item.title}
+        description={item.description}
+        imageSrc={item.imageSrc}
+      />
+    </motion.div>
   );
 };
