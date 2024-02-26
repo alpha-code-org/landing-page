@@ -18,7 +18,7 @@ const Footer = () => {
           <p className="text-sm text-slate-400 mb-4 md:mb-0">
             &copy; {currentYear} Alpha Code d.o.o. All Rights Reserved.
           </p>
-          <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
+          <div className="flex gap-4 text-white sm:justify-center">
             <Link
               href="https://twitter.com/matteoo_eth"
               target="__blank"
