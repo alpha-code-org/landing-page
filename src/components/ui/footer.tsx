@@ -5,7 +5,7 @@ import { Twitter, Github, Linkedin } from "lucide-react";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="relative w-full">
+    <footer className="bg-black relative w-full">
       <div className="mx-auto w-full max-w-7xl px-8 flex flex-col gap-4">
         <Image
           src="/logo-white.png"
