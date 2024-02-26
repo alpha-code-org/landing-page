@@ -73,7 +73,7 @@ const Card = ({
   }, [inView, index, setActiveCard]);
 
   return (
-    <div ref={containerRef} key={item.title} className="h-[100vh]">
+    <div ref={containerRef} key={item.title} className="lg:h-[100vh]">
       <motion.div
         initial={{
           opacity: 0,
