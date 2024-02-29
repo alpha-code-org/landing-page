@@ -17,7 +17,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="flex gap-16 justify-center relative space-x-10 rounded-md pt-20 md:p-36"
+      className="flex gap-4 xl:gap-16 justify-center relative rounded-md pt-20 md:p-36"
     >
       <div className="relative flex items-start px-4">
         <div className="max-w-2xl">
@@ -31,8 +31,8 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           ))}
         </div>
       </div>
-      <div className="my-40">
-        <motion.div className="hidden lg:block h-60 grow max-w-[40rem] min-w-[24rem] rounded-md sticky top-[50%] translate-y-[-50%]  overflow-hidden">
+      <div className="hidden lg:flex md:my-40">
+        <motion.div className="hidden lg:block h-60 grow max-w-[40rem] min-w-[30rem] rounded-md sticky top-[50%] translate-y-[-50%]  overflow-hidden">
           <div className="relative h-96 w-full rounded-xl bg-slate-800 shadow-xl">
             <div className="flex w-full gap-1.5 rounded-t-xl bg-slate-900 p-3">
               <div className="h-3 w-3 rounded-full bg-red-500" />
