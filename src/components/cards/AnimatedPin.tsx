@@ -5,9 +5,9 @@ import Image from "next/image";
 
 export function AnimatedPinDemo() {
   return (
-    <div className="h-[60rem] w-full flex items-center justify-center bg-black">
+    <div className="h-[60rem] w-full max-w-[95vw] mx-auto overflow-hidden flex items-center justify-center bg-black">
       <PinContainer title="Open Post Pilot" href="https://www.post-pilot.pro/">
-        <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 max-w-[100vw] w-[30rem] h-[30rem] ">
+        <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 max-w-[100%] w-[30rem] h-[30rem] ">
           <h3 className="pb-2 m-0 font-bold  text-3xl text-slate-100">
             Post Pilot
           </h3>
