@@ -6,23 +6,44 @@ import "./globals.css";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Alpha Code | IT Solutions",
+  title: "Alpha Code | Innovative IT Solutions for Business Growth",
   description:
-    "Dive into the future of IT with Alpha Code, where cutting-edge solutions meet unparalleled expertise. Our platform is designed to propel your business into a new era of efficiency, innovation, and growth. Discover the power of technology tailored to your unique needs.",
+    "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
+  keywords:
+    "IT solutions, business technology, software development, tech consulting, digital transformation, Alpha Code",
   openGraph: {
     type: "website",
     url: "https://alpha-code.hr",
-    title: "Alpha Code | IT Solutions",
+    title: "Alpha Code | Innovative IT Solutions for Business Growth",
     description:
-      "Dive into the future of IT with Alpha Code, where cutting-edge solutions meet unparalleled expertise. Our platform is designed to propel your business into a new era of efficiency, innovation, and growth. Discover the power of technology tailored to your unique needs.",
+      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
+    siteName: "Alpha Code",
     images: [
       {
         url: "https://alpha-code.hr/logo-white-bg.jpg",
         width: 1200,
         height: 627,
-        alt: "Alpha Code | IT Solutions",
+        alt: "Alpha Code Logo",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@AlphaCode",
+    title: "Alpha Code | Innovative IT Solutions for Business Growth",
+    description:
+      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
+    images: "https://alpha-code.hr/logo-white-bg.jpg",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://alpha-code.hr",
   },
 };
 
