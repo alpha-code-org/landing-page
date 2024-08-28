@@ -6,6 +6,7 @@ import "./globals.css";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://alpha-code.hr"),
   title: "Alpha Code | Innovative IT Solutions for Business Growth",
   description:
     "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
