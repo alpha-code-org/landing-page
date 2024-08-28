@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import {
   motion,
   useScroll,
@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./moving-border-button";
+import { useRef } from "react";
 
 const HeroParallax = ({
   products,
@@ -23,7 +24,7 @@ const HeroParallax = ({
 }) => {
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
-  const ref = React.useRef(null);
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -115,7 +116,7 @@ export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
         </span>{" "}
         <span className="text-brand-code">Code</span>
       </h1>
-      <p className="max-w-2xl text-xl sm:text-3xl  md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 relative">
+      <p className="max-w-2xl text-xl sm:text-3xl  md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 relative z-10">
         We build beautiful products.
       </p>
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
