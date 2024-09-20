@@ -8,17 +8,10 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const [activeCard, setActiveCard] = useState(0);
 
-  const backgroundColors = ["#000", "#1E2444", "#335AA6"];
-
   const Icon = services[activeCard].icon;
 
   return (
-    <motion.div
-      animate={{
-        backgroundColor: backgroundColors[activeCard % backgroundColors.length],
-      }}
-      className="flex gap-4 xl:gap-16 justify-center relative md:px-20"
-    >
+    <motion.div className="flex gap-4 xl:gap-16 justify-center relative md:px-20">
       <div className="relative flex items-start px-4">
         <div className="max-w-2xl">
           {services.map((item, index) => (
@@ -66,7 +59,7 @@ const Card = ({
   setActiveCard: Dispatch<SetStateAction<number>>;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { amount: 1 });
+  const isInView = useInView(ref, { amount: 0.5 });
 
   useEffect(() => {
     if (isInView) {

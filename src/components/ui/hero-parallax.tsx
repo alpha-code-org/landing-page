@@ -23,7 +23,6 @@ const HeroParallax = ({
   }[];
 }) => {
   const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -39,10 +38,6 @@ const HeroParallax = ({
     useTransform(scrollYProgress, [0, 1], [0, 700]),
     springConfig
   );
-  const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -700]),
-    springConfig
-  );
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [15, 0]),
     springConfig
@@ -56,7 +51,7 @@ const HeroParallax = ({
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.1], [-200, 400]),
+    useTransform(scrollYProgress, [0, 0.1], [-100, 256]),
     springConfig
   );
   return (
@@ -79,15 +74,6 @@ const HeroParallax = ({
             <ProductCard
               product={product}
               translate={translateX}
-              key={product.title}
-            />
-          ))}
-        </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
-          {secondRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateXReverse}
               key={product.title}
             />
           ))}
@@ -151,7 +137,7 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      className="group/product h-80 w-[36rem] relative flex-shrink-0"
     >
       <Link
         href={product.link}
@@ -161,7 +147,7 @@ export const ProductCard = ({
           src={product.thumbnail}
           height="600"
           width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          className="object-cover object-center absolute h-full w-full inset-0"
           alt={product.title}
         />
       </Link>
