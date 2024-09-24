@@ -57,7 +57,7 @@ const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="bg-black h-full pb-20 lg:pb-96 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="bg-black h-full pb-80 lg:pb-96 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header opacity={headerOpacity} />
       <motion.div
