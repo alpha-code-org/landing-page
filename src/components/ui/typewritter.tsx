@@ -43,7 +43,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[75vh] bg-black">
+    <div className="flex flex-col items-center justify-center h-[50vh ] md:h-[75vh] bg-black">
       <p className="text-neutral-600 dark:text-neutral-200 text-lg sm:text-xl mb-4 md:mb-0">
         Looking forward meeting you.
       </p>
