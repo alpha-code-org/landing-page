@@ -6,7 +6,6 @@ import {
   useTransform,
   useSpring,
   MotionValue,
-  useViewportScroll,
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,12 +22,11 @@ const HeroParallax = ({
   }[];
 }) => {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress, scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const { scrollY } = useViewportScroll();
   const headerOpacity = useTransform(scrollY, [0, 200], [1, 0]);
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
