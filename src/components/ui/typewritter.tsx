@@ -13,13 +13,13 @@ export const Typewriter = ({
   className?: string;
   cursorClassName?: string;
 }) => {
-  // split text inside of words into array of characters
   const wordsArray = words.map((word) => {
     return {
       ...word,
       text: word.text.split(""),
     };
   });
+
   const renderWords = () => {
     return (
       <div>
@@ -82,7 +82,6 @@ export const Typewriter = ({
           }}
           transition={{
             duration: 0.8,
-
             repeat: Infinity,
             repeatType: "reverse",
           }}
