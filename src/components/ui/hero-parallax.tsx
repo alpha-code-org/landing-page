@@ -11,76 +11,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./moving-border-button";
 import { useRef } from "react";
+import { products } from "../utils/products";
 
-const HeroParallax = ({
-  products,
-}: {
-  products: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  }[];
-}) => {
+const HeroParallax = () => {
   const ref = useRef(null);
   const { scrollYProgress, scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const headerOpacity = useTransform(scrollY, [0, 200], [1, 0]);
-
-  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
-
-  const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 700]),
-    springConfig,
-  );
-  const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig,
-  );
-  const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig,
-  );
-  const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
-    springConfig,
-  );
-  const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.1], [-100, 320]),
-    springConfig,
-  );
   return (
     <div
       ref={ref}
       className="relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-black pb-80 antialiased [perspective:300px] [transform-style:preserve-3d] md:pb-96"
     >
-      <Header opacity={headerOpacity} />
-      <motion.div
-        style={{
-          rotateX,
-          rotateZ,
-          translateY,
-          opacity,
-        }}
-        className=""
-      >
-        <motion.div className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse">
-          {products.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
-          ))}
-        </motion.div>
-      </motion.div>
+      <Title scrollY={scrollY} />
+      <ProductList scrollYProgress={scrollYProgress} />
     </div>
   );
 };
 
-export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
+const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
+  const opacity = useTransform(scrollY, [0, 200], [1, 0]);
+
   return (
     <motion.div
       style={{ opacity }}
@@ -114,7 +67,58 @@ export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
   );
 };
 
-export const ProductCard = ({
+const ProductList = ({
+  scrollYProgress,
+}: {
+  scrollYProgress: MotionValue<number>;
+}) => {
+  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+
+  const translateX = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, 700]),
+    springConfig,
+  );
+  const rotateX = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    springConfig,
+  );
+  const opacity = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    springConfig,
+  );
+  const rotateZ = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    springConfig,
+  );
+  const translateY = useSpring(
+    useTransform(scrollYProgress, [0, 0.1], [-100, 320]),
+    springConfig,
+  );
+
+  return (
+    <motion.div
+      style={{
+        rotateX,
+        rotateZ,
+        translateY,
+        opacity,
+      }}
+      className=""
+    >
+      <motion.div className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse">
+        {products.map((product) => (
+          <ProductCard
+            product={product}
+            translate={translateX}
+            key={product.title}
+          />
+        ))}
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const ProductCard = ({
   product,
   translate,
 }: {
