@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/components/ui/footer";
+import { cn } from "@/utils/cn";
 import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -56,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={montserrat.className}>
+      <body className={cn("flex min-h-[100dvh] flex-col", montserrat.className)}>
         {children}
         <Footer />
       </body>

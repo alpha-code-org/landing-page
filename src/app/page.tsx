@@ -5,7 +5,7 @@ import { Typewriter } from "@/components/ui/typewritter";
 
 export default function Home() {
   return (
-    <main className="flex flex-col">
+    <main>
       <HeroParallax />
       <StickyScroll services={services} />
       <Typewriter />
