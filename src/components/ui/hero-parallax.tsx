@@ -56,7 +56,7 @@ const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-black pb-80 antialiased [perspective:1000px] [transform-style:preserve-3d] lg:pb-96"
+      className="relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-black pb-60 antialiased [perspective:1000px] [transform-style:preserve-3d] md:pb-80 lg:pb-96"
     >
       <Header opacity={headerOpacity} />
       <motion.div
@@ -86,7 +86,7 @@ export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
   return (
     <motion.div
       style={{ opacity }}
-      className="relative left-[5%] top-[40vh] w-full"
+      className="relative left-[5%] top-[50vh] w-full md:top-[40vh]"
     >
       <h1 className="relative z-10 flex items-center gap-2 text-4xl font-bold dark:text-white sm:text-6xl md:text-7xl lg:text-8xl">
         <Image
@@ -136,7 +136,7 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product relative h-80 w-[36rem] flex-shrink-0"
+      className="group/product relative h-60 w-[28rem] flex-shrink-0 md:h-80 md:w-[36rem]"
     >
       <Link
         href={product.link}
