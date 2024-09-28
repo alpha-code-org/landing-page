@@ -11,9 +11,9 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const Icon = services[activeCard].icon;
 
   return (
-    <motion.div className="flex gap-4 xl:gap-16 justify-center md:px-20 mt-20">
+    <motion.div className="mt-20 flex justify-center gap-4 md:px-20 xl:gap-16">
       <div className="relative flex items-start px-4">
-        <div className="max-w-2xl flex flex-col gap-16">
+        <div className="flex max-w-2xl flex-col gap-16">
           {services.map((item, index) => (
             <Card
               key={item.title}
@@ -24,8 +24,8 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           ))}
         </div>
       </div>
-      <motion.div className="hidden lg:block h-max grow max-w-[40rem] min-w-[30rem] rounded-md sticky top-[32%]">
-        <div className="w-full rounded-xl bg-slate-800 shadow-xl pb-8">
+      <motion.div className="sticky top-[32%] hidden h-max min-w-[30rem] max-w-[40rem] grow rounded-md lg:block">
+        <div className="w-full rounded-xl bg-slate-800 pb-8 shadow-xl">
           <div className="flex w-full gap-1.5 rounded-t-xl bg-slate-900 p-3">
             <div className="h-3 w-3 rounded-full bg-red-500" />
             <div className="h-3 w-3 rounded-full bg-yellow-500" />
@@ -37,7 +37,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
               {services[activeCard].sideTitle}
             </p>
           </div>
-          <Icon className="w-20 h-20 text-slate-700 mx-auto" />
+          <Icon className="mx-auto h-20 w-20 text-slate-700" />
         </div>
       </motion.div>
     </motion.div>

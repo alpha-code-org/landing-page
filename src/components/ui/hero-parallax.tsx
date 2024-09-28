@@ -35,28 +35,28 @@ const HeroParallax = ({
 
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 700]),
-    springConfig
+    springConfig,
   );
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig
+    springConfig,
   );
   const opacity = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig
+    springConfig,
   );
   const rotateZ = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [20, 0]),
-    springConfig
+    springConfig,
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.1], [-100, 400]),
-    springConfig
+    useTransform(scrollYProgress, [0, 0.1], [-100, 320]),
+    springConfig,
   );
   return (
     <div
       ref={ref}
-      className="max-w-[1600px] w-[100vw] mx-auto bg-black h-full pb-80 lg:pb-96 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-black pb-80 antialiased [perspective:1000px] [transform-style:preserve-3d] lg:pb-96"
     >
       <Header opacity={headerOpacity} />
       <motion.div
@@ -68,7 +68,7 @@ const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+        <motion.div className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse">
           {products.map((product) => (
             <ProductCard
               product={product}
@@ -86,28 +86,28 @@ export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
   return (
     <motion.div
       style={{ opacity }}
-      className="relative w-full left-[5%] top-[40vh]"
+      className="relative left-[5%] top-[40vh] w-full"
     >
-      <h1 className="flex items-center gap-2 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold dark:text-white relative z-10">
+      <h1 className="relative z-10 flex items-center gap-2 text-4xl font-bold dark:text-white sm:text-6xl md:text-7xl lg:text-8xl">
         <Image
           alt="ac-logo"
           src="/logo.png"
           width={80}
           height={80}
-          className="mr-2 w-10 h-10 sm:h-16 sm:w-16 md:w-20 md:h-20"
+          className="mr-2 h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">
           Alpha
         </span>{" "}
         <span className="text-brand-code">Code</span>
       </h1>
-      <p className="max-w-2xl text-xl sm:text-3xl  md:text-4xl md:font-bold mt-4 mb-4 dark:text-neutral-200 relative z-10">
+      <p className="relative z-10 mb-4 mt-4 max-w-2xl text-xl dark:text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
         We build beautiful products.
       </p>
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
         <Button
           borderRadius="1.75rem"
-          className="bg-brand-code hover:bg-white hover:text-brand-code transition-colors font-bold text-white border-neutral-200 dark:border-slate-800 z-10"
+          className="z-10 border-neutral-200 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code dark:border-slate-800"
         >
           Book a meeting
         </Button>
@@ -136,22 +136,22 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product h-80 w-[36rem] relative flex-shrink-0"
+      className="group/product relative h-80 w-[36rem] flex-shrink-0"
     >
       <Link
         href={product.link}
-        className="block group-hover/product:shadow-2xl "
+        className="block group-hover/product:shadow-2xl"
       >
         <Image
           src={product.thumbnail}
           height="600"
           width="600"
-          className="object-cover object-center absolute h-full w-full inset-0"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           alt={product.title}
         />
       </Link>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+      <div className="pointer-events-none absolute inset-0 h-full w-full bg-black opacity-0 group-hover/product:opacity-80"></div>
+      <h2 className="absolute bottom-4 left-4 text-white opacity-0 group-hover/product:opacity-100">
         {product.title}
       </h2>
     </motion.div>

@@ -29,7 +29,7 @@ export const Typewriter = ({
               {word.text.map((char, index) => (
                 <span
                   key={`char-${index}`}
-                  className={cn(`dark:text-white text-black `, word.className)}
+                  className={cn(`text-black dark:text-white`, word.className)}
                 >
                   {char}
                 </span>
@@ -43,14 +43,14 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[50vh] md:h-[75vh] bg-black">
-      <p className="text-neutral-600 dark:text-neutral-200 text-lg sm:text-xl mb-4 md:mb-0">
+    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[75vh]">
+      <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-200 sm:text-xl md:mb-0">
         Looking forward meeting you.
       </p>
 
-      <div className={cn("hidden md:flex space-x-1 my-6", className)}>
+      <div className={cn("my-6 hidden space-x-1 md:flex", className)}>
         <motion.div
-          className="overflow-hidden "
+          className="overflow-hidden"
           initial={{
             width: "0%",
           }}
@@ -64,7 +64,7 @@ export const Typewriter = ({
           }}
         >
           <div
-            className="text-xs sm:text-base md:text-xl lg:text:3xl xl:text-5xl font-bold"
+            className="lg:text:3xl text-xs font-bold sm:text-base md:text-xl xl:text-5xl"
             style={{
               whiteSpace: "nowrap",
               lineHeight: "1.2",
@@ -87,17 +87,17 @@ export const Typewriter = ({
             repeatType: "reverse",
           }}
           className={cn(
-            "block rounded-sm w-[4px] sm:h-6 xl:h-12 bg-blue-500",
-            cursorClassName
+            "block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12",
+            cursorClassName,
           )}
           style={{ height: "100%" }}
         ></motion.span>
       </div>
-      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
+      <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
           <Button
             borderRadius="1.75rem"
-            className="bg-brand-code hover:bg-white hover:text-brand-code transition-colors font-bold text-white border-neutral-200 dark:border-slate-800 z-10"
+            className="z-10 border-neutral-200 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code dark:border-slate-800"
           >
             Schedule a call
           </Button>

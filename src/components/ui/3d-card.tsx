@@ -58,8 +58,8 @@ export const CardContainer = ({
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "flex items-center justify-center relative transition-all duration-200 ease-linear",
-            className
+            "relative flex items-center justify-center transition-all duration-200 ease-linear",
+            className,
           )}
           style={{
             transformStyle: "preserve-3d",
@@ -82,8 +82,8 @@ export const CardBody = ({
   return (
     <div
       className={cn(
-        "h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
-        className
+        "h-96 w-96 [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d]",
+        className,
       )}
     >
       {children}
