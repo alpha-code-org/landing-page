@@ -86,7 +86,7 @@ export const Header = ({ opacity }: { opacity: MotionValue<number> }) => {
   return (
     <motion.div
       style={{ opacity }}
-      className="max-w-7xl relative mx-auto  px-4 w-full left-0 top-[40vh]"
+      className="relative w-full left-[5%] top-[40vh]"
     >
       <h1 className="flex items-center gap-2 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold dark:text-white relative z-10">
         <Image
