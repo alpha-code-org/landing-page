@@ -57,7 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={cn("flex min-h-[100dvh] flex-col", montserrat.className)}>
+      <body
+        className={cn("flex min-h-[100dvh] flex-col bg-black dark:bg-black", montserrat.className)}
+      >
         {children}
         <Footer />
       </body>
