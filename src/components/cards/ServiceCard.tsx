@@ -14,13 +14,13 @@ function ServiceCard({ title, description, imageSrc, children }: Props) {
   return (
     <CardContainer className="inter-var max-w-[28rem]">
       <CardBody className="group/card relative h-auto w-auto rounded-xl border border-white/[0.2] bg-black p-6 hover:shadow-2xl hover:shadow-emerald-500/[0.1] sm:w-[30rem]">
-        <CardItem translateZ="50" className="text-xl font-bold text-white md:text-3xl">
+        <CardItem translateZ="50" className="text-xl font-bold text-white md:text-2xl">
           {title}
         </CardItem>
         <CardItem
           as="p"
           translateZ="60"
-          className="mt-2 max-w-sm text-sm text-neutral-500 md:text-lg"
+          className="mt-2 max-w-sm text-sm text-neutral-400 md:text-lg"
         >
           {description}
         </CardItem>

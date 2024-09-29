@@ -23,7 +23,7 @@ const Blog = async () => {
   return (
     <section className="relative mb-20 w-full md:mb-40">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-8">
-        <h2 className="mx-auto text-3xl font-bold">Blog</h2>
+        <h2 className="mx-auto text-2xl font-bold md:text-3xl">Blog</h2>
 
         <ul className="flex flex-wrap items-center gap-4">
           {posts.map(({ slug, title, publishDate }) => (
