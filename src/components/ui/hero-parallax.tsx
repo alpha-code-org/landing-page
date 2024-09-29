@@ -47,7 +47,7 @@ const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
         <Button
           borderRadius="1.75rem"
-          className="hover:text-brand-cod z-10 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white"
+          className="z-10 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code"
         >
           Book a meeting
         </Button>
