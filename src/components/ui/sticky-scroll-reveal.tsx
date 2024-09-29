@@ -76,7 +76,7 @@ const Card = ({
             <CardItem
               translateZ={20}
               as="button"
-              className="rounded-xl px-4 py-2 text-base font-normal dark:text-white"
+              className="rounded-xl px-4 py-2 text-base font-normal text-white"
             >
               Try now →
             </CardItem>

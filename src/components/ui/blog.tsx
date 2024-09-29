@@ -21,7 +21,7 @@ const Blog = async () => {
   const posts = await getPosts();
 
   return (
-    <section className="relative mb-20 w-full bg-black md:mb-40">
+    <section className="relative mb-20 w-full md:mb-40">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-8">
         <h2 className="mx-auto text-3xl font-bold">Blog</h2>
 
@@ -42,7 +42,7 @@ const Blog = async () => {
                     <CardItem
                       translateZ={20}
                       as="button"
-                      className="rounded-xl px-4 py-2 text-base font-normal dark:text-white"
+                      className="rounded-xl px-4 py-2 text-base font-normal text-white"
                     >
                       Read now →
                     </CardItem>

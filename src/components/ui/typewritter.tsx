@@ -27,10 +27,7 @@ export const Typewriter = ({
           return (
             <div key={`word-${idx}`} className="inline-block">
               {word.text.map((char, index) => (
-                <span
-                  key={`char-${index}`}
-                  className={cn(`text-black dark:text-white`, word.className)}
-                >
+                <span key={`char-${index}`} className={cn(`text-white`, word.className)}>
                   {char}
                 </span>
               ))}
@@ -44,7 +41,7 @@ export const Typewriter = ({
 
   return (
     <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[100vh]">
-      <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-200 sm:text-xl md:mb-0">
+      <p className="mb-4 text-lg text-neutral-200 sm:text-xl md:mb-0">
         Looking forward meeting you.
       </p>
 
@@ -93,7 +90,7 @@ export const Typewriter = ({
         <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
           <Button
             borderRadius="1.75rem"
-            className="z-10 border-neutral-200 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code dark:border-slate-800"
+            className="z-10 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code"
           >
             Schedule a call
           </Button>

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  MotionValue,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./moving-border-button";
@@ -35,11 +29,8 @@ const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
   const opacity = useTransform(scrollY, [0, 200], [1, 0]);
 
   return (
-    <motion.div
-      style={{ opacity }}
-      className="relative left-[5%] top-[50vh] w-full md:top-[40vh]"
-    >
-      <h1 className="relative z-10 flex items-center gap-2 text-4xl font-bold dark:text-white sm:text-6xl md:text-7xl lg:text-8xl">
+    <motion.div style={{ opacity }} className="relative left-[5%] top-[50vh] w-full md:top-[40vh]">
+      <h1 className="relative z-10 flex items-center gap-2 text-4xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
         <Image
           alt="ac-logo"
           src="/logo.png"
@@ -47,18 +38,16 @@ const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
           height={80}
           className="mr-2 h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20"
         />
-        <span className="text-brand-alpha dark:text-brand-alpha-dark">
-          Alpha
-        </span>{" "}
+        <span className="text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
       </h1>
-      <p className="relative z-10 mb-4 mt-4 max-w-2xl text-xl dark:text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
+      <p className="relative z-10 mb-4 mt-4 max-w-2xl text-xl text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
         We build beautiful products.
       </p>
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
         <Button
           borderRadius="1.75rem"
-          className="z-10 border-neutral-200 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code dark:border-slate-800"
+          className="hover:text-brand-cod z-10 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white"
         >
           Book a meeting
         </Button>
@@ -67,33 +56,14 @@ const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
   );
 };
 
-const ProductList = ({
-  scrollYProgress,
-}: {
-  scrollYProgress: MotionValue<number>;
-}) => {
+const ProductList = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
-  const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 700]),
-    springConfig,
-  );
-  const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig,
-  );
-  const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig,
-  );
-  const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
-    springConfig,
-  );
-  const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.1], [-100, 320]),
-    springConfig,
-  );
+  const translateX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 700]), springConfig);
+  const rotateX = useSpring(useTransform(scrollYProgress, [0, 0.2], [15, 0]), springConfig);
+  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.2, 1]), springConfig);
+  const rotateZ = useSpring(useTransform(scrollYProgress, [0, 0.2], [20, 0]), springConfig);
+  const translateY = useSpring(useTransform(scrollYProgress, [0, 0.1], [-100, 320]), springConfig);
 
   return (
     <motion.div
@@ -107,11 +77,7 @@ const ProductList = ({
     >
       <motion.div className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse">
         {products.map((product) => (
-          <ProductCard
-            product={product}
-            translate={translateX}
-            key={product.title}
-          />
+          <ProductCard product={product} translate={translateX} key={product.title} />
         ))}
       </motion.div>
     </motion.div>
@@ -140,10 +106,7 @@ const ProductCard = ({
       key={product.title}
       className="group/product relative h-60 w-[28rem] flex-shrink-0 md:h-80 md:w-[36rem]"
     >
-      <Link
-        href={product.link}
-        className="block group-hover/product:shadow-2xl"
-      >
+      <Link href={product.link} className="block group-hover/product:shadow-2xl">
         <Image
           src={product.thumbnail}
           height="600"
