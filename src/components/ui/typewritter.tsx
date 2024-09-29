@@ -13,13 +13,13 @@ export const Typewriter = ({
   className?: string;
   cursorClassName?: string;
 }) => {
-  // split text inside of words into array of characters
   const wordsArray = words.map((word) => {
     return {
       ...word,
       text: word.text.split(""),
     };
   });
+
   const renderWords = () => {
     return (
       <div>
@@ -43,7 +43,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[75vh]">
+    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[100vh]">
       <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-200 sm:text-xl md:mb-0">
         Looking forward meeting you.
       </p>
@@ -82,14 +82,10 @@ export const Typewriter = ({
           }}
           transition={{
             duration: 0.8,
-
             repeat: Infinity,
             repeatType: "reverse",
           }}
-          className={cn(
-            "block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12",
-            cursorClassName,
-          )}
+          className={cn("block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12", cursorClassName)}
           style={{ height: "100%" }}
         ></motion.span>
       </div>
