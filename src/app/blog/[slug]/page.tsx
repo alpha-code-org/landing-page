@@ -23,6 +23,22 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   return {
     title: "Alpha Code | " + metadata.title,
+    description: metadata.description,
+    openGraph: {
+      type: "article",
+      url: `https://alpha-code.hr/blog/${params.slug}`,
+      title: "Alpha Code | " + metadata.title,
+      description: metadata.description,
+      siteName: "Alpha Code",
+      images: [
+        {
+          url: `https://alpha-code.hr/blog/${params.slug}/hero.webp`,
+          width: 1200,
+          height: 627,
+          alt: "Alpha Code | " + metadata.title,
+        },
+      ],
+    },
   };
 }
 
