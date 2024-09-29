@@ -19,7 +19,7 @@ interface Params {
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { metadata } = await import(`../../(posts)/${params.slug}`);
+  const { metadata } = await import(`../../(posts)/${params.slug}.mdx`);
 
   return {
     title: "Alpha Code | " + metadata.title,
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function BlogPost({ params: { slug } }: Params) {
   // Read the MDX file from the content source direectory
-  const source = await fs.readFile(path.join(process.cwd(), CONTENT_SOURCE, `${slug}`), "utf8");
+  const source = await fs.readFile(path.join(process.cwd(), CONTENT_SOURCE, `${slug}.mdx`), "utf8");
 
   const components = useMDXComponents({});
 
