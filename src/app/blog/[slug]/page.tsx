@@ -3,6 +3,7 @@ import path from "path";
 import { useMDXComponents } from "@/mdx-components";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
+import rehypeHighlight from "rehype-highlight";
 
 export const dynamic = "force-static";
 
@@ -34,7 +35,11 @@ export default async function BlogPost({ params: { slug } }: Params) {
   return (
     <article className="mx-auto w-full max-w-4xl">
       {/* Render the compiled MDX content */}
-      <MDXRemote source={source} components={components} />
+      <MDXRemote
+        source={source}
+        components={components}
+        options={{ mdxOptions: { rehypePlugins: [rehypeHighlight] } }}
+      />
     </article>
   );
 }

@@ -1,8 +1,10 @@
 import type { MDXComponents } from "mdx/types";
+import Highlight from "./components/blog/highlight";
 import Image from "next/image";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    Highlight,
     h1: ({ children }) => <h1 className="mb-12 text-4xl font-bold text-white">{children}</h1>,
     h2: ({ children }) => <h2 className="mb-4 text-3xl font-semibold text-gray-300">{children}</h2>,
     p: ({ children }) => <p className="mb-6 text-lg leading-7 text-gray-300">{children}</p>,
