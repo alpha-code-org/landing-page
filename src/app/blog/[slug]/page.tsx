@@ -26,6 +26,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description: metadata.description,
     openGraph: {
       type: "article",
+      authors: [metadata.author],
+      publishedTime: metadata.date,
       url: `https://alpha-code.hr/blog/${params.slug}`,
       title: "Alpha Code | " + metadata.title,
       description: metadata.description,
