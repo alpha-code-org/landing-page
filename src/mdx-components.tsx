@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    h1: ({ children }) => <h1 className="mb-4 text-4xl font-bold text-white">{children}</h1>,
-    h2: ({ children }) => <h2 className="mb-4 text-3xl font-semibold text-gray-200">{children}</h2>,
+    h1: ({ children }) => <h1 className="mb-12 text-4xl font-bold text-white">{children}</h1>,
+    h2: ({ children }) => <h2 className="mb-4 text-3xl font-semibold text-gray-300">{children}</h2>,
     p: ({ children }) => <p className="mb-6 text-lg leading-7 text-gray-300">{children}</p>,
     a: ({ children, href }) => (
       <a href={href} className="text-white underline transition-colors hover:text-gray-300">
@@ -31,11 +31,17 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <ol className="mb-4 ml-6 list-inside list-decimal text-gray-300">{children}</ol>
     ),
     li: ({ children }) => <li className="mb-2">{children}</li>,
-    img: ({ src, alt }) => (
+    figure: ({ children }) => <figure className="my-6 text-center">{children}</figure>,
+    figcaption: ({ children }) => (
+      <figcaption className="mx-auto mt-2 block text-sm text-gray-400">{children}</figcaption>
+    ),
+    img: (props) => (
       <Image
-        src={src as string}
-        alt={alt as string}
-        className="mx-auto my-6 w-full max-w-4xl rounded-lg shadow-lg"
+        src={props.src as string}
+        className="mx-auto w-full max-w-4xl rounded-lg shadow-lg"
+        alt={props.alt || "Image"}
+        width={400} // You can set default width and height
+        height={250}
       />
     ),
     ...components,

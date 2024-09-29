@@ -3,27 +3,15 @@ export const metadata = {
   publishDate: "2024-09-27T00:00:00Z",
 };
 
-# Getting Started with Next.js
+# Next.js Infinite Loader with Server Components
 
-Next.js is a powerful React framework that allows developers to build static and dynamic websites efficiently. It provides built-in features like server-side rendering (SSR), static site generation (SSG), and API routes.
+React Server Components have changed the way we think about rendering process in React.
+Instead of focusing on one environment at a time, components can render on the server and the client simultaneously.
 
-In this article, we'll cover some key features of Next.js and how to get started with it.
+This can be problematic when it comes to infinite loading, because server components don't have access to the state.
+For example, if we have a cursor pagination mechanism for data fetching, we need to keep track of the previously loaded pages on
+the client. Easiest way would be to store fetched data in the state and every time user reaches the end of the list,
+trigger new request with updated cursor and update state with fresh awaited data.
 
-## Key Features of Next.js
-
-Next.js offers a range of features that make it a go-to framework for modern web development:
-
-- **Server-Side Rendering (SSR)**: With SSR, pages are pre-rendered on the server on every request, providing fast loading times and improved SEO.
-- **Static Site Generation (SSG)**: You can generate static pages at build time, making the content load instantly.
-- **API Routes**: Easily create server-side API endpoints using the `pages/api` directory.
-- **Image Optimization**: Built-in image optimization with automatic resizing and lazy loading.
-
-## Installing Next.js
-
-To get started with Next.js, you'll first need to set it up in your project. Follow these steps to create a new Next.js app:
-
-```bash
-npx create-next-app@latest my-nextjs-app
-cd my-nextjs-app
-npm run dev
-```
+I would definetely recommend using library like React-Query for this task, because it has built-in support for infinite loaders.
+You can still prefetch data in server components and seed query cache with initial data, which gives instant feedback to the user.
