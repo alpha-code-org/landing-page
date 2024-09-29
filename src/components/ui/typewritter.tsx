@@ -43,7 +43,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[75vh]">
+    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[100vh]">
       <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-200 sm:text-xl md:mb-0">
         Looking forward meeting you.
       </p>
@@ -85,10 +85,7 @@ export const Typewriter = ({
             repeat: Infinity,
             repeatType: "reverse",
           }}
-          className={cn(
-            "block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12",
-            cursorClassName,
-          )}
+          className={cn("block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12", cursorClassName)}
           style={{ height: "100%" }}
         ></motion.span>
       </div>

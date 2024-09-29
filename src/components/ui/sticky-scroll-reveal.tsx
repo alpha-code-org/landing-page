@@ -4,6 +4,8 @@ import { motion, useInView } from "framer-motion";
 import ServiceCard from "../cards/ServiceCard";
 import { ServiceType } from "../utils/services";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { CardItem } from "./3d-card";
 
 export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const [activeCard, setActiveCard] = useState(0);
@@ -15,12 +17,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
       <div className="relative flex items-start px-4">
         <div className="flex max-w-2xl flex-col gap-16">
           {services.map((item, index) => (
-            <Card
-              key={item.title}
-              index={index}
-              item={item}
-              setActiveCard={setActiveCard}
-            />
+            <Card key={item.title} index={index} item={item} setActiveCard={setActiveCard} />
           ))}
         </div>
       </div>
@@ -33,8 +30,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           </div>
           <div className="p-2">
             <p className="font-mono text-lg text-slate-200">
-              <span className="text-green-300">~</span>{" "}
-              {services[activeCard].sideTitle}
+              <span className="text-green-300">~</span> {services[activeCard].sideTitle}
             </p>
           </div>
           <Icon className="mx-auto h-20 w-20 text-slate-700" />
@@ -74,11 +70,19 @@ const Card = ({
       key={item.title}
       className="max-h-[100vh]"
     >
-      <ServiceCard
-        title={item.title}
-        description={item.description}
-        imageSrc={item.imageSrc}
-      />
+      <ServiceCard title={item.title} description={item.description} imageSrc={item.imageSrc}>
+        <div className="mt-4 flex items-center justify-between md:mt-20">
+          <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
+            <CardItem
+              translateZ={20}
+              as="button"
+              className="rounded-xl px-4 py-2 text-base font-normal dark:text-white"
+            >
+              Try now →
+            </CardItem>
+          </Link>
+        </div>
+      </ServiceCard>
     </motion.div>
   );
 };
