@@ -43,6 +43,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
+      site: "@AlphaCode",
       title: "Alpha Code | " + metadata.title,
       description: metadata.description,
       images: `https://alpha-code.hr/blog/${params.slug}/hero.webp`,
