@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/components/ui/footer";
 import { cn } from "@/utils/cn";
+import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -57,11 +58,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={cn("flex min-h-[100dvh] flex-col bg-black dark:bg-black", montserrat.className)}
-      >
-        {children}
-        <Footer />
+      <body className={cn("flex min-h-[100dvh] flex-col", montserrat.className)}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
       <Analytics />
     </html>
