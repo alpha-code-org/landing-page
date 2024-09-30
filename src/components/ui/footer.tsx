@@ -4,7 +4,7 @@ import { Twitter, Github, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative mt-auto w-full bg-black">
+    <footer className="relative mt-auto w-full bg-black pt-8">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-8">
         <Image src="/logo-white.png" alt="alpha-logo" width={100} height={100} />
         <div className="h-[1px] w-full bg-slate-300 opacity-20" />

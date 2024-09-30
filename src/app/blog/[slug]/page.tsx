@@ -58,7 +58,7 @@ export default async function BlogPost({ params: { slug } }: Params) {
   const components = useMDXComponents({});
 
   return (
-    <article className="mx-auto w-full max-w-4xl">
+    <article className="mx-auto w-full max-w-4xl p-4 md:p-8">
       {/* Render the compiled MDX content */}
       <MDXRemote
         source={source}
