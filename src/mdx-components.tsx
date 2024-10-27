@@ -48,7 +48,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     img: (props) => (
       <Image
         src={props.src as string}
-        className="mx-auto w-full max-w-4xl rounded-lg shadow-lg"
+        className="mx-auto w-full max-w-4xl shadow-lg"
         alt={props.alt || "Image"}
         width={400} // You can set default width and height
         height={250}

@@ -4,6 +4,7 @@ import { useMDXComponents } from "@/mdx-components";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
 import rehypeHighlight from "rehype-highlight";
+import Image, { ImageProps } from "next/image";
 
 export const dynamic = "force-static";
 

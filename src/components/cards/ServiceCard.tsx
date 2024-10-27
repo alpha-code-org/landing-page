@@ -2,18 +2,20 @@
 
 import Image from "next/image";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
+import { cn } from "@/utils/cn";
 
 interface Props {
   title: string;
   description: string;
   imageSrc: string;
   children: React.ReactNode;
+  width: string;
 }
 
-function ServiceCard({ title, description, imageSrc, children }: Props) {
+function ServiceCard({ title, description, imageSrc, children, width }: Props) {
   return (
-    <CardContainer className="inter-var max-w-[28rem]">
-      <CardBody className="group/card relative h-auto w-auto rounded-xl border border-white/[0.2] bg-black p-6 hover:shadow-2xl hover:shadow-emerald-500/[0.1] sm:w-[30rem]">
+    <CardContainer className={cn(`inter-var ${width}`)}>
+      <CardBody className="group/card relative h-auto w-full rounded-xl border border-white/[0.2] bg-black p-6 hover:shadow-2xl hover:shadow-emerald-500/[0.1]">
         <CardItem translateZ="50" className="text-xl font-bold text-white md:text-2xl">
           {title}
         </CardItem>
