@@ -58,8 +58,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={cn("flex min-h-[100dvh] flex-col", montserrat.className)}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <body className={cn("flex flex-col", montserrat.className)}>
+        <ThemeProvider attribute="class" forcedTheme="dark">
           {children}
           <Footer />
         </ThemeProvider>
