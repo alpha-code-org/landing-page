@@ -70,14 +70,14 @@ const Card = ({
       key={item.title}
       className="max-h-[100vh]"
     >
-      <ServiceCard
-        title={item.title}
-        description={item.description}
-        imageSrc={item.imageSrc}
-        width="w-[24rem] max-w-[90vw]"
-      >
-        <div className="mt-4 flex items-center justify-between md:mt-20">
-          <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
+      <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
+        <ServiceCard
+          title={item.title}
+          description={item.description}
+          imageSrc={item.imageSrc}
+          width="w-[24rem] max-w-[90vw]"
+        >
+          <div className="mt-4 flex items-center justify-between md:mt-20">
             <CardItem
               translateZ={20}
               as="button"
@@ -85,9 +85,9 @@ const Card = ({
             >
               Try now →
             </CardItem>
-          </Link>
-        </div>
-      </ServiceCard>
+          </div>
+        </ServiceCard>
+      </Link>
     </motion.div>
   );
 };

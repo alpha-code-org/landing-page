@@ -28,18 +28,18 @@ const Blog = async () => {
         <ul className="grid grid-cols-12 place-items-start gap-4">
           {posts.map(({ slug, title, publishDate }) => (
             <li key={slug} className="col-span-12 flex justify-center md:col-span-6 lg:col-span-4">
-              <ServiceCard
-                title={title}
-                description={new Date(publishDate).toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-                imageSrc={`/blog/${slug}/hero.webp`}
-                width="w-full"
-              >
-                <div className="mt-4 flex items-center justify-between md:mt-20">
-                  <Link href={`/blog/${slug}`}>
+              <Link href={`/blog/${slug}`}>
+                <ServiceCard
+                  title={title}
+                  description={new Date(publishDate).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                  imageSrc={`/blog/${slug}/hero.webp`}
+                  width="w-full"
+                >
+                  <div className="mt-4 flex items-center justify-between md:mt-20">
                     <CardItem
                       translateZ={20}
                       as="button"
@@ -47,9 +47,9 @@ const Blog = async () => {
                     >
                       Read now →
                     </CardItem>
-                  </Link>
-                </div>
-              </ServiceCard>
+                  </div>
+                </ServiceCard>
+              </Link>
             </li>
           ))}
         </ul>
