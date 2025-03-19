@@ -14,28 +14,28 @@ export const services: Array<ServiceType> = [
   {
     title: "Full Stack Development",
     description:
-      "Ensuring every line of code not only solves today's challenges but paves the way for tomorrow's success.",
+      "From concept to deployment, we build complete digital solutions that bring your vision to life.",
     imageSrc: "/services/full-stack.webp",
     sideTitle:
-      "From concept to deployment, we build complete digital solutions that bring your vision to life.",
+      "With over 10 years of experience, we build scalable software solutions for individuals and small businesses.",
     icon: Code2,
   },
   {
     title: "IT Consulting",
     description:
-      "Transform your tech challenges into victories with our IT consulting services to propel your business forward.",
+      "Where technology meets strategy, IT consulting turns obstacles into opportunities for innovation and growth.",
     imageSrc: "/services/consulting.webp",
     sideTitle:
-      "Where technology meets strategy, IT consulting turns obstacles into opportunities for innovation and growth.",
+      "Software development can sometimes be overwhelming, let us help you navigate the process.",
     icon: HandHelping,
   },
   {
-    title: "Blockchain Development",
+    title: "AI Development",
     description:
-      "Empower your business with smart contracts, turning complex agreements into automated protocols.",
+      "Innovate with AI to streamline operations, enhance customer experiences, and drive growth.",
     imageSrc: "/services/blockchain.webp",
     sideTitle:
-      "Building secure, decentralized solutions that redefine trust and transparency in the digital world.",
+      "Save time and resources with simple AI solutions. Let your people focus on what they do best.",
     icon: Container,
   },
 ];
