@@ -61,7 +61,7 @@ const ProductList = ({ scrollYProgress }: { scrollYProgress: MotionValue<number>
 
   const translateX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 700]), springConfig);
   const rotateX = useSpring(useTransform(scrollYProgress, [0, 0.2], [15, 0]), springConfig);
-  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.2, 1]), springConfig);
+  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.6], [0.6, 1]), springConfig);
   const rotateZ = useSpring(useTransform(scrollYProgress, [0, 0.2], [20, 0]), springConfig);
   const translateY = useSpring(useTransform(scrollYProgress, [0, 0.1], [-100, 320]), springConfig);
 
@@ -115,7 +115,7 @@ const ProductCard = ({
           alt={product.title}
         />
       </Link>
-      <div className="pointer-events-none absolute inset-0 h-full w-full bg-black opacity-0 group-hover/product:opacity-80"></div>
+      <div className="pointer-events-none absolute inset-0 h-full w-full bg-black opacity-0 group-hover/product:opacity-50"></div>
       <h2 className="absolute bottom-4 left-4 text-white opacity-0 group-hover/product:opacity-100">
         {product.title}
       </h2>
