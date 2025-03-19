@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "./moving-border-button";
 import { useRef } from "react";
 import { products } from "../utils/products";
+import { BackgroundBeams } from "./background-beams";
 
 const HeroParallax = () => {
   const ref = useRef(null);
@@ -21,6 +22,7 @@ const HeroParallax = () => {
     >
       <Title scrollY={scrollY} />
       <ProductList scrollYProgress={scrollYProgress} />
+      <BackgroundBeams />
     </div>
   );
 };
@@ -30,7 +32,7 @@ const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
 
   return (
     <motion.div style={{ opacity }} className="relative left-[5%] top-[50vh] w-full md:top-[40vh]">
-      <h1 className="relative z-10 flex items-center gap-2 text-4xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+      <h1 className="relative z-20 flex items-center gap-2 text-4xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
         <Image
           alt="ac-logo"
           src="/logo.png"
@@ -41,13 +43,13 @@ const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
         <span className="text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
       </h1>
-      <p className="relative z-10 mb-4 mt-4 max-w-2xl text-xl text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
+      <p className="relative z-20 mb-4 mt-4 max-w-2xl text-xl text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
         We build beautiful products.
       </p>
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
         <Button
           borderRadius="1.75rem"
-          className="z-10 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code"
+          className="z-20 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code"
         >
           Book a meeting
         </Button>
@@ -73,7 +75,7 @@ const ProductList = ({ scrollYProgress }: { scrollYProgress: MotionValue<number>
         translateY,
         opacity,
       }}
-      className=""
+      className="relative z-10"
     >
       <motion.div className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse">
         {products.map((product) => (
