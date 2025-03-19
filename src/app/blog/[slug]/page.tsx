@@ -4,7 +4,6 @@ import { useMDXComponents } from "@/mdx-components";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
 import rehypeHighlight from "rehype-highlight";
-import Image, { ImageProps } from "next/image";
 
 export const dynamic = "force-static";
 
@@ -15,12 +14,13 @@ export async function generateStaticParams() {
   return files.map((file) => ({ slug: file.replace(".mdx", "") }));
 }
 
-interface Params {
-  params: { slug: string };
-}
-
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { metadata } = await import(`../../(posts)/${params.slug}.mdx`);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const { metadata } = await import(`../../(posts)/${slug}.mdx`);
 
   return {
     title: "Alpha Code | " + metadata.title,
@@ -29,13 +29,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       type: "article",
       authors: [metadata.author],
       publishedTime: metadata.publishDate,
-      url: `https://alpha-code.hr/blog/${params.slug}`,
+      url: `https://alpha-code.hr/blog/${slug}`,
       title: "Alpha Code | " + metadata.title,
       description: metadata.description,
       siteName: "Alpha Code",
       images: [
         {
-          url: `https://alpha-code.hr/blog/${params.slug}/hero.webp`,
+          url: `https://alpha-code.hr/blog/${slug}/hero.webp`,
           width: 1200,
           height: 627,
           alt: "Alpha Code | " + metadata.title,
@@ -47,20 +47,20 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       site: "@AlphaCode",
       title: "Alpha Code | " + metadata.title,
       description: metadata.description,
-      images: `https://alpha-code.hr/blog/${params.slug}/hero.webp`,
+      images: `https://alpha-code.hr/blog/${slug}/hero.webp`,
     },
   };
 }
 
-export default async function BlogPost({ params: { slug } }: Params) {
-  // Read the MDX file from the content source direectory
-  const source = await fs.readFile(path.join(process.cwd(), CONTENT_SOURCE, `${slug}.mdx`), "utf8");
+async function getPostContent(slug: string) {
+  return await fs.readFile(path.join(process.cwd(), CONTENT_SOURCE, `${slug}.mdx`), "utf8");
+}
 
+function BlogPostContent({ source }: { source: string }) {
   const components = useMDXComponents({});
 
   return (
     <article className="mx-auto w-full max-w-4xl p-4 md:p-8">
-      {/* Render the compiled MDX content */}
       <MDXRemote
         source={source}
         components={components}
@@ -68,4 +68,11 @@ export default async function BlogPost({ params: { slug } }: Params) {
       />
     </article>
   );
+}
+
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const source = await getPostContent(slug);
+
+  return <BlogPostContent source={source} />;
 }
