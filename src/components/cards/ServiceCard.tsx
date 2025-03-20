@@ -19,11 +19,7 @@ function ServiceCard({ title, description, imageSrc, children, width }: Props) {
         <CardItem translateZ="50" className="text-xl font-bold text-white md:text-2xl">
           {title}
         </CardItem>
-        <CardItem
-          as="p"
-          translateZ="60"
-          className="mt-2 max-w-sm text-sm text-neutral-400 md:text-lg"
-        >
+        <CardItem translateZ="60" className="mt-2 max-w-sm text-sm text-neutral-400 md:text-lg">
           {description}
         </CardItem>
         <CardItem translateZ="100" className="mt-4 w-full">
