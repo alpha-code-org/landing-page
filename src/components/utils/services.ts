@@ -17,7 +17,7 @@ export const services: Array<ServiceType> = [
       "From concept to deployment, we build complete digital solutions that bring your vision to life.",
     imageSrc: "/services/full-stack.webp",
     sideTitle:
-      "With over 10 years of experience, we build scalable software solutions for individuals and small businesses.",
+      "Over 10 years of experience building scalable software solutions for individuals and small businesses.",
     icon: Code2,
   },
   {
