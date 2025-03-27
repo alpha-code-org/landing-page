@@ -26,31 +26,36 @@ const Blog = async () => {
         <h2 className="mx-auto text-2xl font-bold md:text-3xl">Blog</h2>
 
         <ul className="grid grid-cols-12 place-items-start gap-4">
-          {posts.map(({ slug, title, publishDate }) => (
-            <li key={slug} className="col-span-12 flex justify-center md:col-span-6 lg:col-span-4">
-              <Link href={`/blog/${slug}`}>
-                <ServiceCard
-                  title={title}
-                  description={new Date(publishDate).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                  imageSrc={`/blog/${slug}/hero.webp`}
-                  width="w-full"
-                >
-                  <div className="mt-4 flex items-center justify-between md:mt-20">
-                    <CardItem
-                      translateZ={20}
-                      className="rounded-xl px-4 py-2 text-base font-normal text-white"
-                    >
-                      Read now →
-                    </CardItem>
-                  </div>
-                </ServiceCard>
-              </Link>
-            </li>
-          ))}
+          {posts
+            .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
+            .map(({ slug, title, publishDate }) => (
+              <li
+                key={slug}
+                className="col-span-12 flex justify-center md:col-span-6 lg:col-span-4"
+              >
+                <Link href={`/blog/${slug}`}>
+                  <ServiceCard
+                    title={title}
+                    description={new Date(publishDate).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                    imageSrc={`/blog/${slug}/hero.webp`}
+                    width="w-full"
+                  >
+                    <div className="mt-4 flex items-center justify-between md:mt-20">
+                      <CardItem
+                        translateZ={20}
+                        className="rounded-xl px-4 py-2 text-base font-normal text-white"
+                      >
+                        Read now →
+                      </CardItem>
+                    </div>
+                  </ServiceCard>
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
     </section>
