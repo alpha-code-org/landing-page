@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
   keywords:
-    "IT solutions, business technology, software development, tech consulting, digital transformation, Alpha Code",
+    "software development, business tools, programming, IT consulting, digital transformation, Alpha Code",
   openGraph: {
     type: "website",
     url: "https://alpha-code.hr",
