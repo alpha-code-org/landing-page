@@ -10,17 +10,17 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://alpha-code.hr"),
-  title: "Alpha Code | Innovative IT Solutions for Business Growth",
+  title: "Alpha Code | IT Solutions for Small Business Growth",
   description:
-    "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
+    "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover power of AI and automation technology designed for efficiency and growth.",
   keywords:
-    "software development, business tools, programming, IT consulting, digital transformation, Alpha Code",
+    "software development, business tools, small business, freelancing, programming, IT consulting, digital transformation, Alpha Code",
   openGraph: {
     type: "website",
     url: "https://alpha-code.hr",
-    title: "Alpha Code | Innovative IT Solutions for Business Growth",
+    title: "Alpha Code | IT Solutions for Small Business Growth",
     description:
-      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
+      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover power of AI and automation technology designed for efficiency and growth.",
     siteName: "Alpha Code",
     images: [
       {
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@AlphaCode",
-    title: "Alpha Code | Innovative IT Solutions for Business Growth",
+    title: "Alpha Code | IT Solutions for Small Business Growth",
     description:
-      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover innovative technology designed for efficiency, growth, and unparalleled expertise.",
+      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover power of AI and automation technology designed for efficiency and growth.",
     images: "https://alpha-code.hr/logo-white-bg.jpg",
   },
   icons: {
@@ -45,6 +45,10 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+    googleBot: "index, follow",
   },
   alternates: {
     canonical: "https://alpha-code.hr",
