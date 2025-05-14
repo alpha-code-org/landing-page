@@ -166,7 +166,7 @@ export const Terminal = ({ className }: TerminalProps) => {
                 </TypingAnimation>
 
                 <TypingAnimation delay={7000} className="text-muted-foreground">
-                  Let's make your business grow.
+                  Let&apos;s make your business grow.
                 </TypingAnimation>
               </>
             )}
