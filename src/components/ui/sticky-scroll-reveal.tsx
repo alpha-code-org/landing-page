@@ -50,7 +50,10 @@ const Card = ({
   setActiveCard: Dispatch<SetStateAction<number>>;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { amount: 0.5 });
+  const isInView = useInView(ref, {
+    amount: 0.1,
+    margin: "-45% 0px",
+  });
 
   useEffect(() => {
     if (isInView) {
