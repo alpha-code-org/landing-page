@@ -395,7 +395,7 @@ export function GlobeDemo() {
   ];
 
   return (
-    <div className="relative flex h-screen w-full flex-row items-center justify-center bg-white py-20 dark:bg-black md:h-auto md:pt-64">
+    <div className="relative flex h-[560px] w-full flex-row items-center justify-center bg-white py-20 dark:bg-black md:h-[800px]">
       <div className="relative mx-auto h-full w-full max-w-7xl overflow-hidden px-4 md:h-[40rem]">
         <motion.div
           initial={{
@@ -412,7 +412,7 @@ export function GlobeDemo() {
           className="div"
         >
           <h2 className="text-center text-xl font-bold text-black dark:text-white md:text-4xl">
-            Providing <span className="text-brand-code">value</span> worldwide
+            Providing <span className="text-blue-500">value</span> worldwide
           </h2>
           <p className="mx-auto mt-2 max-w-md text-center text-base font-normal text-neutral-700 dark:text-neutral-200 md:text-lg">
             We build tools that help you grow your business.

@@ -40,7 +40,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[75vh] lg:h-[100vh]">
+    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[75vh]">
       <p className="mb-4 text-lg text-neutral-200 sm:text-xl md:mb-0">
         Looking forward meeting you.
       </p>
