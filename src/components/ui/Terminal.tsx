@@ -116,7 +116,9 @@ export const Terminal = ({ className }: TerminalProps) => {
           <code className="grid gap-y-1 overflow-auto px-1 pb-4 pt-2">
             {isInView && (
               <>
-                <TypingAnimation>&gt; Alpha Code Software Development Checklist</TypingAnimation>
+                <TypingAnimation duration={10}>
+                  &gt; Alpha Code Software Development Checklist
+                </TypingAnimation>
 
                 <AnimatedSpan delay={1500} className="text-green-500">
                   <span>✔ Modern design.</span>
@@ -161,11 +163,11 @@ export const Terminal = ({ className }: TerminalProps) => {
                   <span className="pl-2">- Active participation.</span>
                 </AnimatedSpan>
 
-                <TypingAnimation delay={6500} className="text-muted-foreground">
+                <TypingAnimation delay={6500} duration={15} className="text-muted-foreground">
                   Success! Project initialization completed.
                 </TypingAnimation>
 
-                <TypingAnimation delay={7000} className="text-muted-foreground">
+                <TypingAnimation delay={7500} duration={15} className="text-muted-foreground">
                   Let&apos;s make your business grow.
                 </TypingAnimation>
               </>
