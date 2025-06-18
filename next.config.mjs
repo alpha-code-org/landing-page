@@ -1,5 +1,4 @@
-import createMDX from '@next/mdx'
-
+import createMDX from "@next/mdx";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -12,6 +11,7 @@ const nextConfig = {
       { hostname: "source.unsplash.com" },
     ],
   },
+  transpilePackages: ["next-mdx-remote"],
 };
 
 const withMDX = createMDX({
