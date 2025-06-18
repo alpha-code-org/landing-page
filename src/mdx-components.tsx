@@ -1,10 +1,16 @@
 import type { MDXComponents } from "mdx/types";
 import Highlight from "./components/blog/highlight";
+import { BlogHeader } from "./components/blog/header";
 import Image from "next/image";
+import { BlogFooter } from "./components/blog/footer";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     Highlight,
+    BlogHeader: ({ author }: { author: string }) => <BlogHeader author={author} />,
+    BlogFooter: ({ publishDate }: { publishDate: string }) => (
+      <BlogFooter publishDate={publishDate} />
+    ),
     h1: ({ children }) => (
       <h1 className="mb-8 text-2xl font-bold text-white md:mb-12 md:text-3xl lg:text-4xl">
         {children}

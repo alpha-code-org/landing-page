@@ -9,6 +9,7 @@ const nextConfig = {
         hostname: "aceternity.com",
       },
       { hostname: "source.unsplash.com" },
+      { hostname: "avatars.githubusercontent.com" },
     ],
   },
   transpilePackages: ["next-mdx-remote"],
