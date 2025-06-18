@@ -27,7 +27,7 @@ export function BlogHeader({ author }: Props) {
   return (
     <div className="mb-12">
       <div className="flex items-center gap-4">
-        <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-gray-600">
+        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-gray-600">
           <Image
             src={authorInfo.image}
             alt={`${author} profile picture`}
@@ -36,7 +36,7 @@ export function BlogHeader({ author }: Props) {
           />
         </div>
 
-        <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left">
+        <div className="max-w-72">
           <h3 className="text-base font-semibold text-white">{author}</h3>
           <p className="text-sm text-gray-400">{authorInfo.bio}</p>
 
