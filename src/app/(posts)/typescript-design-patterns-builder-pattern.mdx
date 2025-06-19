@@ -10,32 +10,29 @@ export const metadata = {
 
 <BlogHeader author="Mateo Galić" />
 
+Have you ever encountered a problem with displaying <Highlight>item price</Highlight> inside React components?
+Price calculation logic tends to be full of conditions and constraints. Some view layers show price with <Highlight>tax</Highlight>,
+some with <Highlight>discount</Highlight> and some with both! There is also a need to format currency based on users preferred language.
+
+This logic can be expressed by using functional style where <Highlight>applyTax function</Highlight> wraps initial price,
+then <Highlight>applyDiscount function</Highlight> wraps that result and finally <Highlight>formatPrice function</Highlight> applies proper currency display.
+
 ```ts
-import fs from "fs";
+const finalPrice = formatCurrency(
+  applyDiscount(applyTax(initialPrice, buyer), discountPercentage),
+  language,
+);
+```
 
-export type Preprocessor = (data: string) => string;
+On our team, we found that Builder Pattern is easier to understand because of the chaining of methods.
+It is more aligned to how we as humans think. Other than that, it's a nice way to encapsulate important business logic.
 
-export class FileReader {
-  constructor(
-    private filePath: string,
-    private encoding: BufferEncoding,
-    private preprocessors: Array<Preprocessor>,
-  ) {}
-
-  async readAndProcess(): Promise<string> {
-    // Asynchronously reads the entire contents of a file.
-    let data = await fs.promises.readFile(this.filePath, {
-      encoding: this.encoding,
-    });
-
-    // Transforms entire contents of a file for each preprocessor
-    this.preprocessors.forEach((processor) => {
-      data = processor(data);
-    });
-
-    return data;
-  }
-}
+```ts
+const finalPrice = new PriceBuilder(initalPrice)
+  .applyTax(buyer)
+  .applyDiscount(discountPercentage)
+  .formatCurrency(language)
+  .build();
 ```
 
 <BlogFooter publishDate="2025-06-19T00:00:00.000Z" />
