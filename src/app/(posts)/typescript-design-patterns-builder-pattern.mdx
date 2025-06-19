@@ -63,6 +63,8 @@ export class FileProcessor {
 }
 ```
 
+As you can see, there is a nice mix on functional code as well with <Highlight>reduce HOF</Highlight>.
+
 Developers want to have as much flexibility as possible, so we will skip manually creating instances of <Highlight>FileProcessor</Highlight> class.
 There could be a situation where we want to apply some <Highlight>preprocessors</Highlight> only after some conditions are met. Next stop, <Highlight>FileProcessorBuilder</Highlight>.
 
@@ -116,13 +118,16 @@ const fileProcessor = fileProcessorBuilder.build();
 fileProcessor.process().then(console.log).catch(console.error);
 ```
 
+It would be messy to create new instances of FileProcessor without this abstraction. Factory pattern could also help, but agian,
+we want to be as flexible as possible with this class.
+
 ## When to use Builder Pattern
 
 My rule of thumb is to use Builder Pattern whenever I have complex logic inside constructor or when assembling the object is a complex operation.
 It is also a cleaner replacement for piping functions when object needs some transformations of values. Biggest bonus is that it reads really easy
-for other developers and chaining methods is much more in tune with how humans think.
+for other developers and chaining methods is much more in tune with how humans think. Just try to think in recurssion?! 🤯
 
-Here is the full code example of how to use FileProcessor in real-world use case.
+Here is the full code example of how to use FileProcessor covering real-world use case.
 
 ```ts
 import { Preprocessor } from "./FileProcessor";
