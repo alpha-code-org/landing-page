@@ -1,0 +1,166 @@
+export const metadata = {
+  title: "Typescript Design Patterns: Builder Pattern",
+  description:
+    "The Builder pattern is a creational pattern that makes it easy to create complex domain objects step by step.",
+  publishDate: "2025-06-19T00:00:00.000Z",
+  author: "Mateo Galić",
+};
+
+# Typescript Design Patterns: Builder Pattern
+
+<BlogHeader author="Mateo Galić" />
+
+Have you ever encountered a problem with displaying <Highlight>item price</Highlight> inside React components?
+Price calculation logic tends to be full of conditions and constraints. Some view layers show price with <Highlight>tax</Highlight>,
+some with <Highlight>discount</Highlight> and some with both! There is also a need to format currency based on users preferred language.
+
+This logic can be expressed with functional style where <Highlight>applyTax function</Highlight> wraps initial price,
+then <Highlight>applyDiscount function</Highlight> wraps that result and finally <Highlight>formatCurrency function</Highlight> applies proper currency display.
+
+```ts
+const finalPrice = formatCurrency(
+  applyDiscount(applyTax(initialPrice, buyer), discountPercentage),
+  language,
+);
+```
+
+On our team, we found that Builder Pattern is easier to understand because of the chaining of methods.
+It is more aligned to how we as humans think. Other than that, it's a nice way to encapsulate important business logic.
+
+```ts
+const finalPrice = new PriceBuilder(initalPrice)
+  .applyTax(buyer)
+  .applyDiscount(discountPercentage)
+  .formatCurrency(language)
+  .build();
+```
+
+We will shift our focus towards another great example of this pattern: <Highlight>file transformations</Highlight>. Our users
+work a lot with files, so naturally there is a need to make this interaction smoother for them and for us.
+Let's introduce <Highlight>FileProcessor</Highlight> class that will encapsulate all high-level business logic.
+
+```ts
+import fs from "fs";
+
+export type Preprocessor = (data: string) => string;
+
+export class FileProcessor {
+  constructor(
+    private filePath: string,
+    private encoding: BufferEncoding,
+    private preprocessors: Array<Preprocessor>,
+  ) {}
+
+  async process() {
+    // Reads the entire content of a file in memory
+    let fileContent = await fs.promises.readFile(this.filePath, {
+      encoding: this.encoding,
+    });
+
+    // Transforms file content for each preprocessor
+    return this.preprocessors.reduce((output, processor) => processor(output), fileContent);
+  }
+}
+```
+
+As you can see, there is a nice mix on functional code as well with <Highlight>reduce HOF</Highlight>.
+
+Developers want to have as much flexibility as possible, so we will skip manually creating instances of <Highlight>FileProcessor</Highlight> class.
+There could be a situation where we want to apply some <Highlight>preprocessors</Highlight> only after some conditions are met. Next stop, <Highlight>FileProcessorBuilder</Highlight>.
+
+```ts
+import { FileProcessor, Preprocessor } from "./FileProcessor";
+
+export class FileProcessorBuilder {
+  private filePath = "";
+  private encoding: BufferEncoding = "utf-8";
+  private preprocessors: Preprocessor[] = [];
+
+  setFilePath(path: string) {
+    this.filePath = path;
+    return this;
+  }
+
+  setEncoding(encoding: BufferEncoding) {
+    this.encoding = encoding;
+    return this;
+  }
+
+  addPreprocessor(processor: Preprocessor) {
+    this.preprocessors.push(processor);
+    return this;
+  }
+
+  build() {
+    if (!this.filePath) throw new Error("File path is required");
+
+    return new FileProcessor(this.filePath, this.encoding, this.preprocessors);
+  }
+}
+```
+
+Now developers can choose at which point to call <Highlight>build method</Highlight>. To make it easier to understand, here is a quick example.
+
+```ts
+// Base builder
+const fileProcessorBuilder = new FileProcessorBuilder()
+  .setFilePath("./src/builder/crypto.txt")
+  .setEncoding("utf-8")
+  .addPreprocessor(removeUppercaseWords);
+
+// If user is author append extra preprocessors
+if (user.isAuthor) {
+  fileProcessorBuilder.addPreprocessor(toUpperCase);
+}
+
+// Finally construct FileProcessor
+const fileProcessor = fileProcessorBuilder.build();
+fileProcessor.process().then(console.log).catch(console.error);
+```
+
+It would be messy to create new instances of FileProcessor without this abstraction. Factory pattern could also help, but agian,
+we want to be as flexible as possible with this class.
+
+## When to use Builder Pattern
+
+My rule of thumb is to use Builder Pattern whenever I have complex logic inside constructor or when assembling the object is a complex operation.
+It is also a cleaner replacement for piping functions when object needs some transformations of values. Biggest bonus is that it reads really easy
+for other developers and chaining methods is much more in tune with how humans think. Just try to think in recurssion?! 🤯
+
+Here is the full code example of how to use FileProcessor covering real-world use case.
+
+```ts
+import { Preprocessor } from "./FileProcessor";
+import { FileProcessorBuilder } from "./FileProcessorBuilder";
+
+function main() {
+  const toUpperCase: Preprocessor = (data: string) => data.toUpperCase();
+
+  const removeUppercaseWords: Preprocessor = (data: string) =>
+    data.replace(/\b[A-Z]+\b/g, "").trim();
+
+  const removeExtraWhitespaces: Preprocessor = (data: string) =>
+    data.replace(/(\S) {2,}(?=\S)/g, "$1 ");
+
+  const fileProcessor = new FileProcessorBuilder()
+    .setFilePath("./src/builder/crypto.txt")
+    .setEncoding("utf-8")
+    .addPreprocessor(removeUppercaseWords)
+    .addPreprocessor(removeExtraWhitespaces)
+    .addPreprocessor(toUpperCase)
+    .build();
+
+  fileProcessor.process().then(console.log).catch(console.error);
+}
+
+main();
+```
+
+## Summary
+
+We at <Highlight>Alpha Code</Highlight> love to share our knowledge with the community. If you have any questions or suggestions, feel free to reach out to us.
+If you need help with setting up your project, code refactoring, or just want to chat, we are here for you.
+
+Full code with tests can be found on [GitHub](https://github.com/mateogalic112/typescript-design-patterns/tree/main/src/builder).
+
+<BlogFooter publishDate="2025-06-19T00:00:00.000Z" />
