@@ -6,7 +6,9 @@ const Footer = () => {
   return (
     <footer className="relative mt-auto w-full bg-black pt-8">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-8">
-        <Image src="/logo-white.png" alt="alpha-logo" width={100} height={100} />
+        <Link href="/">
+          <Image src="/logo-white.png" alt="alpha-logo" width={100} height={100} />
+        </Link>
         <div className="h-[1px] w-full bg-slate-300 opacity-20" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
           <p className="mb-4 text-sm text-slate-400 md:mb-0">
