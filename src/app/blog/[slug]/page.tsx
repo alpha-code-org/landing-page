@@ -4,6 +4,7 @@ import { useMDXComponents } from "@/mdx-components";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
 import rehypeHighlight from "rehype-highlight";
+import { Comments } from "@/components/blog/comments";
 
 export const dynamic = "force-static";
 
@@ -66,6 +67,7 @@ function BlogPostContent({ source }: { source: string }) {
         components={components}
         options={{ mdxOptions: { rehypePlugins: [rehypeHighlight] } }}
       />
+      <Comments />
     </article>
   );
 }
