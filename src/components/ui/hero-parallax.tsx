@@ -44,7 +44,7 @@ const Title = ({ scrollY }: { scrollY: MotionValue<number> }) => {
         <span className="text-brand-code">Code</span>
       </h1>
       <p className="relative z-20 mb-4 mt-4 max-w-2xl text-xl text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
-        We build beautiful products.
+        We craft beautiful software.
       </p>
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
         <Button
