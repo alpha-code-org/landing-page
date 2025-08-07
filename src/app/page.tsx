@@ -6,12 +6,15 @@ import Blog from "@/components/ui/blog";
 import { GlobeDemo } from "@/components/ui/globe-demo";
 import { ChecklistTerminal } from "@/components/ui/checklist-terminal";
 import { AuditHighlight } from "@/components/ui/audit-highlight";
+import { MacbookScroll } from "@/components/ui/macbook-scroll";
 
+// TODO: Add animated testimonials section
 export default function Home() {
   return (
     <main>
       <HeroParallax />
       <StickyScroll services={services} />
+      <MacbookScroll src="/business.webp" />
       <AuditHighlight />
       <ChecklistTerminal />
       <GlobeDemo />

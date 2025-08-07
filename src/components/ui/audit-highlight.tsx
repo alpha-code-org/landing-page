@@ -141,7 +141,13 @@ const HeroHighlight = ({
   );
 };
 
-const Highlight = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+export const Highlight = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return (
     <motion.span
       initial={{
