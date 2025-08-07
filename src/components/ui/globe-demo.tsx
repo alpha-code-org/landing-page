@@ -415,7 +415,7 @@ export function GlobeDemo() {
             Providing <span className="text-blue-500">value</span> worldwide
           </h2>
           <p className="mx-auto mt-2 max-w-md text-center text-base font-normal text-neutral-700 dark:text-neutral-200 md:text-lg">
-            We build tools that help you grow your business.
+            Helping businesses grow through software development, codebase audit, and AI.
           </p>
         </motion.div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-40 w-full select-none bg-gradient-to-b from-transparent to-white dark:to-black" />
