@@ -12,27 +12,24 @@ export type ServiceType = {
 
 export const services: Array<ServiceType> = [
   {
-    title: "Full Stack Development",
-    description:
-      "From concept to deployment, we build complete digital solutions that bring your vision to life.",
+    title: "Software Development",
+    description: "Crafting scalable software solutions for individuals and small businesses.",
     imageSrc: "/services/full-stack.webp",
     sideTitle:
-      "Over 10 years of experience building scalable software solutions for individuals and small businesses.",
+      "From concept to deployment, we build complete digital solutions that bring your vision to life.",
     icon: Code2,
   },
   {
-    title: "IT Consulting",
-    description:
-      "Where technology meets strategy, IT consulting turns obstacles into opportunities for innovation and growth.",
+    title: "Codebase Audit",
+    description: "Expert codebase analysis to improve performance and security.",
     imageSrc: "/services/consulting.webp",
     sideTitle:
-      "Software development can sometimes be overwhelming, let us help you navigate the process.",
+      "Deep dive into your codebase to identify  security vulnerabilities and areas for improvement.",
     icon: HandHelping,
   },
   {
     title: "AI Development",
-    description:
-      "Innovate with AI to streamline operations, enhance customer experiences, and drive growth.",
+    description: "Automating tasks and improving efficiency with AI.",
     imageSrc: "/services/blockchain.webp",
     sideTitle:
       "Save time and resources with simple AI solutions. Let your people focus on what they do best.",
