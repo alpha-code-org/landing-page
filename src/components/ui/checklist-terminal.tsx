@@ -90,7 +90,7 @@ interface TerminalProps {
   className?: string;
 }
 
-export const Terminal = ({ className }: TerminalProps) => {
+export const ChecklistTerminal = ({ className }: TerminalProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 

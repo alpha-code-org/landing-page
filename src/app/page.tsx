@@ -4,14 +4,16 @@ import { services } from "@/components/utils/services";
 import { Typewriter } from "@/components/ui/typewritter";
 import Blog from "@/components/ui/blog";
 import { GlobeDemo } from "@/components/ui/globe-demo";
-import { Terminal } from "@/components/ui/Terminal";
+import { ChecklistTerminal } from "@/components/ui/checklist-terminal";
+import { AuditHighlight } from "@/components/ui/audit-highlight";
 
 export default function Home() {
   return (
     <main>
       <HeroParallax />
       <StickyScroll services={services} />
-      <Terminal />
+      <AuditHighlight />
+      <ChecklistTerminal />
       <GlobeDemo />
       <Typewriter />
       <Blog />
