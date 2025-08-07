@@ -8,19 +8,21 @@ import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
+const title = "Alpha Code | We craft beautiful software";
+const description =
+  "Alpha Code delivers custom software solutions and in-depth codebase audits. We help businesses improve performance, security, and scalability through smart technology and clean code.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://alpha-code.hr"),
-  title: "Alpha Code | IT Solutions for Small Business Growth",
-  description:
-    "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover power of AI and automation technology designed for efficiency and growth.",
+  title,
+  description,
   keywords:
-    "software development, business tools, small business, freelancing, programming, IT consulting, digital transformation, Alpha Code",
+    "software development, codebase audit, business tools, small business, freelancing, programming, IT consulting, digital transformation, Alpha Code, AI, automation",
   openGraph: {
     type: "website",
     url: "https://alpha-code.hr",
-    title: "Alpha Code | IT Solutions for Small Business Growth",
-    description:
-      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover power of AI and automation technology designed for efficiency and growth.",
+    title,
+    description,
     siteName: "Alpha Code",
     images: [
       {
@@ -34,9 +36,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@AlphaCode",
-    title: "Alpha Code | IT Solutions for Small Business Growth",
-    description:
-      "Alpha Code delivers cutting-edge IT solutions tailored to propel your business into the future. Discover power of AI and automation technology designed for efficiency and growth.",
+    title,
+    description,
     images: "https://alpha-code.hr/logo-white-bg.jpg",
   },
   icons: {
