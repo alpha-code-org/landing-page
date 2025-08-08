@@ -29,7 +29,7 @@ export const services: Array<ServiceType> = [
   },
   {
     title: "AI Development",
-    description: "Automating tasks and improving efficiency with AI.",
+    description: "Automating manual tasks and improving efficiency with AI.",
     imageSrc: "/services/blockchain.webp",
     sideTitle:
       "Save time and resources with simple AI solutions. Let your people focus on what they do best.",
