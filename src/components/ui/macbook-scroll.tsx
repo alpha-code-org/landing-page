@@ -46,11 +46,27 @@ export const MacbookScroll = ({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (window && window.innerWidth < 768) {
-      setIsMobile(true);
-    }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    // Add resize listener with throttling for better performance
+    let timeoutId: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkMobile, 100);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
+  // Transform values - must be called at top level
   const scaleX = useTransform(scrollYProgress, [0, 0.3], [1.2, isMobile ? 1 : 1.5]);
   const scaleY = useTransform(scrollYProgress, [0, 0.3], [0.6, isMobile ? 1 : 1.5]);
   const translate = useTransform(scrollYProgress, [0, 0.6], [0, isMobile ? 800 : 600]);
@@ -79,11 +95,11 @@ export const MacbookScroll = ({
           </span>
         )}
       </motion.h2>
-      <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-50 md:scale-100">
+      <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 [backface-visibility:hidden] [perspective:800px] [will-change:transform] sm:scale-50 md:scale-100">
         {/* Lid */}
         <Lid src={src} scaleX={scaleX} scaleY={scaleY} rotate={rotate} translate={translate} />
         {/* Base area */}
-        <div className="relative -z-10 h-[22rem] w-[32rem] overflow-hidden rounded-2xl bg-gray-200 dark:bg-[#272729]">
+        <div className="relative -z-10 h-[22rem] w-[32rem] overflow-hidden rounded-2xl bg-gray-200 [will-change:transform] dark:bg-[#272729]">
           {/* above keyboard bar */}
           <div className="relative h-10 w-full">
             <div className="absolute inset-x-0 mx-auto h-4 w-[80%] bg-[#050505]" />
@@ -111,78 +127,84 @@ export const MacbookScroll = ({
   );
 };
 
-export const Lid = ({
-  scaleX,
-  scaleY,
-  rotate,
-  translate,
-  src,
-}: {
-  scaleX: MotionValue<number>;
-  scaleY: MotionValue<number>;
-  rotate: MotionValue<number>;
-  translate: MotionValue<number>;
-  src?: string;
-}) => {
-  return (
-    <div className="relative [perspective:800px]">
-      <div
-        style={{
-          transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
-          transformOrigin: "bottom",
-          transformStyle: "preserve-3d",
-        }}
-        className="relative h-[12rem] w-[32rem] rounded-2xl bg-[#010101] p-2"
-      >
+export const Lid = React.memo(
+  ({
+    scaleX,
+    scaleY,
+    rotate,
+    translate,
+    src,
+  }: {
+    scaleX: MotionValue<number>;
+    scaleY: MotionValue<number>;
+    rotate: MotionValue<number>;
+    translate: MotionValue<number>;
+    src?: string;
+  }) => {
+    return (
+      <div className="relative [perspective:800px] [will-change:transform]">
         <div
           style={{
-            boxShadow: "0px 2px 0px 2px #171717 inset",
+            transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
+            transformOrigin: "bottom",
+            transformStyle: "preserve-3d",
           }}
-          className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
+          className="relative h-[12rem] w-[32rem] rounded-2xl bg-[#010101] p-2 [backface-visibility:hidden] [will-change:transform]"
         >
-          <Image
-            src="/logo-white.png"
-            alt="alpha code logo"
-            width={66}
-            height={65}
-            objectFit="cover"
-          />
+          <div
+            style={{
+              boxShadow: "0px 2px 0px 2px #171717 inset",
+            }}
+            className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
+          >
+            <Image
+              src="/logo-white.png"
+              alt="alpha code logo"
+              width={66}
+              height={65}
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          </div>
         </div>
+        <motion.div
+          style={{
+            scaleX: scaleX,
+            scaleY: scaleY,
+            rotateX: rotate,
+            translateY: translate,
+            transformStyle: "preserve-3d",
+            transformOrigin: "top",
+          }}
+          className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2 [backface-visibility:hidden] [will-change:transform]"
+        >
+          <div className="absolute inset-0 rounded-lg bg-[#272729]" />
+          {src && (
+            <img
+              src={src}
+              alt="screen content"
+              className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
+              loading="lazy"
+            />
+          )}
+        </motion.div>
       </div>
-      <motion.div
-        style={{
-          scaleX: scaleX,
-          scaleY: scaleY,
-          rotateX: rotate,
-          translateY: translate,
-          transformStyle: "preserve-3d",
-          transformOrigin: "top",
-        }}
-        className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2"
-      >
-        <div className="absolute inset-0 rounded-lg bg-[#272729]" />
-        <img
-          src={src as string}
-          alt="aceternity logo"
-          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
-        />
-      </motion.div>
-    </div>
-  );
-};
+    );
+  },
+);
 
-export const Trackpad = () => {
+export const Trackpad = React.memo(() => {
   return (
     <div
-      className="mx-auto my-1 h-32 w-[40%] rounded-xl"
+      className="mx-auto my-1 h-32 w-[40%] rounded-xl [will-change:transform]"
       style={{
         boxShadow: "0px 0px 1px 1px #00000020 inset",
       }}
     ></div>
   );
-};
+});
 
-export const Keypad = () => {
+export const Keypad = React.memo(() => {
   return (
     <div className="mx-1 h-full rounded-md bg-[#050505] p-1 [transform:translateZ(0)] [will-change:transform]">
       {/* First Row */}
@@ -532,62 +554,64 @@ export const Keypad = () => {
       </div>
     </div>
   );
-};
+});
 
-export const KBtn = ({
-  className,
-  children,
-  childrenClassName,
-  backlit = true,
-}: {
-  className?: string;
-  children?: React.ReactNode;
-  childrenClassName?: string;
-  backlit?: boolean;
-}) => {
-  return (
-    <div
-      className={cn(
-        "rounded-[4px] p-[0.5px] [transform:translateZ(0)] [will-change:transform]",
-        backlit && "bg-white/[0.2] shadow-xl shadow-white",
-      )}
-    >
+export const KBtn = React.memo(
+  ({
+    className,
+    children,
+    childrenClassName,
+    backlit = true,
+  }: {
+    className?: string;
+    children?: React.ReactNode;
+    childrenClassName?: string;
+    backlit?: boolean;
+  }) => {
+    return (
       <div
         className={cn(
-          "flex h-6 w-6 items-center justify-center rounded-[3.5px] bg-[#0A090D]",
-          className,
+          "rounded-[4px] p-[0.5px] [backface-visibility:hidden] [transform:translateZ(0)] [will-change:transform]",
+          backlit && "bg-white/[0.2] shadow-xl shadow-white",
         )}
-        style={{
-          boxShadow: "0px -0.5px 2px 0 #0D0D0F inset, -0.5px 0px 2px 0 #0D0D0F inset",
-        }}
       >
         <div
           className={cn(
-            "flex w-full flex-col items-center justify-center text-[5px] text-neutral-200",
-            childrenClassName,
-            backlit && "text-white",
+            "flex h-6 w-6 items-center justify-center rounded-[3.5px] bg-[#0A090D]",
+            className,
           )}
+          style={{
+            boxShadow: "0px -0.5px 2px 0 #0D0D0F inset, -0.5px 0px 2px 0 #0D0D0F inset",
+          }}
         >
-          {children}
+          <div
+            className={cn(
+              "flex w-full flex-col items-center justify-center text-[5px] text-neutral-200",
+              childrenClassName,
+              backlit && "text-white",
+            )}
+          >
+            {children}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
-export const SpeakerGrid = () => {
+export const SpeakerGrid = React.memo(() => {
   return (
     <div
-      className="mt-2 flex h-40 gap-[2px] px-[0.5px]"
+      className="mt-2 flex h-40 gap-[2px] px-[0.5px] [will-change:transform]"
       style={{
         backgroundImage: "radial-gradient(circle, #08080A 0.5px, transparent 0.5px)",
         backgroundSize: "3px 3px",
       }}
     ></div>
   );
-};
+});
 
-export const OptionKey = ({ className }: { className: string }) => {
+export const OptionKey = React.memo(({ className }: { className: string }) => {
   return (
     <svg
       fill="none"
@@ -606,4 +630,4 @@ export const OptionKey = ({ className }: { className: string }) => {
       <rect id="_Transparent_Rectangle_" className="st0" width="32" height="32" stroke="none" />
     </svg>
   );
-};
+});
