@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -192,6 +193,7 @@ export const Lid = React.memo(
     );
   },
 );
+Lid.displayName = "Lid";
 
 export const Trackpad = React.memo(() => {
   return (
@@ -203,6 +205,7 @@ export const Trackpad = React.memo(() => {
     ></div>
   );
 });
+Trackpad.displayName = "Trackpad";
 
 export const Keypad = React.memo(() => {
   return (
@@ -555,6 +558,7 @@ export const Keypad = React.memo(() => {
     </div>
   );
 });
+Keypad.displayName = "Keypad";
 
 export const KBtn = React.memo(
   ({
@@ -598,6 +602,7 @@ export const KBtn = React.memo(
     );
   },
 );
+KBtn.displayName = "KBtn";
 
 export const SpeakerGrid = React.memo(() => {
   return (
@@ -610,6 +615,7 @@ export const SpeakerGrid = React.memo(() => {
     ></div>
   );
 });
+SpeakerGrid.displayName = "SpeakerGrid";
 
 export const OptionKey = React.memo(({ className }: { className: string }) => {
   return (
@@ -631,3 +637,4 @@ export const OptionKey = React.memo(({ className }: { className: string }) => {
     </svg>
   );
 });
+OptionKey.displayName = "OptionKey";
