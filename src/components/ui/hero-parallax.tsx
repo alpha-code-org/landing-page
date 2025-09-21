@@ -36,9 +36,9 @@ const Title = memo(({ scrollY }: { scrollY: MotionValue<number> }) => {
         opacity,
         willChange: "opacity",
       }}
-      className="relative left-[5%] top-[50vh] w-full md:top-[40vh]"
+      className="relative left-[5%] top-[50vh] z-20 w-full md:top-[40vh]"
     >
-      <h1 className="relative z-20 flex items-center gap-2 text-4xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+      <h1 className="relative flex items-center gap-2 text-4xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
         <Image
           alt="ac-logo"
           src="/logo.png"
