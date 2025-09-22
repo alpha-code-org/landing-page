@@ -23,7 +23,7 @@ import { IconWorld } from "@tabler/icons-react";
 import { IconCommand } from "@tabler/icons-react";
 import { IconCaretLeftFilled } from "@tabler/icons-react";
 import { IconCaretDownFilled } from "@tabler/icons-react";
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { motion, MotionValue, useScroll, useTransform, useSpring } from "framer-motion";
 import { cn } from "@/utils/cn";
 import { Highlight } from "./audit-highlight";
 
@@ -42,6 +42,14 @@ export const MacbookScroll = ({
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
+  });
+
+  // Throttle scrollYProgress using useSpring for smoother animations
+  const throttledScrollYProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 10,
+    restDelta: 0.001,
+    mass: 0.25,
   });
 
   const [isMobile, setIsMobile] = useState(false);
@@ -67,13 +75,13 @@ export const MacbookScroll = ({
     };
   }, []);
 
-  // Transform values - must be called at top level
-  const scaleX = useTransform(scrollYProgress, [0, 0.3], [1.2, isMobile ? 1 : 1.5]);
-  const scaleY = useTransform(scrollYProgress, [0, 0.3], [0.6, isMobile ? 1 : 1.5]);
-  const translate = useTransform(scrollYProgress, [0, 0.6], [0, isMobile ? 800 : 600]);
-  const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
-  const textTransform = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  // Transform values using throttled scroll progress for better performance
+  const scaleX = useTransform(throttledScrollYProgress, [0, 0.3], [1.2, isMobile ? 1 : 1.5]);
+  const scaleY = useTransform(throttledScrollYProgress, [0, 0.3], [0.6, isMobile ? 1 : 1.5]);
+  const translate = useTransform(throttledScrollYProgress, [0, 0.6], [0, isMobile ? 800 : 600]);
+  const rotate = useTransform(throttledScrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
+  const textTransform = useTransform(throttledScrollYProgress, [0, 0.3], [0, 100]);
+  const textOpacity = useTransform(throttledScrollYProgress, [0, 0.2], [1, 0]);
 
   return (
     <div
