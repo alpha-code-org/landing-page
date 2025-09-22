@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Button } from "./moving-border-button";
 import { useRef, memo } from "react";
 import { products } from "../utils/products";
-import { BackgroundBeams } from "./background-beams";
 
 const HeroParallax = () => {
   const ref = useRef(null);
@@ -23,7 +22,6 @@ const HeroParallax = () => {
     >
       <Title scrollY={scrollY} />
       <ProductList scrollYProgress={scrollYProgress} />
-      <BackgroundBeams />
     </div>
   );
 };
