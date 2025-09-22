@@ -10,9 +10,10 @@ interface Props {
   imageSrc: string;
   children: React.ReactNode;
   width: string;
+  priority?: boolean;
 }
 
-function ServiceCard({ title, description, imageSrc, children, width }: Props) {
+function ServiceCard({ title, description, imageSrc, children, width, priority = false }: Props) {
   return (
     <CardContainer className={cn(`inter-var ${width}`)}>
       <CardBody className="group/card relative h-auto w-full rounded-xl border border-white/[0.2] bg-black p-6 hover:shadow-2xl hover:shadow-emerald-500/[0.1]">
@@ -29,6 +30,7 @@ function ServiceCard({ title, description, imageSrc, children, width }: Props) {
             width="1000"
             className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
             alt={title}
+            fetchPriority={priority ? "high" : undefined}
           />
         </CardItem>
 

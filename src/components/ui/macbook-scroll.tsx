@@ -173,6 +173,7 @@ export const Lid = React.memo(
               height={65}
               style={{ objectFit: "cover" }}
               priority
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -196,6 +197,7 @@ export const Lid = React.memo(
               loading="lazy"
               width={1536}
               height={1024}
+              fetchPriority="high"
             />
           )}
         </motion.div>

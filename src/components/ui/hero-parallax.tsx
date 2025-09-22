@@ -46,7 +46,7 @@ const Title = memo(({ scrollY }: { scrollY: MotionValue<number> }) => {
           width={80}
           height={80}
           className="mr-2 h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20"
-          priority
+          fetchPriority="high"
         />
         <span className="text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
@@ -153,7 +153,7 @@ const ProductCard = memo(
             className="absolute inset-0 h-full w-full object-cover object-center"
             alt={product.title}
             sizes="(max-width: 768px) 28rem, 36rem"
-            priority
+            fetchPriority="high"
           />
         </Link>
         <div

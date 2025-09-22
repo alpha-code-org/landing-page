@@ -79,6 +79,7 @@ const Card = ({
           description={item.description}
           imageSrc={item.imageSrc}
           width="w-[24rem] max-w-[90vw]"
+          priority={index === 0}
         >
           <div className="mt-4 flex items-center justify-between md:mt-20">
             <CardItem
