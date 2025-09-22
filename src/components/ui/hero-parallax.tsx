@@ -151,8 +151,8 @@ const ProductCard = memo(
             width="600"
             className="absolute inset-0 h-full w-full object-cover object-center"
             alt={product.title}
-            loading="lazy"
             sizes="(max-width: 768px) 28rem, 36rem"
+            priority
           />
         </Link>
         <div
