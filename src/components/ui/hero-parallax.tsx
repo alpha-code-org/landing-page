@@ -44,8 +44,8 @@ const Title = memo(({ scrollY }: { scrollY: MotionValue<number> }) => {
           alt="ac-logo"
           src="/logo.png"
           width={80}
-          height={80}
-          className="mr-2 h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20"
+          height={77}
+          className="mr-2 w-10 sm:w-16 md:w-20"
           fetchPriority="high"
         />
         <span className="text-brand-alpha-dark">Alpha</span>{" "}
