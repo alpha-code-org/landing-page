@@ -194,6 +194,8 @@ export const Lid = React.memo(
               alt="screen content"
               className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
               loading="lazy"
+              width={1536}
+              height={1024}
             />
           )}
         </motion.div>
