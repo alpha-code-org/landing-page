@@ -83,7 +83,7 @@ export default async function Home() {
                 alt={item.id.toString()}
                 width={100}
                 height={100}
-                priority
+                loading="lazy"
               />
             </li>
           ))}
@@ -245,7 +245,13 @@ const InfiniteList = ({ users }: Props) => {
     <ul className="flex flex-col items-center gap-8 bg-slate-700 p-4">
       {users.map((item) => (
         <li key={item.id} className="relative h-[100px] w-[100px] overflow-hidden rounded-full">
-          <Image src={item.avatar_url} alt={item.id.toString()} width={100} height={100} priority />
+          <Image
+            src={item.avatar_url}
+            alt={item.id.toString()}
+            width={100}
+            height={100}
+            loading="lazy"
+          />
         </li>
       ))}
     </ul>

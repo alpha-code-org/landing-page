@@ -33,6 +33,7 @@ export function BlogHeader({ author }: Props) {
             alt={`${author} profile picture`}
             fill
             className="object-cover"
+            loading="lazy"
           />
         </div>
 

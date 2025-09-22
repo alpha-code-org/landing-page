@@ -104,8 +104,8 @@ const ProductList = memo(({ scrollYProgress }: { scrollYProgress: MotionValue<nu
         className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse"
         style={{ willChange: "transform" }}
       >
-        {products.map((product) => (
-          <ProductCard product={product} translate={translateX} key={product.title} />
+        {products.map((product, index) => (
+          <ProductCard product={product} translate={translateX} key={product.title} index={index} />
         ))}
       </motion.div>
     </motion.div>
@@ -127,6 +127,7 @@ const ProductCard = memo(
   ({
     product,
     translate,
+    index,
   }: {
     product: {
       title: string;
@@ -134,6 +135,7 @@ const ProductCard = memo(
       thumbnail: string;
     };
     translate: MotionValue<number>;
+    index: number;
   }) => {
     return (
       <motion.div
@@ -145,7 +147,11 @@ const ProductCard = memo(
         key={product.title}
         className="group/product relative h-60 w-[28rem] flex-shrink-0 md:h-80 md:w-[36rem]"
       >
-        <Link href={product.link} className="block group-hover/product:shadow-2xl">
+        <Link
+          href={product.link}
+          className="block group-hover/product:shadow-2xl"
+          aria-label={`View ${product.title} project`}
+        >
           <Image
             src={product.thumbnail}
             height="600"
@@ -153,7 +159,8 @@ const ProductCard = memo(
             className="absolute inset-0 h-full w-full object-cover object-center"
             alt={product.title}
             sizes="(max-width: 768px) 28rem, 36rem"
-            fetchPriority="high"
+            fetchPriority={index < 3 ? "high" : "auto"}
+            loading={index < 3 ? "eager" : "lazy"}
           />
         </Link>
         <div

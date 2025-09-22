@@ -73,13 +73,16 @@ const Card = ({
       key={item.title}
       className="max-h-[100vh]"
     >
-      <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
+      <Link
+        href="https://calendly.com/alphacode/alpha-code"
+        target="__blank"
+        aria-label={`Schedule a consultation for ${item.title}`}
+      >
         <ServiceCard
           title={item.title}
           description={item.description}
           imageSrc={item.imageSrc}
           width="w-[24rem] max-w-[90vw]"
-          priority={index === 0}
         >
           <div className="mt-4 flex items-center justify-between md:mt-20">
             <CardItem
