@@ -189,7 +189,7 @@ export const Lid = React.memo(
         >
           <div className="absolute inset-0 rounded-lg bg-[#272729]" />
           {src && (
-            <img
+            <Image
               src={src}
               alt="screen content"
               className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"

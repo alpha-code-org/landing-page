@@ -64,13 +64,7 @@ export function Globe({ countriesData }: { countriesData: any }) {
     globeMaterial.emissive = new Color(globeConfig.emissive);
     globeMaterial.emissiveIntensity = globeConfig.emissiveIntensity || 0.1;
     globeMaterial.shininess = globeConfig.shininess || 0.9;
-  }, [
-    isInitialized,
-    globeConfig.globeColor,
-    globeConfig.emissive,
-    globeConfig.emissiveIntensity,
-    globeConfig.shininess,
-  ]);
+  }, [isInitialized]);
 
   // Memoize filtered points calculation
   const filteredPoints = useMemo(() => {
@@ -104,7 +98,7 @@ export function Globe({ countriesData }: { countriesData: any }) {
           ["lat", "lng"].every((k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"]),
         ) === i,
     );
-  }, [countriesData, globeConfig.pointSize, isInitialized]);
+  }, [isInitialized]);
 
   useEffect(() => {
     if (!globeRef.current || !isInitialized || !countriesData) return;
@@ -145,19 +139,7 @@ export function Globe({ countriesData }: { countriesData: any }) {
       .ringMaxRadius(globeConfig.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod((globeConfig.arcTime * globeConfig.arcLength) / globeConfig.rings);
-  }, [
-    isInitialized,
-    countriesData,
-    filteredPoints,
-    globeConfig.showAtmosphere,
-    globeConfig.atmosphereColor,
-    globeConfig.atmosphereAltitude,
-    globeConfig.polygonColor,
-    globeConfig.arcLength,
-    globeConfig.arcTime,
-    globeConfig.rings,
-    globeConfig.maxRings,
-  ]);
+  }, [isInitialized, countriesData, filteredPoints]);
 
   // Optimized rings animation with requestAnimationFrame
   const updateRings = useCallback(() => {
@@ -177,7 +159,7 @@ export function Globe({ countriesData }: { countriesData: any }) {
       }));
 
     globeRef.current.ringsData(ringsData);
-  }, [sampleArcs]);
+  }, []);
 
   // Handle rings animation with cleanup
   useEffect(() => {

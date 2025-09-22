@@ -13,6 +13,7 @@ const HeroParallax = () => {
   const { scrollYProgress, scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
+    layoutEffect: false,
   });
 
   return (
