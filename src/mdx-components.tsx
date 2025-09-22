@@ -58,6 +58,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         alt={props.alt || "Image"}
         width={400} // You can set default width and height
         height={250}
+        loading="lazy"
       />
     ),
     ...components,

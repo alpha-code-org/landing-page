@@ -30,7 +30,8 @@ function ServiceCard({ title, description, imageSrc, children, width, priority =
             width="1000"
             className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
             alt={title}
-            fetchPriority={priority ? "high" : undefined}
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
           />
         </CardItem>
 

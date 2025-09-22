@@ -172,8 +172,7 @@ export const Lid = React.memo(
               width={66}
               height={65}
               style={{ objectFit: "cover" }}
-              priority
-              fetchPriority="high"
+              loading="lazy"
             />
           </div>
         </div>
@@ -194,10 +193,9 @@ export const Lid = React.memo(
               src={src}
               alt="screen content"
               className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
-              loading="lazy"
               width={1536}
               height={1024}
-              fetchPriority="high"
+              loading="lazy"
             />
           )}
         </motion.div>
