@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3, Group } from "three";
 import { useThree, Canvas, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { globeConfig, sampleArcs } from "./globe.utils";
+import { globeConfig, sampleArcs } from "../utils/globe";
 
 declare module "@react-three/fiber" {
   interface ThreeElements {
