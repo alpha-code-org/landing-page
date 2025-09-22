@@ -240,7 +240,7 @@ export function World({ countriesData }: { countriesData: any }) {
         stencil: false,
         preserveDrawingBuffer: false,
       }}
-      frameloop="always" // Keep rendering for smooth animations
+      frameloop="demand"
       resize={{ scroll: false }} // Disable scroll-based resizing for performance
     >
       <WebGLRendererConfig />
