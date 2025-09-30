@@ -23,7 +23,6 @@ import { IconWorld } from "@tabler/icons-react";
 import { IconCommand } from "@tabler/icons-react";
 import { IconCaretLeftFilled } from "@tabler/icons-react";
 import { IconCaretDownFilled } from "@tabler/icons-react";
-import { motion, MotionValue, useScroll, useTransform, useSpring } from "framer-motion";
 import { cn } from "@/utils/cn";
 import { Highlight } from "./audit-highlight";
 
@@ -47,20 +46,20 @@ export const MacbookScroll = ({
   showGradient,
   title,
   badge,
+  animationDelay = 0.35,
 }: {
   src?: string;
   showGradient?: boolean;
   title?: string | React.ReactNode;
   badge?: React.ReactNode;
+  animationDelay?: number;
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  const macbookRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isLowPerf, setIsLowPerf] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   // Memoize device detection to avoid repeated calculations
   const deviceInfo = useMemo(
@@ -75,7 +74,7 @@ export const MacbookScroll = ({
     setIsMobile(deviceInfo.isMobile);
     setIsLowPerf(deviceInfo.isLowPerformance);
 
-    // Throttled resize handler with longer delay for low-end devices
+    // Throttled resize handler
     let timeoutId: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(timeoutId);
@@ -93,99 +92,88 @@ export const MacbookScroll = ({
     };
   }, [deviceInfo]);
 
-  // More aggressive throttling for low-performance devices
-  const springConfig = useMemo(() => {
-    if (isLowPerf) {
-      return {
-        stiffness: 80, // Reduced from 100
-        damping: 15, // Increased from 10
-        restDelta: 0.005, // Increased from 0.001
-        mass: 0.35, // Increased from 0.25
-      };
-    }
-    return {
-      stiffness: 100,
-      damping: 10,
-      restDelta: 0.001,
-      mass: 0.25,
+  // Scroll progress tracking with throttling for low-end devices
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    let ticking = false;
+    const updateScrollProgress = () => {
+      if (!containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const elementHeight = rect.height;
+
+      // Calculate progress based on element position with configurable delay
+      const rawProgress = (windowHeight - rect.top) / (windowHeight + elementHeight);
+      const progress = Math.max(
+        0,
+        Math.min(1, (rawProgress - animationDelay) / (1 - animationDelay)),
+      );
+
+      setScrollProgress(progress);
+      ticking = false;
     };
-  }, [isLowPerf]);
 
-  const throttledScrollYProgress = useSpring(scrollYProgress, springConfig);
+    const handleScroll = () => {
+      if (!ticking) {
+        const delay = isLowPerf ? 16 : 8; // Throttle more aggressively for low-end devices
+        setTimeout(() => {
+          requestAnimationFrame(updateScrollProgress);
+        }, delay);
+        ticking = true;
+      }
+    };
 
-  // Create transform hooks at the top level - conditional based on performance
-  // Low-performance transforms (simplified)
-  const lowPerfScaleX = useTransform(throttledScrollYProgress, [0, 0.5], [1.1, isMobile ? 1 : 1.3]);
-  const lowPerfScaleY = useTransform(throttledScrollYProgress, [0, 0.5], [0.8, isMobile ? 1 : 1.3]);
-  const lowPerfTranslate = useTransform(
-    throttledScrollYProgress,
-    [0, 0.8],
-    [0, isMobile ? 600 : 400],
-  );
-  const lowPerfRotate = useTransform(throttledScrollYProgress, [0.2, 0.5], [-20, 0]);
-  const lowPerfTextTransform = useTransform(throttledScrollYProgress, [0, 0.4], [0, 80]);
-  const lowPerfTextOpacity = useTransform(throttledScrollYProgress, [0, 0.3], [1, 0]);
+    // Skip animations entirely for low-end devices
+    if (!isLowPerf) {
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      updateScrollProgress(); // Initial calculation
+    }
 
-  // High-performance transforms (full animations)
-  const highPerfScaleX = useTransform(
-    throttledScrollYProgress,
-    [0, 0.3],
-    [1.2, isMobile ? 1 : 1.5],
-  );
-  const highPerfScaleY = useTransform(
-    throttledScrollYProgress,
-    [0, 0.3],
-    [0.6, isMobile ? 1 : 1.5],
-  );
-  const highPerfTranslate = useTransform(
-    throttledScrollYProgress,
-    [0, 0.6],
-    [0, isMobile ? 800 : 600],
-  );
-  const highPerfRotate = useTransform(throttledScrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
-  const highPerfTextTransform = useTransform(throttledScrollYProgress, [0, 0.3], [0, 100]);
-  const highPerfTextOpacity = useTransform(throttledScrollYProgress, [0, 0.2], [1, 0]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isLowPerf, animationDelay]);
 
-  // Memoize the transform object selection
-  const transforms = useMemo(() => {
+  // Calculate transform values based on scroll progress
+  const getTransformValues = useCallback(() => {
     if (isLowPerf) {
+      // No animations for low-end devices
       return {
-        scaleX: lowPerfScaleX,
-        scaleY: lowPerfScaleY,
-        translate: lowPerfTranslate,
-        rotate: lowPerfRotate,
-        textTransform: lowPerfTextTransform,
-        textOpacity: lowPerfTextOpacity,
+        scaleX: 1,
+        scaleY: 1,
+        translateY: 0,
+        rotateX: 0,
+        textTranslateY: 0,
+        textOpacity: 1,
       };
     }
 
+    // Smooth interpolation for high-end devices
+    const progress = scrollProgress;
+    const scaleX = 1.2 + progress * (isMobile ? -0.2 : 0.1);
+    const scaleY = Math.min(1.1, 0.6 + progress * (isMobile ? 0.4 : 1.5));
+    const translateY = progress * 900;
+    const rotateX = progress < 0.3 ? -28 + progress * 93.33 : 0; // -28 to 0 over first 30%
+    const textTranslateY = progress * 200;
+    const textOpacity = Math.max(0, 1 - progress * 5); // Fade out quickly
+
     return {
-      scaleX: highPerfScaleX,
-      scaleY: highPerfScaleY,
-      translate: highPerfTranslate,
-      rotate: highPerfRotate,
-      textTransform: highPerfTextTransform,
-      textOpacity: highPerfTextOpacity,
+      scaleX,
+      scaleY,
+      translateY,
+      rotateX,
+      textTranslateY,
+      textOpacity,
     };
-  }, [
-    isLowPerf,
-    lowPerfScaleX,
-    lowPerfScaleY,
-    lowPerfTranslate,
-    lowPerfRotate,
-    lowPerfTextTransform,
-    lowPerfTextOpacity,
-    highPerfScaleX,
-    highPerfScaleY,
-    highPerfTranslate,
-    highPerfRotate,
-    highPerfTextTransform,
-    highPerfTextOpacity,
-  ]);
+  }, [scrollProgress, isLowPerf, isMobile]);
+
+  const transforms = useMemo(() => getTransformValues(), [getTransformValues]);
 
   return (
     <div
-      ref={ref}
+      ref={containerRef}
       className="mb-20 flex h-[1000px] shrink-0 flex-col items-center py-40 md:h-[1680px] md:py-80"
       style={{
         // Force hardware acceleration and optimize rendering
@@ -194,12 +182,14 @@ export const MacbookScroll = ({
         perspective: "1000px",
       }}
     >
-      <motion.h2
-        style={{
-          translateY: transforms.textTransform,
-          opacity: transforms.textOpacity,
-        }}
+      <div
+        ref={titleRef}
         className="text-center text-2xl font-bold text-neutral-800 dark:text-white md:mb-20"
+        style={{
+          transform: `translateY(${transforms.textTranslateY}px)`,
+          opacity: transforms.textOpacity,
+          transition: isLowPerf ? "none" : "transform 0.1s ease-out, opacity 0.1s ease-out",
+        }}
       >
         {title || (
           <span className="scale-200 md:scale-100">
@@ -209,17 +199,13 @@ export const MacbookScroll = ({
             </Highlight>
           </span>
         )}
-      </motion.h2>
-      <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 [backface-visibility:hidden] [perspective:800px] [will-change:transform] sm:scale-50 md:scale-100">
+      </div>
+      <div
+        ref={macbookRef}
+        className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 [backface-visibility:hidden] [perspective:800px] [will-change:transform] sm:scale-50 md:scale-100"
+      >
         {/* Lid */}
-        <Lid
-          src={src}
-          scaleX={transforms.scaleX}
-          scaleY={transforms.scaleY}
-          rotate={transforms.rotate}
-          translate={transforms.translate}
-          isLowPerf={isLowPerf}
-        />
+        <CSSLid src={src} transforms={transforms} isLowPerf={isLowPerf} />
         {/* Base area */}
         <div className="relative -z-10 h-[22rem] w-[32rem] overflow-hidden rounded-2xl bg-gray-200 [will-change:transform] dark:bg-[#272729]">
           {/* above keyboard bar */}
@@ -249,20 +235,21 @@ export const MacbookScroll = ({
   );
 };
 
-export const Lid = React.memo(
+export const CSSLid = React.memo(
   ({
-    scaleX,
-    scaleY,
-    rotate,
-    translate,
     src,
+    transforms,
     isLowPerf = false,
   }: {
-    scaleX: MotionValue<number>;
-    scaleY: MotionValue<number>;
-    rotate: MotionValue<number>;
-    translate: MotionValue<number>;
     src?: string;
+    transforms: {
+      scaleX: number;
+      scaleY: number;
+      translateY: number;
+      rotateX: number;
+      textTranslateY: number;
+      textOpacity: number;
+    };
     isLowPerf?: boolean;
   }) => {
     // Optimize rendering for low-performance devices
@@ -277,22 +264,16 @@ export const Lid = React.memo(
       [isLowPerf],
     );
 
-    const motionProps = useMemo(
+    const screenStyle = useMemo(
       () => ({
-        style: {
-          scaleX: scaleX,
-          scaleY: scaleY,
-          rotateX: rotate,
-          translateY: translate,
-          transformStyle: "preserve-3d" as const,
-          transformOrigin: "top",
-        },
-        // Reduce animation frequency for low-performance devices
-        ...(isLowPerf && {
-          transition: { type: "tween", ease: "easeOut", duration: 0.3 },
-        }),
+        transform: isLowPerf
+          ? "translateZ(0px)"
+          : `scaleX(${transforms.scaleX}) scaleY(${transforms.scaleY}) rotateX(${transforms.rotateX}deg) translateY(${transforms.translateY}px) translateZ(0px)`,
+        transformStyle: "preserve-3d" as const,
+        transformOrigin: "top",
+        transition: isLowPerf ? "none" : "transform 0.1s ease-out",
       }),
-      [scaleX, scaleY, rotate, translate, isLowPerf],
+      [transforms, isLowPerf],
     );
 
     return (
@@ -319,8 +300,8 @@ export const Lid = React.memo(
             />
           </div>
         </div>
-        <motion.div
-          {...motionProps}
+        <div
+          style={screenStyle}
           className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2 [backface-visibility:hidden] [will-change:transform]"
         >
           <div className="absolute inset-0 rounded-lg bg-[#272729]" />
@@ -335,12 +316,12 @@ export const Lid = React.memo(
               quality={isLowPerf ? 75 : 90} // Reduce image quality for low-perf devices
             />
           )}
-        </motion.div>
+        </div>
       </div>
     );
   },
 );
-Lid.displayName = "Lid";
+CSSLid.displayName = "CSSLid";
 
 export const Trackpad = React.memo(() => {
   return (
