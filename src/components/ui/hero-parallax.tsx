@@ -1,41 +1,63 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./moving-border-button";
-import { useRef, memo } from "react";
+import { useRef, memo, useEffect } from "react";
 import { products } from "../utils/products";
 
 const HeroParallax = () => {
-  const ref = useRef(null);
-  const { scrollYProgress, scrollY } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-    layoutEffect: false,
-  });
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ref.current) return;
+
+      const rect = ref.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const elementHeight = rect.height;
+
+      // Calculate scroll progress (0 to 1)
+      const scrollTop = -rect.top;
+      const maxScroll = elementHeight - windowHeight;
+      const progress = Math.max(0, Math.min(1, scrollTop / maxScroll));
+
+      // Update CSS custom properties for animations on the component itself
+      ref.current.style.setProperty("--scroll-progress", progress.toString());
+      ref.current.style.setProperty("--scroll-y", Math.max(0, scrollTop).toString());
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial call
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div
       ref={ref}
-      className="relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-black pb-80 antialiased [perspective:300px] [transform-style:preserve-3d] md:pb-96"
+      className="hero-parallax relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-black pb-80 antialiased [perspective:300px] [transform-style:preserve-3d] md:pb-96"
+      style={
+        {
+          "--scroll-progress": "0",
+          "--scroll-y": "0",
+        } as React.CSSProperties
+      }
     >
-      <Title scrollY={scrollY} />
-      <ProductList scrollYProgress={scrollYProgress} />
+      <Title />
+      <ProductList />
     </div>
   );
 };
 
-const Title = memo(({ scrollY }: { scrollY: MotionValue<number> }) => {
-  const opacity = useTransform(scrollY, [0, 200], [1, 0]);
-
+const Title = memo(() => {
   return (
-    <motion.div
+    <div
+      className="title-fade relative left-[5%] top-[50vh] z-20 w-full md:top-[40vh]"
       style={{
-        opacity,
+        opacity: "calc(max(0, 1 - var(--scroll-y) / 200))",
         willChange: "opacity",
       }}
-      className="relative left-[5%] top-[50vh] z-20 w-full md:top-[40vh]"
     >
       <h1 className="relative flex items-center gap-2 text-4xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
         <Image
@@ -60,71 +82,48 @@ const Title = memo(({ scrollY }: { scrollY: MotionValue<number> }) => {
           Book a meeting
         </Button>
       </Link>
-    </motion.div>
+    </div>
   );
 });
 
 Title.displayName = "Title";
 
-const springConfig = {
-  stiffness: 200,
-  damping: 30,
-  mass: 0.8,
-};
-
-const ProductList = memo(({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
-  // Transform hooks must be called directly, not inside useMemo
-  const translateXTransform = useTransform(scrollYProgress, [0, 1], [0, 400]);
-  const rotateXTransform = useTransform(scrollYProgress, [0, 0.2], [15, 0]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.6], [0.6, 1]);
-  const rotateZTransform = useTransform(scrollYProgress, [0, 0.2], [20, 0]);
-  const translateYTransform = useTransform(scrollYProgress, [0, 0.1], [-100, 320]);
-
-  const translateX = useSpring(translateXTransform, springConfig);
-  const rotateX = useSpring(rotateXTransform, springConfig);
-  const opacity = useSpring(opacityTransform, springConfig);
-  const rotateZ = useSpring(rotateZTransform, springConfig);
-  const translateY = useSpring(translateYTransform, springConfig);
-
+const ProductList = memo(() => {
   return (
-    <motion.div
+    <div
+      className="product-list relative z-10"
       style={{
-        rotateX,
-        rotateZ,
-        translateY,
-        opacity,
+        transform: `
+          rotateX(calc(15deg - 15deg * min(var(--scroll-progress) / 0.2, 1)))
+          rotateZ(calc(20deg - 20deg * min(var(--scroll-progress) / 0.2, 1)))
+          translateY(calc(-100px + 420px * min(var(--scroll-progress) / 0.1, 1)))
+        `,
+        opacity: "calc(0.6 + 0.4 * min(var(--scroll-progress) / 0.6, 1))",
         willChange: "transform, opacity",
-        transform: "translate3d(0, 0, 0)", // Force hardware acceleration
+        transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
       }}
-      className="relative z-10"
     >
-      <motion.div
-        className="mb-20 flex flex-row-reverse space-x-20 space-x-reverse"
-        style={{ willChange: "transform" }}
+      <div
+        className="product-container mb-20 flex flex-row-reverse space-x-20 space-x-reverse"
+        style={{
+          transform: "translateX(calc(400px * var(--scroll-progress)))",
+          willChange: "transform",
+          transition: "transform 0.3s ease-out",
+        }}
       >
         {products.map((product, index) => (
-          <ProductCard product={product} translate={translateX} key={product.title} index={index} />
+          <ProductCard product={product} key={product.title} index={index} />
         ))}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 });
 
 ProductList.displayName = "ProductList";
 
-const hoverAnimation = {
-  y: -20,
-  transition: {
-    type: "spring",
-    stiffness: 400,
-    damping: 25,
-  },
-};
-
 const ProductCard = memo(
   ({
     product,
-    translate,
     index,
   }: {
     product: {
@@ -132,18 +131,15 @@ const ProductCard = memo(
       link: string;
       thumbnail: string;
     };
-    translate: MotionValue<number>;
     index: number;
   }) => {
     return (
-      <motion.div
+      <div
+        key={product.title}
+        className="product-card group/product relative h-60 w-[28rem] flex-shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-[36rem]"
         style={{
-          x: translate,
           willChange: "transform",
         }}
-        whileHover={hoverAnimation}
-        key={product.title}
-        className="group/product relative h-60 w-[28rem] flex-shrink-0 md:h-80 md:w-[36rem]"
       >
         <Link
           href={product.link}
@@ -171,7 +167,7 @@ const ProductCard = memo(
         >
           {product.title}
         </h2>
-      </motion.div>
+      </div>
     );
   },
 );
