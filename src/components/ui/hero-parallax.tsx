@@ -6,61 +6,40 @@ import { Button } from "./moving-border-button";
 import { useRef, memo, useEffect, useState, useCallback } from "react";
 import { products } from "../utils/products";
 
-// Throttle utility function
-const throttle = (func: Function, delay: number) => {
-  let timeoutId: NodeJS.Timeout | null = null;
-  let lastExecTime = 0;
-
-  return (...args: any[]) => {
-    const currentTime = Date.now();
-
-    if (currentTime - lastExecTime > delay) {
-      func(...args);
-      lastExecTime = currentTime;
-    } else {
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(
-        () => {
-          func(...args);
-          lastExecTime = Date.now();
-        },
-        delay - (currentTime - lastExecTime),
-      );
-    }
-  };
-};
-
 const HeroParallax = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [scrollY, setScrollY] = useState(0);
 
-  const handleScroll = useCallback(() => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const elementHeight = rect.height;
-
-    // Calculate scroll progress (0 to 1)
-    const scrollTop = -rect.top;
-    const maxScroll = elementHeight - windowHeight;
-    const progress = Math.max(0, Math.min(0.5, scrollTop / maxScroll));
-
-    // Update state instead of CSS custom properties
-    setScrollProgress(progress);
-    setScrollY(Math.max(0, scrollTop));
-  }, []);
-
   useEffect(() => {
-    // Throttle scroll handler to improve performance (16ms ≈ 60fps)
-    const throttledScrollHandler = throttle(handleScroll, 16);
+    let ticking = false;
 
-    window.addEventListener("scroll", throttledScrollHandler, { passive: true });
-    handleScroll(); // Initial call
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          if (!ref.current) return;
 
-    return () => window.removeEventListener("scroll", throttledScrollHandler);
-  }, [handleScroll]);
+          const rect = ref.current.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          const elementHeight = rect.height;
+
+          const scrollTop = -rect.top;
+          const maxScroll = Math.max(1, elementHeight - windowHeight); // avoid 0
+          const progress = Math.max(0, Math.min(0.5, scrollTop / maxScroll));
+
+          setScrollProgress(progress);
+          setScrollY(Math.max(0, scrollTop));
+          ticking = false;
+        });
+      }
+    };
+
+    // passive improves scrolling on Android
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initial
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div
