@@ -97,10 +97,10 @@ export const MacbookScroll = ({
   const springConfig = useMemo(() => {
     if (isLowPerf) {
       return {
-        stiffness: 50, // Reduced from 100
-        damping: 20, // Increased from 10
-        restDelta: 0.01, // Increased from 0.001
-        mass: 0.5, // Increased from 0.25
+        stiffness: 80, // Reduced from 100
+        damping: 15, // Increased from 10
+        restDelta: 0.005, // Increased from 0.001
+        mass: 0.35, // Increased from 0.25
       };
     }
     return {
