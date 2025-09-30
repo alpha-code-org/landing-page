@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import Image from "next/image";
 import {
   IconBrightnessDown,
@@ -27,6 +27,21 @@ import { motion, MotionValue, useScroll, useTransform, useSpring } from "framer-
 import { cn } from "@/utils/cn";
 import { Highlight } from "./audit-highlight";
 
+// Detect if device is Android for performance optimizations
+const isAndroid = () => {
+  if (typeof window === "undefined") return false;
+  return /Android/i.test(navigator.userAgent);
+};
+
+// Detect if device has limited performance capabilities
+const isLowEndDevice = () => {
+  if (typeof window === "undefined") return false;
+  // Check for various indicators of low-end devices
+  const isSlowDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+  const isLowMemory = (navigator as any).deviceMemory && (navigator as any).deviceMemory <= 2;
+  return isSlowDevice || isLowMemory || isAndroid();
+};
+
 export const MacbookScroll = ({
   src,
   showGradient,
@@ -44,54 +59,145 @@ export const MacbookScroll = ({
     offset: ["start start", "end start"],
   });
 
-  // Throttle scrollYProgress using useSpring for smoother animations
-  const throttledScrollYProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 10,
-    restDelta: 0.001,
-    mass: 0.25,
-  });
-
   const [isMobile, setIsMobile] = useState(false);
+  const [isLowPerf, setIsLowPerf] = useState(false);
+
+  // Memoize device detection to avoid repeated calculations
+  const deviceInfo = useMemo(
+    () => ({
+      isMobile: typeof window !== "undefined" && window.innerWidth < 768,
+      isLowPerformance: isLowEndDevice(),
+    }),
+    [],
+  );
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    setIsMobile(deviceInfo.isMobile);
+    setIsLowPerf(deviceInfo.isLowPerformance);
 
-    checkMobile();
-
-    // Add resize listener with throttling for better performance
+    // Throttled resize handler with longer delay for low-end devices
     let timeoutId: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(checkMobile, 100);
+      const delay = deviceInfo.isLowPerformance ? 200 : 100;
+      timeoutId = setTimeout(() => {
+        const newIsMobile = window.innerWidth < 768;
+        setIsMobile(newIsMobile);
+      }, delay);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => {
       window.removeEventListener("resize", handleResize);
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [deviceInfo]);
 
-  // Transform values using throttled scroll progress for better performance
-  const scaleX = useTransform(throttledScrollYProgress, [0, 0.3], [1.2, isMobile ? 1 : 1.5]);
-  const scaleY = useTransform(throttledScrollYProgress, [0, 0.3], [0.6, isMobile ? 1 : 1.5]);
-  const translate = useTransform(throttledScrollYProgress, [0, 0.6], [0, isMobile ? 800 : 600]);
-  const rotate = useTransform(throttledScrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
-  const textTransform = useTransform(throttledScrollYProgress, [0, 0.3], [0, 100]);
-  const textOpacity = useTransform(throttledScrollYProgress, [0, 0.2], [1, 0]);
+  // More aggressive throttling for low-performance devices
+  const springConfig = useMemo(() => {
+    if (isLowPerf) {
+      return {
+        stiffness: 50, // Reduced from 100
+        damping: 20, // Increased from 10
+        restDelta: 0.01, // Increased from 0.001
+        mass: 0.5, // Increased from 0.25
+      };
+    }
+    return {
+      stiffness: 100,
+      damping: 10,
+      restDelta: 0.001,
+      mass: 0.25,
+    };
+  }, [isLowPerf]);
+
+  const throttledScrollYProgress = useSpring(scrollYProgress, springConfig);
+
+  // Create transform hooks at the top level - conditional based on performance
+  // Low-performance transforms (simplified)
+  const lowPerfScaleX = useTransform(throttledScrollYProgress, [0, 0.5], [1.1, isMobile ? 1 : 1.3]);
+  const lowPerfScaleY = useTransform(throttledScrollYProgress, [0, 0.5], [0.8, isMobile ? 1 : 1.3]);
+  const lowPerfTranslate = useTransform(
+    throttledScrollYProgress,
+    [0, 0.8],
+    [0, isMobile ? 600 : 400],
+  );
+  const lowPerfRotate = useTransform(throttledScrollYProgress, [0.2, 0.5], [-20, 0]);
+  const lowPerfTextTransform = useTransform(throttledScrollYProgress, [0, 0.4], [0, 80]);
+  const lowPerfTextOpacity = useTransform(throttledScrollYProgress, [0, 0.3], [1, 0]);
+
+  // High-performance transforms (full animations)
+  const highPerfScaleX = useTransform(
+    throttledScrollYProgress,
+    [0, 0.3],
+    [1.2, isMobile ? 1 : 1.5],
+  );
+  const highPerfScaleY = useTransform(
+    throttledScrollYProgress,
+    [0, 0.3],
+    [0.6, isMobile ? 1 : 1.5],
+  );
+  const highPerfTranslate = useTransform(
+    throttledScrollYProgress,
+    [0, 0.6],
+    [0, isMobile ? 800 : 600],
+  );
+  const highPerfRotate = useTransform(throttledScrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
+  const highPerfTextTransform = useTransform(throttledScrollYProgress, [0, 0.3], [0, 100]);
+  const highPerfTextOpacity = useTransform(throttledScrollYProgress, [0, 0.2], [1, 0]);
+
+  // Memoize the transform object selection
+  const transforms = useMemo(() => {
+    if (isLowPerf) {
+      return {
+        scaleX: lowPerfScaleX,
+        scaleY: lowPerfScaleY,
+        translate: lowPerfTranslate,
+        rotate: lowPerfRotate,
+        textTransform: lowPerfTextTransform,
+        textOpacity: lowPerfTextOpacity,
+      };
+    }
+
+    return {
+      scaleX: highPerfScaleX,
+      scaleY: highPerfScaleY,
+      translate: highPerfTranslate,
+      rotate: highPerfRotate,
+      textTransform: highPerfTextTransform,
+      textOpacity: highPerfTextOpacity,
+    };
+  }, [
+    isLowPerf,
+    lowPerfScaleX,
+    lowPerfScaleY,
+    lowPerfTranslate,
+    lowPerfRotate,
+    lowPerfTextTransform,
+    lowPerfTextOpacity,
+    highPerfScaleX,
+    highPerfScaleY,
+    highPerfTranslate,
+    highPerfRotate,
+    highPerfTextTransform,
+    highPerfTextOpacity,
+  ]);
 
   return (
     <div
       ref={ref}
       className="mb-20 flex h-[1000px] shrink-0 flex-col items-center py-40 md:h-[1680px] md:py-80"
+      style={{
+        // Force hardware acceleration and optimize rendering
+        transform: "translateZ(0)",
+        backfaceVisibility: "hidden",
+        perspective: "1000px",
+      }}
     >
       <motion.h2
         style={{
-          translateY: textTransform,
-          opacity: textOpacity,
+          translateY: transforms.textTransform,
+          opacity: transforms.textOpacity,
         }}
         className="text-center text-2xl font-bold text-neutral-800 dark:text-white md:mb-20"
       >
@@ -106,7 +212,14 @@ export const MacbookScroll = ({
       </motion.h2>
       <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 [backface-visibility:hidden] [perspective:800px] [will-change:transform] sm:scale-50 md:scale-100">
         {/* Lid */}
-        <Lid src={src} scaleX={scaleX} scaleY={scaleY} rotate={rotate} translate={translate} />
+        <Lid
+          src={src}
+          scaleX={transforms.scaleX}
+          scaleY={transforms.scaleY}
+          rotate={transforms.rotate}
+          translate={transforms.translate}
+          isLowPerf={isLowPerf}
+        />
         {/* Base area */}
         <div className="relative -z-10 h-[22rem] w-[32rem] overflow-hidden rounded-2xl bg-gray-200 [will-change:transform] dark:bg-[#272729]">
           {/* above keyboard bar */}
@@ -115,13 +228,13 @@ export const MacbookScroll = ({
           </div>
           <div className="relative flex">
             <div className="mx-auto h-full w-[10%] overflow-hidden">
-              <SpeakerGrid />
+              <SpeakerGrid isLowPerf={isLowPerf} />
             </div>
             <div className="mx-auto h-full w-[80%]">
-              <Keypad />
+              <Keypad isLowPerf={isLowPerf} />
             </div>
             <div className="mx-auto h-full w-[10%] overflow-hidden">
-              <SpeakerGrid />
+              <SpeakerGrid isLowPerf={isLowPerf} />
             </div>
           </div>
           <Trackpad />
@@ -143,26 +256,56 @@ export const Lid = React.memo(
     rotate,
     translate,
     src,
+    isLowPerf = false,
   }: {
     scaleX: MotionValue<number>;
     scaleY: MotionValue<number>;
     rotate: MotionValue<number>;
     translate: MotionValue<number>;
     src?: string;
+    isLowPerf?: boolean;
   }) => {
+    // Optimize rendering for low-performance devices
+    const lidStyle = useMemo(
+      () => ({
+        transform: isLowPerf
+          ? "perspective(600px) rotateX(-20deg) translateZ(0px)"
+          : "perspective(800px) rotateX(-25deg) translateZ(0px)",
+        transformOrigin: "bottom",
+        transformStyle: "preserve-3d" as const,
+      }),
+      [isLowPerf],
+    );
+
+    const motionProps = useMemo(
+      () => ({
+        style: {
+          scaleX: scaleX,
+          scaleY: scaleY,
+          rotateX: rotate,
+          translateY: translate,
+          transformStyle: "preserve-3d" as const,
+          transformOrigin: "top",
+        },
+        // Reduce animation frequency for low-performance devices
+        ...(isLowPerf && {
+          transition: { type: "tween", ease: "easeOut", duration: 0.3 },
+        }),
+      }),
+      [scaleX, scaleY, rotate, translate, isLowPerf],
+    );
+
     return (
       <div className="relative [perspective:800px] [will-change:transform]">
         <div
-          style={{
-            transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
-            transformOrigin: "bottom",
-            transformStyle: "preserve-3d",
-          }}
+          style={lidStyle}
           className="relative h-[12rem] w-[32rem] rounded-2xl bg-[#010101] p-2 [backface-visibility:hidden] [will-change:transform]"
         >
           <div
             style={{
-              boxShadow: "0px 2px 0px 2px #171717 inset",
+              boxShadow: isLowPerf
+                ? "0px 1px 0px 1px #171717 inset"
+                : "0px 2px 0px 2px #171717 inset",
             }}
             className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
           >
@@ -177,14 +320,7 @@ export const Lid = React.memo(
           </div>
         </div>
         <motion.div
-          style={{
-            scaleX: scaleX,
-            scaleY: scaleY,
-            rotateX: rotate,
-            translateY: translate,
-            transformStyle: "preserve-3d",
-            transformOrigin: "top",
-          }}
+          {...motionProps}
           className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2 [backface-visibility:hidden] [will-change:transform]"
         >
           <div className="absolute inset-0 rounded-lg bg-[#272729]" />
@@ -193,9 +329,10 @@ export const Lid = React.memo(
               src={src}
               alt="screen content"
               className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
-              width={1536}
-              height={1024}
+              width={isLowPerf ? 768 : 1536} // Reduce image size for low-perf devices
+              height={isLowPerf ? 512 : 1024}
               loading="lazy"
+              quality={isLowPerf ? 75 : 90} // Reduce image quality for low-perf devices
             />
           )}
         </motion.div>
@@ -217,7 +354,19 @@ export const Trackpad = React.memo(() => {
 });
 Trackpad.displayName = "Trackpad";
 
-export const Keypad = React.memo(() => {
+export const Keypad = React.memo(({ isLowPerf = false }: { isLowPerf?: boolean }) => {
+  // For low-performance devices, simplify the keypad rendering
+  if (isLowPerf) {
+    return (
+      <div className="mx-1 h-full rounded-md bg-[#050505] p-1 [transform:translateZ(0)] [will-change:transform]">
+        {/* Simplified keypad for low-performance devices */}
+        <div className="flex h-full items-center justify-center">
+          <div className="text-xs text-neutral-400">Keyboard</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-1 h-full rounded-md bg-[#050505] p-1 [transform:translateZ(0)] [will-change:transform]">
       {/* First Row */}
@@ -614,14 +763,25 @@ export const KBtn = React.memo(
 );
 KBtn.displayName = "KBtn";
 
-export const SpeakerGrid = React.memo(() => {
+export const SpeakerGrid = React.memo(({ isLowPerf = false }: { isLowPerf?: boolean }) => {
+  // Simplify speaker grid for low-performance devices
+  const backgroundStyle = useMemo(() => {
+    if (isLowPerf) {
+      return {
+        backgroundImage: "radial-gradient(circle, #08080A 1px, transparent 1px)",
+        backgroundSize: "6px 6px", // Larger pattern, fewer elements
+      };
+    }
+    return {
+      backgroundImage: "radial-gradient(circle, #08080A 0.5px, transparent 0.5px)",
+      backgroundSize: "3px 3px",
+    };
+  }, [isLowPerf]);
+
   return (
     <div
       className="mt-2 flex h-40 gap-[2px] px-[0.5px] [will-change:transform]"
-      style={{
-        backgroundImage: "radial-gradient(circle, #08080A 0.5px, transparent 0.5px)",
-        backgroundSize: "3px 3px",
-      }}
+      style={backgroundStyle}
     ></div>
   );
 });
