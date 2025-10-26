@@ -25,15 +25,15 @@ const Blog = async () => {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-8">
         <h2 className="mx-auto text-2xl font-bold md:text-3xl">Blog</h2>
 
-        <ul className="grid grid-cols-12 place-items-start gap-4">
+        <ul className="grid auto-rows-max grid-cols-12 place-items-start items-stretch gap-4">
           {posts
             .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
             .map(({ slug, title, publishDate }) => (
               <li
                 key={slug}
-                className="col-span-12 flex justify-center md:col-span-6 lg:col-span-4"
+                className="col-span-12 flex w-full justify-center md:col-span-6 lg:col-span-4"
               >
-                <Link href={`/blog/${slug}`}>
+                <Link href={`/blog/${slug}`} className="flex w-full flex-col">
                   <ServiceCard
                     title={title}
                     description={new Date(publishDate).toLocaleString("en-US", {

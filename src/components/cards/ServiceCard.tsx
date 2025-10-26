@@ -14,9 +14,9 @@ interface Props {
 
 function ServiceCard({ title, description, imageSrc, children, width }: Props) {
   return (
-    <CardContainer className={cn(`inter-var ${width}`)}>
-      <CardBody className="group/card relative h-auto w-full rounded-xl border border-white/[0.2] bg-black p-6 hover:shadow-2xl hover:shadow-emerald-500/[0.1]">
-        <CardItem translateZ="50" className="text-xl font-bold text-white md:text-2xl">
+    <CardContainer className={cn(`inter-var ${width} `)} containerClassName="flex-1">
+      <CardBody className="group/card relative flex h-auto w-full flex-1 flex-col rounded-xl border border-white/[0.2] bg-black p-6 hover:shadow-2xl hover:shadow-emerald-500/[0.1]">
+        <CardItem translateZ="50" className="mb-auto text-xl font-bold text-white md:text-2xl">
           {title}
         </CardItem>
         <CardItem translateZ="60" className="mt-2 max-w-sm text-sm text-neutral-400 md:text-lg">
