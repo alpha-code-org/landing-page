@@ -101,7 +101,7 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
     >
       <div
         className={cn(
-          "border-border bg-background z-0 h-[540px] w-full max-w-lg rounded-xl border md:h-[600px]",
+          "border-border bg-background z-0 h-[540px] w-full max-w-lg rounded-xl border md:h-[500px]",
           className,
         )}
       >
@@ -113,7 +113,7 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
           </div>
         </div>
         <pre className="p-4">
-          <code className="grid gap-y-1 overflow-auto px-1 pb-4 pt-2">
+          <code className="grid gap-y-2 overflow-auto px-1 pb-4 pt-2">
             {isInView && (
               <>
                 <TypingAnimation duration={6}>
@@ -132,24 +132,8 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
                   <span>✔ SEO optimized.</span>
                 </AnimatedSpan>
 
-                <AnimatedSpan delay={2000} className="text-green-500">
-                  <span>✔ Listening to your feedback.</span>
-                </AnimatedSpan>
-
                 <AnimatedSpan delay={2500} className="text-green-500">
                   <span>✔ Robust testing suite.</span>
-                </AnimatedSpan>
-
-                <AnimatedSpan delay={3000} className="text-green-500">
-                  <span>✔ Continuous integration and deployment.</span>
-                </AnimatedSpan>
-
-                <AnimatedSpan delay={3500} className="text-green-500">
-                  <span>✔ Scalable and maintainable code.</span>
-                </AnimatedSpan>
-
-                <AnimatedSpan delay={4000} className="text-green-500">
-                  <span>✔ Regular updates and improvements.</span>
                 </AnimatedSpan>
 
                 <AnimatedSpan delay={4500} className="text-green-500">
