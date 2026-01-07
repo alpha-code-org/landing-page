@@ -1,28 +1,43 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { motion, MotionProps, useInView } from "framer-motion";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useEffect, useRef, useState } from "react";
 
-interface AnimatedSpanProps extends MotionProps {
+interface AnimatedSpanProps {
   children: React.ReactNode;
   delay?: number;
   className?: string;
 }
 
-export const AnimatedSpan = ({ children, delay = 0, className, ...props }: AnimatedSpanProps) => (
-  <motion.div
-    initial={{ opacity: 0, y: -5 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3, delay: delay / 1000 }}
-    className={cn("grid text-base font-normal tracking-tight md:text-lg", className)}
-    {...props}
-  >
-    {children}
-  </motion.div>
-);
+export const AnimatedSpan = ({ children, delay = 0, className }: AnimatedSpanProps) => {
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
-interface TypingAnimationProps extends MotionProps {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldAnimate(true);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  return (
+    <div
+      className={cn(
+        "grid text-base font-normal tracking-tight md:text-lg",
+        shouldAnimate && "animate-fade-in-up",
+        className
+      )}
+      style={{
+        opacity: shouldAnimate ? undefined : 0,
+        transform: shouldAnimate ? undefined : "translateY(-5px)",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+interface TypingAnimationProps {
   children: string;
   className?: string;
   duration?: number;
@@ -36,19 +51,13 @@ export const TypingAnimation = ({
   duration = 60,
   delay = 0,
   as: Component = "span",
-  ...props
 }: TypingAnimationProps) => {
   if (typeof children !== "string") {
     throw new Error("TypingAnimation: children must be a string. Received:");
   }
 
-  const MotionComponent = motion.create(Component, {
-    forwardMotionProps: true,
-  });
-
   const [displayedText, setDisplayedText] = useState<string>("");
   const [started, setStarted] = useState(false);
-  const elementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const startTimeout = setTimeout(() => {
@@ -76,13 +85,9 @@ export const TypingAnimation = ({
   }, [children, duration, started]);
 
   return (
-    <MotionComponent
-      ref={elementRef}
-      className={cn("text-base font-normal tracking-tight md:text-lg", className)}
-      {...props}
-    >
+    <Component className={cn("text-base font-normal tracking-tight md:text-lg", className)}>
       {displayedText}
-    </MotionComponent>
+    </Component>
   );
 };
 
@@ -91,8 +96,8 @@ interface TerminalProps {
 }
 
 export const ChecklistTerminal = ({ className }: TerminalProps) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useIntersectionObserver(ref, { once: true, amount: 0.3 });
 
   return (
     <div

@@ -1,10 +1,11 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { motion } from "framer-motion";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Button } from "./moving-border-button";
 import Link from "next/link";
 import { words } from "../utils/words";
+import { useRef } from "react";
 
 export const Typewriter = ({
   className,
@@ -13,6 +14,12 @@ export const Typewriter = ({
   className?: string;
   cursorClassName?: string;
 }) => {
+  const textRef = useRef<HTMLDivElement>(null);
+  const isInView = useIntersectionObserver(textRef, {
+    once: true,
+    amount: 0.3,
+  });
+
   const wordsArray = words.map((word) => {
     return {
       ...word,
@@ -46,18 +53,12 @@ export const Typewriter = ({
       </p>
 
       <div className={cn("my-6 hidden space-x-1 md:flex", className)}>
-        <motion.div
-          className="overflow-hidden"
-          initial={{
-            width: "0%",
-          }}
-          whileInView={{
-            width: "fit-content",
-          }}
-          transition={{
-            duration: 1,
-            ease: "linear",
-            delay: 0.2,
+        <div
+          ref={textRef}
+          className={cn("overflow-hidden", isInView && "animate-reveal-width")}
+          style={{
+            width: isInView ? "fit-content" : "0",
+            animationDelay: "0.2s",
           }}
         >
           <div
@@ -69,20 +70,17 @@ export const Typewriter = ({
           >
             {renderWords()}{" "}
           </div>{" "}
-        </motion.div>
-        <motion.span
-          initial={{
-            opacity: 0,
+        </div>
+        <span
+          className={cn(
+            "block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12 animate-cursor-blink",
+            cursorClassName
+          )}
+          style={{
+            height: "100%",
+            animationDelay: "1.2s",
           }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            duration: 0.8,
-          }}
-          className={cn("block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12", cursorClassName)}
-          style={{ height: "100%" }}
-        ></motion.span>
+        ></span>
       </div>
       <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">

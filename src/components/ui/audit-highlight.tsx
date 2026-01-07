@@ -1,28 +1,14 @@
 "use client";
 import { cn } from "@/utils/cn";
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import React from "react";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import React, { useState, useRef } from "react";
 import { Button } from "./moving-border-button";
 import Link from "next/link";
 
 export const AuditHighlight = () => {
   return (
     <HeroHighlight>
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 20,
-        }}
-        animate={{
-          opacity: 1,
-          y: [20, -5, 0],
-        }}
-        transition={{
-          duration: 0.5,
-          ease: [0.4, 0.0, 0.2, 1],
-        }}
-        className="mx-auto flex max-w-4xl flex-col items-center gap-12 px-4"
-      >
+      <div className="mx-auto flex max-w-4xl flex-col items-center gap-12 px-4 animate-fade-in-bounce">
         <h1 className="text-center text-2xl font-bold leading-relaxed text-neutral-700 dark:text-white md:text-4xl lg:text-5xl lg:leading-snug">
           We identify security vulnerabilities and areas for improvement{" "}
           <Highlight className="whitespace-nowrap text-black dark:text-white">
@@ -39,7 +25,7 @@ export const AuditHighlight = () => {
             Request an audit
           </Button>
         </Link>
-      </motion.div>
+      </div>
     </HeroHighlight>
   );
 };
@@ -53,8 +39,7 @@ const HeroHighlight = ({
   className?: string;
   containerClassName?: string;
 }) => {
-  let mouseX = useMotionValue(0);
-  let mouseY = useMotionValue(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // SVG patterns for different states and themes
   const dotPatterns = {
@@ -70,10 +55,8 @@ const HeroHighlight = ({
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
     if (!currentTarget) return;
-    let { left, top } = currentTarget.getBoundingClientRect();
-
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
+    const { left, top } = currentTarget.getBoundingClientRect();
+    setMousePosition({ x: clientX - left, y: clientY - top });
   }
   return (
     <div
@@ -95,44 +78,20 @@ const HeroHighlight = ({
           backgroundImage: dotPatterns.dark.default,
         }}
       />
-      <motion.div
+      <div
         className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 dark:hidden"
         style={{
           backgroundImage: dotPatterns.light.hover,
-          WebkitMaskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
-          maskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
+          WebkitMaskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
+          maskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
         }}
       />
-      <motion.div
+      <div
         className="pointer-events-none absolute inset-0 hidden opacity-0 transition duration-300 group-hover:opacity-100 dark:block"
         style={{
           backgroundImage: dotPatterns.dark.hover,
-          WebkitMaskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
-          maskImage: useMotionTemplate`
-            radial-gradient(
-              200px circle at ${mouseX}px ${mouseY}px,
-              black 0%,
-              transparent 100%
-            )
-          `,
+          WebkitMaskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
+          maskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
         }}
       />
 
@@ -148,30 +107,29 @@ export const Highlight = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useIntersectionObserver(ref, {
+    once: true,
+    amount: 0.5,
+  });
+
   return (
-    <motion.span
-      initial={{
-        backgroundSize: "0% 100%",
-      }}
-      animate={{
-        backgroundSize: "100% 100%",
-      }}
-      transition={{
-        duration: 2,
-        ease: "linear",
-        delay: 0.5,
-      }}
+    <span
+      ref={ref}
+      className={cn(
+        "relative inline-block rounded-lg bg-gradient-to-r from-indigo-300 to-purple-300 px-1 pb-1 dark:from-indigo-500 dark:to-purple-500",
+        isInView && "animate-highlight-sweep",
+        className
+      )}
       style={{
         backgroundRepeat: "no-repeat",
         backgroundPosition: "left center",
+        backgroundSize: isInView ? undefined : "0% 100%",
         display: "inline",
+        animationDelay: "0.5s",
       }}
-      className={cn(
-        `relative inline-block rounded-lg bg-gradient-to-r from-indigo-300 to-purple-300 px-1 pb-1 dark:from-indigo-500 dark:to-purple-500`,
-        className,
-      )}
     >
       {children}
-    </motion.span>
+    </span>
   );
 };
