@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-- `npm run dev` - Start development server at http://localhost:3000
-- `npm run build` - Build production application
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
+- `yarn dev` - Start development server at http://localhost:3000
+- `yarn build` - Build production application
+- `yarn start` - Start production server
+- `yarn lint` - Run ESLint
+- `yarn format` - Format code with Prettier
 
 ## Technology Stack
 
@@ -55,6 +55,7 @@ export const metadata = {
 ```
 
 **Blog post workflow:**
+
 - Posts are stored in `src/app/(posts)/*.mdx`
 - Static generation via `generateStaticParams()` in `src/app/blog/[slug]/page.tsx`
 - Metadata is extracted for SEO (OpenGraph, Twitter cards)
@@ -77,6 +78,7 @@ export const metadata = {
 ### Main Landing Page Components
 
 The home page (`src/app/page.tsx`) is composed of stacked sections:
+
 1. **HeroParallax** - Parallax scrolling hero with product showcase
 2. **StickyScroll** - Sticky scroll reveal for services
 3. **MacbookScroll** - Macbook mockup scroll animation
@@ -90,6 +92,7 @@ Most UI components use client-side features ("use client") for animations and in
 ### Image Configuration
 
 Remote image patterns allowed in next.config.mjs:
+
 - aceternity.com
 - source.unsplash.com
 - avatars.githubusercontent.com
@@ -97,6 +100,7 @@ Remote image patterns allowed in next.config.mjs:
 ### Metadata & SEO
 
 Root layout (`src/app/layout.tsx`) defines comprehensive metadata:
+
 - OpenGraph tags with 1200x627 images
 - Twitter card configuration
 - Canonical URLs
