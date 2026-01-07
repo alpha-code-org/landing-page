@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import ServiceCard from "../cards/ServiceCard";
 import { ServiceType } from "../utils/services";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CardItem } from "./3d-card";
+import { cn } from "@/utils/cn";
 
 export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const [activeCard, setActiveCard] = useState(0);
@@ -13,7 +14,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const Icon = services[activeCard].icon;
 
   return (
-    <motion.div className="mt-20 flex justify-center gap-4 md:px-20 xl:gap-16">
+    <div className="mt-20 flex justify-center gap-4 md:px-20 xl:gap-16">
       <div className="relative flex items-start px-4">
         <div className="flex max-w-2xl flex-col gap-16">
           {services.map((item, index) => (
@@ -21,7 +22,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           ))}
         </div>
       </div>
-      <motion.div className="sticky top-[32%] hidden h-max min-w-[30rem] max-w-[40rem] grow rounded-md lg:block">
+      <div className="sticky top-[32%] hidden h-max min-w-[30rem] max-w-[40rem] grow rounded-md lg:block">
         <div className="w-full rounded-xl bg-slate-800 pb-8 shadow-xl">
           <div className="flex w-full gap-1.5 rounded-t-xl bg-slate-900 p-3">
             <div className="h-3 w-3 rounded-full bg-red-500" />
@@ -35,8 +36,8 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           </div>
           <Icon className="mx-auto h-20 w-20 text-slate-700" />
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 
@@ -50,9 +51,9 @@ const Card = ({
   setActiveCard: Dispatch<SetStateAction<number>>;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, {
+  const isInView = useIntersectionObserver(ref, {
     amount: 0.1,
-    margin: "-45% 0px",
+    margin: "-45% 0px 0px 0px",
   });
 
   useEffect(() => {
@@ -62,16 +63,11 @@ const Card = ({
   }, [isInView, index, setActiveCard]);
 
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: isInView ? 1 : 0.8,
-      }}
+    <div
       ref={ref}
       key={item.title}
-      className="max-h-[100vh]"
+      className={cn("max-h-[100vh] transition-opacity duration-300")}
+      style={{ opacity: isInView ? 1 : 0.8 }}
     >
       <Link
         href="https://calendly.com/alphacode/alpha-code"
@@ -94,6 +90,6 @@ const Card = ({
           </div>
         </ServiceCard>
       </Link>
-    </motion.div>
+    </div>
   );
 };
