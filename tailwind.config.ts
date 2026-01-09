@@ -25,9 +25,23 @@ const config: Config = {
           from: { opacity: "0", transform: "translateY(-10px)" },
           to: { opacity: "1", transform: "none" },
         },
+        "typewriter-char": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "cursor-blink": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
+        "cursor-move": {
+          "0%, 100%": { opacity: "1" },
+        },
       },
       animation: {
         "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
+        "typewriter-char": "typewriter-char 0.01s both",
+        "cursor-move": "cursor-move 0.05s",
+        "cursor-blink": "cursor-blink 1s infinite",
       },
     },
   },

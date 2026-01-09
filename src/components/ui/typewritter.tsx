@@ -27,18 +27,54 @@ export const Typewriter = ({
     };
   });
 
+  const charDelay = 0.05; // 50ms per character
+
   const renderWords = () => {
+    let charIndex = 0;
     return (
-      <div>
+      <div className="relative">
         {wordsArray.map((word, idx) => {
           return (
             <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
-                <span key={`char-${index}`} className={cn(`text-white`, word.className)}>
-                  {char}
-                </span>
-              ))}
-              &nbsp;
+              {word.text.map((char, index) => {
+                const currentIndex = charIndex++;
+                const isLastChar = idx === wordsArray.length - 1 && index === word.text.length - 1;
+                return (
+                  <span key={`char-${index}`} className="relative">
+                    <span
+                      className={cn(
+                        "text-white",
+                        word.className,
+                        isInView ? "animate-typewriter-char" : "opacity-0",
+                      )}
+                      style={{
+                        animationDelay: isInView ? `${currentIndex * charDelay}s` : undefined,
+                      }}
+                    >
+                      {char}
+                    </span>
+                    <span
+                      className={cn(
+                        "absolute top-1/2 -translate-y-1/2 w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12 opacity-0",
+                        cursorClassName,
+                        isInView &&
+                          (isLastChar ? "animate-cursor-blink" : "animate-cursor-move"),
+                      )}
+                      style={{
+                        animationDelay: isInView ? `${currentIndex * charDelay}s` : undefined,
+                      }}
+                    />
+                  </span>
+                );
+              })}
+              <span
+                className={cn(isInView ? "animate-typewriter-char" : "opacity-0")}
+                style={{
+                  animationDelay: isInView ? `${charIndex++ * charDelay}s` : undefined,
+                }}
+              >
+                &nbsp;
+              </span>
             </div>
           );
         })}
@@ -52,35 +88,16 @@ export const Typewriter = ({
         Looking forward meeting you.
       </p>
 
-      <div className={cn("my-6 hidden space-x-1 md:flex", className)}>
+      <div ref={textRef} className={cn("my-6 hidden items-center md:flex", className)}>
         <div
-          ref={textRef}
-          className={cn("overflow-hidden", isInView && "animate-reveal-width")}
+          className="text-md font-bold md:text-xl lg:text-3xl xl:text-5xl"
           style={{
-            width: isInView ? "fit-content" : "0",
-            animationDelay: "0.2s",
+            whiteSpace: "nowrap",
+            lineHeight: "1.2",
           }}
         >
-          <div
-            className="text-md font-bold md:text-xl lg:text-3xl xl:text-5xl"
-            style={{
-              whiteSpace: "nowrap",
-              lineHeight: "1.2",
-            }}
-          >
-            {renderWords()}{" "}
-          </div>{" "}
+          {renderWords()}
         </div>
-        <span
-          className={cn(
-            "block w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12 animate-cursor-blink",
-            cursorClassName
-          )}
-          style={{
-            height: "100%",
-            animationDelay: "1.2s",
-          }}
-        ></span>
       </div>
       <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
