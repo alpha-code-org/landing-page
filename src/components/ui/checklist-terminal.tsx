@@ -25,7 +25,7 @@ export const AnimatedSpan = ({ children, delay = 0, className }: AnimatedSpanPro
       className={cn(
         "grid text-base font-normal tracking-tight md:text-lg",
         shouldAnimate && "animate-fade-in-up",
-        className
+        className,
       )}
       style={{
         opacity: shouldAnimate ? undefined : 0,
@@ -125,38 +125,38 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
                   &gt; Alpha Code Software Development Checklist
                 </TypingAnimation>
 
-                <AnimatedSpan delay={600} className="text-green-500">
+                <AnimatedSpan delay={400} className="text-green-500">
                   <span>✔ Modern design.</span>
                 </AnimatedSpan>
 
-                <AnimatedSpan delay={1000} className="text-green-500">
+                <AnimatedSpan delay={800} className="text-green-500">
                   <span>✔ Blazingly fast performance.</span>
                 </AnimatedSpan>
 
-                <AnimatedSpan delay={1500} className="text-green-500">
+                <AnimatedSpan delay={1200} className="text-green-500">
                   <span>✔ SEO optimized.</span>
                 </AnimatedSpan>
 
-                <AnimatedSpan delay={2500} className="text-green-500">
+                <AnimatedSpan delay={1600} className="text-green-500">
                   <span>✔ Robust testing suite.</span>
                 </AnimatedSpan>
 
-                <AnimatedSpan delay={4500} className="text-green-500">
+                <AnimatedSpan delay={2000} className="text-green-500">
                   <span>✔ 100% customer satisfaction.</span>
                 </AnimatedSpan>
 
-                <AnimatedSpan delay={5000} className="text-blue-500">
+                <AnimatedSpan delay={3000} className="text-blue-500">
                   <span>ℹ What we want from you:</span>
                   <span className="pl-2">- Clear communication.</span>
                   <span className="pl-2">- Honest feedback.</span>
                   <span className="pl-2">- Active participation.</span>
                 </AnimatedSpan>
 
-                <TypingAnimation delay={5500} duration={15} className="text-muted-foreground">
+                <TypingAnimation delay={4000} duration={15} className="text-muted-foreground">
                   Success! Project initialization completed.
                 </TypingAnimation>
 
-                <TypingAnimation delay={6500} duration={15} className="text-muted-foreground">
+                <TypingAnimation delay={5000} duration={15} className="text-muted-foreground">
                   Let&apos;s make your business grow.
                 </TypingAnimation>
               </>
