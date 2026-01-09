@@ -36,12 +36,17 @@ const config: Config = {
         "cursor-move": {
           "0%, 100%": { opacity: "1" },
         },
+        "highlight-sweep": {
+          from: { backgroundSize: "0% 100%" },
+          to: { backgroundSize: "100% 100%" },
+        },
       },
       animation: {
-        "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
-        "typewriter-char": "typewriter-char 0.01s both",
-        "cursor-move": "cursor-move 0.05s",
-        "cursor-blink": "cursor-blink 1s infinite",
+        "fade-in": "fade-in 250ms var(--animation-delay, 0ms) ease forwards",
+        "typewriter-char": "typewriter-char 10ms both",
+        "cursor-move": "cursor-move 50ms",
+        "cursor-blink": "cursor-blink 500ms infinite",
+        "highlight-sweep": "highlight-sweep 100ms ease both",
       },
     },
   },

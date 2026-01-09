@@ -8,7 +8,7 @@ import Link from "next/link";
 export const AuditHighlight = () => {
   return (
     <HeroHighlight>
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-12 px-4 animate-fade-in-bounce">
+      <div className="animate-fade-in-bounce mx-auto flex max-w-4xl flex-col items-center gap-12 px-4">
         <h1 className="text-center text-2xl font-bold leading-relaxed text-neutral-700 dark:text-white md:text-4xl lg:text-5xl lg:leading-snug">
           We identify security vulnerabilities and areas for improvement{" "}
           <Highlight className="whitespace-nowrap text-black dark:text-white">
@@ -117,16 +117,16 @@ export const Highlight = ({
     <span
       ref={ref}
       className={cn(
-        "relative inline-block rounded-lg bg-gradient-to-r from-indigo-300 to-purple-300 px-1 pb-1 dark:from-indigo-500 dark:to-purple-500",
+        "relative inline-block rounded-lg px-1 pb-1",
         isInView && "animate-highlight-sweep",
-        className
+        className,
       )}
       style={{
+        backgroundImage: "linear-gradient(to right, var(--indigo-500), var(--purple-500))",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "left center",
-        backgroundSize: isInView ? undefined : "0% 100%",
-        display: "inline",
-        animationDelay: "0.5s",
+        backgroundSize: "0% 100%",
+        animationDuration: "800ms",
       }}
     >
       {children}
