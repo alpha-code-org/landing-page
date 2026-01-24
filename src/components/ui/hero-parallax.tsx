@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./moving-border-button";
-import { useRef, memo, useEffect, useState, useCallback } from "react";
+import { useRef, memo, useEffect, useState } from "react";
 import { products } from "../utils/products";
 
 const HeroParallax = () => {
@@ -90,16 +90,69 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
 
 Title.displayName = "Title";
 
+// Triple the products array for infinite scroll illusion
+const infiniteProducts = [...products, ...products, ...products];
+
+// Width of one product card + gap (36rem + 5rem gap = 41rem, approx 656px)
+const CARD_WIDTH = 656;
+const SINGLE_SET_WIDTH = products.length * CARD_WIDTH;
+
 const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [translateX, setTranslateX] = useState(-SINGLE_SET_WIDTH);
+  const isHovering = useRef(false);
+
+  // Handle wheel scrolling with infinite loop using transform (only when hovering)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onMouseEnter = () => {
+      isHovering.current = true;
+    };
+    const onMouseLeave = () => {
+      isHovering.current = false;
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (!isHovering.current) return;
+
+      e.preventDefault();
+
+      setTranslateX((prev) => {
+        let next = prev - e.deltaY * 1.5;
+
+        // Wrap around for infinite scroll
+        if (next > 0) {
+          next = next - SINGLE_SET_WIDTH;
+        } else if (next < -SINGLE_SET_WIDTH * 2) {
+          next = next + SINGLE_SET_WIDTH;
+        }
+
+        return next;
+      });
+    };
+
+    container.addEventListener("mouseenter", onMouseEnter);
+    container.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("mouseenter", onMouseEnter);
+      container.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("wheel", onWheel);
+    };
+  }, []);
+
   return (
     <div
-      className="product-list relative z-10"
+      className="product-list relative z-10 overflow-hidden"
+      ref={containerRef}
       style={{
         transform: `
           rotateX(${15 - 15 * Math.min(scrollProgress / 0.2, 1)}deg)
           rotateZ(${20 - 20 * Math.min(scrollProgress / 0.2, 1)}deg)
           translateY(${-100 + 480 * Math.min(scrollProgress / 0.1, 1)}px)
-          translateX(${400 * scrollProgress}px)
         `,
         opacity: 0.6 + 0.4 * Math.min(scrollProgress / 0.6, 1),
         willChange: "transform, opacity",
@@ -107,15 +160,14 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       }}
     >
       <div
-        className="product-container mb-20 flex flex-row-reverse space-x-20 space-x-reverse"
+        className="product-container mb-20 flex w-max gap-20 cursor-grab active:cursor-grabbing"
         style={{
-          transform: `translateX(${400 * scrollProgress}px)`,
+          transform: `translateX(${translateX}px)`,
           willChange: "transform",
-          transition: "transform 0.3s ease-out",
         }}
       >
-        {products.map((product, index) => (
-          <ProductCard product={product} key={product.title} index={index} />
+        {infiniteProducts.map((product, index) => (
+          <ProductCard product={product} key={`${product.title}-${index}`} index={index} />
         ))}
       </div>
     </div>
@@ -157,7 +209,7 @@ const ProductCard = memo(
             alt={product.title}
             sizes="(max-width: 768px) 28rem, 36rem"
             fetchPriority={index < 3 ? "high" : "auto"}
-            loading={index < 3 ? "eager" : "lazy"}
+            loading={index < 6 ? "eager" : "lazy"}
           />
         </Link>
         <div

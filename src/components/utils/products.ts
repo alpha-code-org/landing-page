@@ -15,6 +15,11 @@ export const products = [
     thumbnail: "/products/rent-a-boat.webp",
   },
   {
+    title: "MailSig",
+    link: "https://www.mail-sig.com/",
+    thumbnail: "/products/mail-sig.webp",
+  },
+  {
     title: "Fit Camp",
     link: "https://fit-camp-2021.vercel.app/",
     thumbnail: "/products/fit-camp.webp",
