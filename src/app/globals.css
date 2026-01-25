@@ -1,102 +1,161 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 /* Syntax highlighting - using github theme as base */
-@import "highlight.js/styles/github.css";
+@import 'highlight.js/styles/github.css' layer(utilities);
 
-:root {
-  --foreground: 23 23 23;
-  --background: 245 245 244;
-  --muted-foreground: 115 115 115;
-  --border: 214 211 209;
+/* Theme customizations for Tailwind v4 */
+@theme {
+  /* Brand colors */
+  --color-brand-alpha: #1E2444;
+  --color-brand-code: #335AA6;
+  --color-brand-alpha-dark: #FFFFFF;
 
-  /* Extended palette for light mode */
-  --card-bg: 255 255 255;
-  --card-border: 214 211 209;
-  --section-bg: 245 245 244;
-  --section-alt-bg: 231 229 228;
-  --header-bg: 245 245 244 / 0.9;
-  --terminal-header: 231 229 228;
-  --terminal-bg: 255 255 255;
-  --window-bg: 250 250 249;
-  --window-header: 231 229 228;
-  --icon-muted: 120 113 108;
-  --shadow-color: 0 0 0 / 0.08;
-  --hover-shadow: 0 0 0 / 0.12;
+  /* Custom animations */
+  --animate-fade-in: fade-in 250ms var(--animation-delay, 0ms) ease forwards;
+  --animate-typewriter-char: typewriter-char 10ms both;
+  --animate-cursor-move: cursor-move 50ms;
+  --animate-cursor-blink: cursor-blink 500ms infinite;
+  --animate-highlight-sweep: highlight-sweep 100ms ease both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes typewriter-char {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes cursor-blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes cursor-move {
+    0%, 100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes highlight-sweep {
+    from {
+      background-size: 0% 100%;
+    }
+    to {
+      background-size: 100% 100%;
+    }
+  }
 }
 
-.dark {
-  --foreground: 255 255 255;
-  --background: 0 0 0;
-  --muted-foreground: 163 163 163;
-  --border: 38 38 38;
+@layer utilities {
+  :root {
+    --foreground: 23 23 23;
+    --background: 245 245 244;
+    --muted-foreground: 115 115 115;
+    --border: 214 211 209;
 
-  /* Extended palette for dark mode */
-  --card-bg: 0 0 0;
-  --card-border: 38 38 38;
-  --section-bg: 0 0 0;
-  --section-alt-bg: 23 23 23;
-  --header-bg: 0 0 0 / 0.8;
-  --terminal-header: 64 64 64;
-  --terminal-bg: 23 23 23;
-  --window-bg: 30 41 59;
-  --window-header: 15 23 42;
-  --icon-muted: 100 116 139;
-  --shadow-color: 0 0 0 / 0.3;
-  --hover-shadow: 16 185 129 / 0.1;
-}
+    /* Extended palette for light mode */
+    --card-bg: 255 255 255;
+    --card-border: 214 211 209;
+    --section-bg: 245 245 244;
+    --section-alt-bg: 231 229 228;
+    --header-bg: 245 245 244 / 0.9;
+    --terminal-header: 231 229 228;
+    --terminal-bg: 255 255 255;
+    --window-bg: 250 250 249;
+    --window-header: 231 229 228;
+    --icon-muted: 120 113 108;
+    --shadow-color: 0 0 0 / 0.08;
+    --hover-shadow: 0 0 0 / 0.12;
+  }
 
-/* Override highlight.js colors for dark mode */
-.dark .hljs {
-  background: #0d1117;
-  color: #c9d1d9;
-}
+  .dark {
+    --foreground: 255 255 255;
+    --background: 0 0 0;
+    --muted-foreground: 163 163 163;
+    --border: 38 38 38;
 
-.dark .hljs-keyword,
-.dark .hljs-selector-tag,
-.dark .hljs-literal,
-.dark .hljs-section,
-.dark .hljs-link {
-  color: #ff7b72;
-}
+    /* Extended palette for dark mode */
+    --card-bg: 0 0 0;
+    --card-border: 38 38 38;
+    --section-bg: 0 0 0;
+    --section-alt-bg: 23 23 23;
+    --header-bg: 0 0 0 / 0.8;
+    --terminal-header: 64 64 64;
+    --terminal-bg: 23 23 23;
+    --window-bg: 30 41 59;
+    --window-header: 15 23 42;
+    --icon-muted: 100 116 139;
+    --shadow-color: 0 0 0 / 0.3;
+    --hover-shadow: 16 185 129 / 0.1;
+  }
 
-.dark .hljs-string,
-.dark .hljs-title,
-.dark .hljs-name,
-.dark .hljs-type,
-.dark .hljs-attribute,
-.dark .hljs-symbol,
-.dark .hljs-bullet,
-.dark .hljs-addition,
-.dark .hljs-variable,
-.dark .hljs-template-tag,
-.dark .hljs-template-variable {
-  color: #a5d6ff;
-}
+  /* Override highlight.js colors for dark mode */
+  .dark .hljs {
+    background: #0d1117;
+    color: #c9d1d9;
+  }
 
-.dark .hljs-comment,
-.dark .hljs-quote,
-.dark .hljs-deletion,
-.dark .hljs-meta {
-  color: #8b949e;
-}
+  .dark .hljs-keyword,
+  .dark .hljs-selector-tag,
+  .dark .hljs-literal,
+  .dark .hljs-section,
+  .dark .hljs-link {
+    color: #ff7b72;
+  }
 
-.dark .hljs-function,
-.dark .hljs-class .hljs-title {
-  color: #d2a8ff;
-}
+  .dark .hljs-string,
+  .dark .hljs-title,
+  .dark .hljs-name,
+  .dark .hljs-type,
+  .dark .hljs-attribute,
+  .dark .hljs-symbol,
+  .dark .hljs-bullet,
+  .dark .hljs-addition,
+  .dark .hljs-variable,
+  .dark .hljs-template-tag,
+  .dark .hljs-template-variable {
+    color: #a5d6ff;
+  }
 
-.dark .hljs-number {
-  color: #79c0ff;
-}
+  .dark .hljs-comment,
+  .dark .hljs-quote,
+  .dark .hljs-deletion,
+  .dark .hljs-meta {
+    color: #8b949e;
+  }
 
-body {
-  background-color: rgb(var(--background));
-  color: rgb(var(--foreground));
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  .dark .hljs-function,
+  .dark .hljs-class .hljs-title {
+    color: #d2a8ff;
+  }
+
+  .dark .hljs-number {
+    color: #79c0ff;
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
 }
 
 @layer utilities {

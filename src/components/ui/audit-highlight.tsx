@@ -58,7 +58,7 @@ const HeroHighlight = ({
   return (
     <div
       className={cn(
-        "group relative flex h-[40rem] w-full items-center justify-center bg-stone-100 dark:bg-black",
+        "group relative flex h-160 w-full items-center justify-center bg-stone-100 dark:bg-black",
         containerClassName,
       )}
       onMouseMove={handleMouseMove}
@@ -119,7 +119,7 @@ export const Highlight = ({
         className,
       )}
       style={{
-        backgroundImage: "linear-gradient(to right, var(--indigo-500), var(--purple-500))",
+        backgroundImage: "linear-gradient(to right, var(--color-indigo-500), var(--color-purple-500))",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "left center",
         backgroundSize: "0% 100%",

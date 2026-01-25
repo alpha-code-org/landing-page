@@ -1,14 +1,10 @@
 "use client";
 
 import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from "next-themes";
-import { useEffect, useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   if (!mounted) {
     return <>{children}</>; // Render children without ThemeProvider during SSR

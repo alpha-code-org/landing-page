@@ -2,15 +2,11 @@
 
 import Giscus from "@giscus/react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 
 export function Comments() {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   // Avoid hydration mismatch by not rendering until mounted
   if (!mounted) {

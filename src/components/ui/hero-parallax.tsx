@@ -44,7 +44,7 @@ const HeroParallax = () => {
   return (
     <div
       ref={ref}
-      className="hero-parallax relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased [perspective:300px] [transform-style:preserve-3d] md:pb-96"
+      className="hero-parallax relative mx-auto flex h-full w-screen max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased perspective-near transform-3d md:pb-96"
     >
       <Title scrollY={scrollY} />
       <ProductList scrollProgress={scrollProgress} />
@@ -247,7 +247,7 @@ const ProductCard = memo(
     return (
       <div
         key={product.title}
-        className="product-card group/product relative h-60 w-[28rem] flex-shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-[36rem]"
+        className="product-card group/product relative h-60 w-md shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-xl"
         style={{
           willChange: "transform",
         }}
