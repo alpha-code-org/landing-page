@@ -11,10 +11,7 @@ export const AuditHighlight = () => {
       <div className="animate-fade-in-bounce mx-auto flex max-w-4xl flex-col items-center gap-12 px-4">
         <h1 className="text-center text-2xl font-bold leading-relaxed text-neutral-700 dark:text-white md:text-4xl lg:text-5xl lg:leading-snug">
           We identify security vulnerabilities and areas for improvement{" "}
-          <Highlight className="whitespace-nowrap text-white">
-            in your codebase
-          </Highlight>
-          .
+          <Highlight className="whitespace-nowrap text-white">in your codebase</Highlight>.
         </h1>
 
         <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">

@@ -31,7 +31,8 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           </div>
           <div className="p-2">
             <p className="font-mono text-lg text-neutral-700 dark:text-slate-200">
-              <span className="text-green-600 dark:text-green-400">~</span> {services[activeCard].sideTitle}
+              <span className="text-green-600 dark:text-green-400">~</span>{" "}
+              {services[activeCard].sideTitle}
             </p>
           </div>
           <Icon className="mx-auto h-20 w-20 text-neutral-400 dark:text-slate-600" />

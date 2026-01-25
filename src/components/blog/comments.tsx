@@ -14,7 +14,9 @@ export function Comments() {
 
   // Avoid hydration mismatch by not rendering until mounted
   if (!mounted) {
-    return <section className="mt-10 h-64 border-t border-stone-200 pt-8 dark:border-neutral-700" />;
+    return (
+      <section className="mt-10 h-64 border-t border-stone-200 pt-8 dark:border-neutral-700" />
+    );
   }
 
   return (

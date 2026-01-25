@@ -55,10 +55,9 @@ export const Typewriter = ({
                     </span>
                     <span
                       className={cn(
-                        "absolute top-1/2 -translate-y-1/2 w-[4px] rounded-sm bg-blue-500 sm:h-6 xl:h-12 opacity-0",
+                        "absolute top-1/2 w-[4px] -translate-y-1/2 rounded-sm bg-blue-500 opacity-0 sm:h-6 xl:h-12",
                         cursorClassName,
-                        isInView &&
-                          (isLastChar ? "animate-cursor-blink" : "animate-cursor-move"),
+                        isInView && (isLastChar ? "animate-cursor-blink" : "animate-cursor-move"),
                       )}
                       style={{
                         animationDelay: isInView ? `${currentIndex * charDelay}s` : undefined,

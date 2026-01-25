@@ -8,7 +8,7 @@ interface UseIntersectionObserverOptions {
 
 export function useIntersectionObserver<T extends Element = Element>(
   elementRef: RefObject<T | null>,
-  options?: UseIntersectionObserverOptions
+  options?: UseIntersectionObserverOptions,
 ): boolean {
   const [isInView, setIsInView] = useState(false);
 
@@ -30,7 +30,7 @@ export function useIntersectionObserver<T extends Element = Element>(
       {
         threshold: options?.amount ?? 0,
         rootMargin: options?.margin ?? "0px",
-      }
+      },
     );
 
     observer.observe(element);

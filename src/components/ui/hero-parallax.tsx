@@ -44,7 +44,7 @@ const HeroParallax = () => {
   return (
     <div
       ref={ref}
-      className="hero-parallax relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-stone-100 pb-80 antialiased dark:bg-black [perspective:300px] [transform-style:preserve-3d] md:pb-96"
+      className="hero-parallax relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased [perspective:300px] [transform-style:preserve-3d] md:pb-96"
     >
       <Title scrollY={scrollY} />
       <ProductList scrollProgress={scrollProgress} />
@@ -168,7 +168,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       }}
     >
       <div
-        className="product-container mb-20 flex w-max gap-20 cursor-grab active:cursor-grabbing"
+        className="product-container mb-20 flex w-max cursor-grab gap-20 active:cursor-grabbing"
         style={{
           transform: `translateX(${translateX}px)`,
           willChange: "transform",

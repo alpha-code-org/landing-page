@@ -64,9 +64,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </ol>
     ),
-    li: ({ children }) => (
-      <li className="text-base leading-relaxed md:text-lg">{children}</li>
-    ),
+    li: ({ children }) => <li className="text-base leading-relaxed md:text-lg">{children}</li>,
     hr: () => <hr className="my-10 border-stone-200 dark:border-neutral-700" />,
     figure: ({ children }) => <figure className="my-8 text-center">{children}</figure>,
     figcaption: ({ children }) => (
