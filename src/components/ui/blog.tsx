@@ -21,7 +21,7 @@ const Blog = async () => {
   const posts = await getPosts();
 
   return (
-    <section className="relative mb-20 w-full md:mb-40">
+    <section className="relative py-20 w-full md:mb-40">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-8">
         <h2 className="mx-auto text-2xl font-bold md:text-3xl">Blog</h2>
 

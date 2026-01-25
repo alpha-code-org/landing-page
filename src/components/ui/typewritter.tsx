@@ -82,7 +82,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center bg-stone-100 dark:bg-neutral-950 md:h-[75vh]">
+    <div className="flex h-[50vh] flex-col items-center justify-center dark:bg-neutral-950 md:h-[75vh]">
       <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-200 sm:text-xl md:mb-0">
         Looking forward meeting you.
       </p>

@@ -11,11 +11,15 @@ export default function Home() {
   return (
     <main>
       <HeroParallax />
-      <StickyScroll services={services} />
+      <div className="bg-stone-200/30 dark:bg-transparent py-20 md:py-32">
+        <StickyScroll services={services} />
+      </div>
       <MacbookScroll src="/business.webp" />
       <AuditHighlight />
       <ChecklistTerminal />
-      <Typewriter />
+      <div className="bg-stone-200/30 dark:bg-transparent">
+        <Typewriter />
+      </div>
       <Blog />
     </main>
   );

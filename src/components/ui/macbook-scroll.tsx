@@ -140,7 +140,7 @@ export const MacbookScroll = ({
     >
       <div
         ref={titleRef}
-        className="text-center text-2xl font-bold text-neutral-800 dark:text-white md:mb-20"
+        className="text-center text-3xl font-bold text-neutral-800 dark:text-white md:mb-20"
         style={{
           transform: `translateY(${transforms.textTranslateY}px)`,
           opacity: transforms.textOpacity,

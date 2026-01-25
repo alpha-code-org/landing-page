@@ -14,7 +14,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
   const Icon = services[activeCard].icon;
 
   return (
-    <div className="mt-20 flex justify-center gap-4 md:px-20 xl:gap-16">
+    <div className="flex justify-center gap-4 md:px-20 xl:gap-16">
       <div className="relative flex items-start px-4">
         <div className="flex max-w-2xl flex-col gap-16">
           {services.map((item, index) => (
