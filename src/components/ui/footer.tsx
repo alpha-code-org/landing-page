@@ -24,10 +24,10 @@ const Footer = () => {
             className="block dark:hidden"
           />
         </Link>
-        <div className="h-[1px] w-full bg-neutral-300 dark:bg-neutral-800" />
+        <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
           <p className="mb-4 text-sm text-slate-600 dark:text-slate-400 md:mb-0">
-            &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.
+            &copy; 2026 Alpha Code d.o.o. All Rights Reserved.
           </p>
           <div className="flex gap-4 text-neutral-700 dark:text-white sm:justify-center">
             <Link

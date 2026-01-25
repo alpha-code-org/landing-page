@@ -24,6 +24,11 @@ export const AnimatedThemeToggler = ({
 
     const newTheme = isDark ? "light" : "dark";
 
+    if (!document.startViewTransition) {
+      setTheme(newTheme);
+      return;
+    }
+
     await document.startViewTransition(() => {
       flushSync(() => {
         setTheme(newTheme);
@@ -52,7 +57,8 @@ export const AnimatedThemeToggler = ({
 
   return (
     <button ref={buttonRef} onClick={toggleTheme} className={cn(className)} {...props}>
-      {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      <Sun className="hidden h-5 w-5 dark:block" />
+      <Moon className="block h-5 w-5 dark:hidden" />
       <span className="sr-only">Toggle theme</span>
     </button>
   );

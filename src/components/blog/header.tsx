@@ -32,6 +32,7 @@ export function BlogHeader({ author }: Props) {
             src={authorInfo.image}
             alt={`${author} profile picture`}
             fill
+            sizes="56px"
             className="object-cover"
             loading="lazy"
           />

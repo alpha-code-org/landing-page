@@ -44,7 +44,7 @@ const HeroParallax = () => {
   return (
     <div
       ref={ref}
-      className="hero-parallax relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased [perspective:300px] [transform-style:preserve-3d] md:pb-96"
+      className="hero-parallax relative mx-auto flex h-full w-screen max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased perspective-near transform-3d md:pb-96"
     >
       <Title scrollY={scrollY} />
       <ProductList scrollProgress={scrollProgress} />
@@ -113,12 +113,13 @@ const getCardWidth = () =>
 
 const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [singleSetWidth, setSingleSetWidth] = useState(() => products.length * getCardWidth());
-  const [translateX, setTranslateX] = useState(() => -products.length * getCardWidth());
+  // Use desktop width as default for SSR to avoid hydration mismatch
+  const [singleSetWidth, setSingleSetWidth] = useState(products.length * DESKTOP_CARD_WIDTH);
+  const [translateX, setTranslateX] = useState(-products.length * DESKTOP_CARD_WIDTH);
   const isHovering = useRef(false);
   const lastTouchX = useRef(0);
 
-  // Update card width on resize
+  // Update card width on mount and resize
   useEffect(() => {
     const updateWidth = () => {
       const newSingleSetWidth = products.length * getCardWidth();
@@ -126,6 +127,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       setTranslateX(-newSingleSetWidth);
     };
 
+    updateWidth(); // Set correct width on mount
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
@@ -247,7 +249,7 @@ const ProductCard = memo(
     return (
       <div
         key={product.title}
-        className="product-card group/product relative h-60 w-[28rem] flex-shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-[36rem]"
+        className="product-card group/product relative h-60 w-md shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-xl"
         style={{
           willChange: "transform",
         }}
