@@ -1,17 +1,20 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+/* Enable class-based dark mode for next-themes */
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Syntax highlighting - using github theme as base */
-@import 'highlight.js/styles/github.css' layer(utilities);
+@import "highlight.js/styles/github.css" layer(utilities);
 
 /* Theme customizations for Tailwind v4 */
 @theme {
   /* Brand colors */
-  --color-brand-alpha: #1E2444;
-  --color-brand-code: #335AA6;
-  --color-brand-alpha-dark: #FFFFFF;
+  --color-brand-alpha: #1e2444;
+  --color-brand-code: #335aa6;
+  --color-brand-alpha-dark: #ffffff;
 
   /* Custom animations */
-  --animate-fade-in: fade-in 250ms var(--animation-delay, 0ms) ease forwards;
+  --animate-fade-in: fade-in 250ms ease var(--animation-delay, 0ms) forwards;
   --animate-typewriter-char: typewriter-char 10ms both;
   --animate-cursor-move: cursor-move 50ms;
   --animate-cursor-blink: cursor-blink 500ms infinite;
@@ -24,7 +27,7 @@
     }
     to {
       opacity: 1;
-      transform: none;
+      transform: translateY(0);
     }
   }
 
@@ -38,7 +41,8 @@
   }
 
   @keyframes cursor-blink {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -47,7 +51,8 @@
   }
 
   @keyframes cursor-move {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
   }
@@ -219,6 +224,10 @@
   }
 
   /* Utility classes */
+  .animate-fade-in {
+    animation: fade-in 250ms ease var(--animation-delay, 0ms) forwards;
+  }
+
   .animate-fade-in-up {
     animation: fadeInUp 0.3s ease-out forwards;
   }
