@@ -43,7 +43,7 @@ export const Typewriter = ({
                   <span key={`char-${index}`} className="relative">
                     <span
                       className={cn(
-                        "text-white",
+                        "text-neutral-900 dark:text-white",
                         word.className,
                         isInView ? "animate-typewriter-char" : "opacity-0",
                       )}
@@ -83,8 +83,8 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center bg-black md:h-[75vh]">
-      <p className="mb-4 text-lg text-neutral-200 sm:text-xl md:mb-0">
+    <div className="flex h-[50vh] flex-col items-center justify-center bg-stone-100 dark:bg-neutral-950 md:h-[75vh]">
+      <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-200 sm:text-xl md:mb-0">
         Looking forward meeting you.
       </p>
 

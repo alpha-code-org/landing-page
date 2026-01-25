@@ -1,10 +1,24 @@
 "use client";
 
 import Giscus from "@giscus/react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function Comments() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Avoid hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return <section className="mt-10 h-64 border-t border-stone-200 pt-8 dark:border-neutral-700" />;
+  }
+
   return (
-    <section className="mt-10">
+    <section className="mt-10 border-t border-stone-200 pt-8 dark:border-neutral-700">
       <Giscus
         repo="alpha-code-org/landing-page"
         repoId="R_kgDOLVOzEQ"
@@ -15,7 +29,7 @@ export function Comments() {
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="top"
-        theme="dark"
+        theme={resolvedTheme === "dark" ? "dark" : "light"}
         lang="en"
         loading="lazy"
       />

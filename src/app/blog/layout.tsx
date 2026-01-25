@@ -6,7 +6,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="bg-[#121212] py-8">
+    <main className="bg-stone-100 dark:bg-neutral-950">
       <Header />
       {children}
     </main>

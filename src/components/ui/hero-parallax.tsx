@@ -44,7 +44,7 @@ const HeroParallax = () => {
   return (
     <div
       ref={ref}
-      className="hero-parallax relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-black pb-80 antialiased [perspective:300px] [transform-style:preserve-3d] md:pb-96"
+      className="hero-parallax relative mx-auto flex h-full w-[100vw] max-w-[1600px] flex-col self-auto overflow-hidden bg-stone-100 pb-80 antialiased dark:bg-black [perspective:300px] [transform-style:preserve-3d] md:pb-96"
     >
       <Title scrollY={scrollY} />
       <ProductList scrollProgress={scrollProgress} />
@@ -61,19 +61,27 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
         willChange: "opacity",
       }}
     >
-      <h1 className="relative flex items-center gap-2 text-4xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+      <h1 className="relative flex items-center gap-2 text-4xl font-bold text-neutral-900 dark:text-white sm:text-6xl md:text-7xl lg:text-8xl">
         <Image
           alt="ac-logo"
           src="/logo.png"
           width={80}
           height={77}
-          className="mr-2 w-10 sm:w-16 md:w-20"
+          className="mr-2 hidden w-10 dark:block sm:w-16 md:w-20"
           fetchPriority="high"
         />
-        <span className="text-brand-alpha-dark">Alpha</span>{" "}
+        <Image
+          alt="ac-logo"
+          src="/logo-dark.png"
+          width={80}
+          height={77}
+          className="mr-2 block w-10 dark:hidden sm:w-16 md:w-20"
+          fetchPriority="high"
+        />
+        <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
       </h1>
-      <p className="relative z-20 mb-4 mt-4 max-w-2xl text-xl text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
+      <p className="relative z-20 mb-4 mt-4 max-w-2xl text-xl text-neutral-600 dark:text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
         We craft beautiful software.
       </p>
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
@@ -213,7 +221,7 @@ const ProductCard = memo(
           />
         </Link>
         <div
-          className="pointer-events-none absolute inset-0 h-full w-full bg-black opacity-0 transition-opacity duration-300 group-hover/product:opacity-50"
+          className="pointer-events-none absolute inset-0 h-full w-full bg-neutral-900 opacity-0 transition-opacity duration-300 group-hover/product:opacity-40 dark:bg-black dark:group-hover/product:opacity-50"
           style={{ willChange: "opacity" }}
         ></div>
         <h2

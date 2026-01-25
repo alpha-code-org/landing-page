@@ -25,9 +25,9 @@ export function BlogHeader({ author }: Props) {
   }
 
   return (
-    <div className="mb-12">
+    <div className="mb-10 border-b border-stone-200 pb-8 dark:border-neutral-700">
       <div className="flex items-center gap-4">
-        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-gray-600">
+        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-2 ring-stone-200 ring-offset-2 ring-offset-white dark:ring-neutral-600 dark:ring-offset-neutral-900">
           <Image
             src={authorInfo.image}
             alt={`${author} profile picture`}
@@ -37,17 +37,17 @@ export function BlogHeader({ author }: Props) {
           />
         </div>
 
-        <div className="max-w-72">
-          <h3 className="text-base font-semibold text-white">{author}</h3>
-          <p className="text-sm text-gray-400">{authorInfo.bio}</p>
+        <div>
+          <h3 className="text-base font-semibold text-stone-900 dark:text-white">{author}</h3>
+          <p className="text-sm text-stone-600 dark:text-stone-400">{authorInfo.bio}</p>
 
-          <div className="mt-2 flex space-x-4">
+          <div className="mt-2 flex space-x-3">
             {authorInfo.social.linkedin && (
               <a
                 href={authorInfo.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-blue-400"
+                className="text-stone-400 transition-colors hover:text-blue-600 dark:text-stone-500 dark:hover:text-blue-400"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-4 w-4" />
@@ -59,7 +59,7 @@ export function BlogHeader({ author }: Props) {
                 href={authorInfo.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-blue-400"
+                className="text-stone-400 transition-colors hover:text-blue-500 dark:text-stone-500 dark:hover:text-blue-400"
                 aria-label="Twitter"
               >
                 <Twitter className="h-4 w-4" />
@@ -71,7 +71,7 @@ export function BlogHeader({ author }: Props) {
                 href={authorInfo.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-gray-300"
+                className="text-stone-400 transition-colors hover:text-stone-700 dark:text-stone-500 dark:hover:text-stone-300"
                 aria-label="GitHub"
               >
                 <Github className="h-4 w-4" />

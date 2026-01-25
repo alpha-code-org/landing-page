@@ -12,8 +12,10 @@ export function BlogFooter({ publishDate }: Props) {
   };
 
   return (
-    <div>
-      <p className="mt-1 text-base text-gray-500">Published on {formatDate(publishDate)}</p>
+    <div className="mt-10 border-t border-stone-200 pt-6 dark:border-neutral-700">
+      <p className="text-sm text-stone-500 dark:text-stone-400">
+        Published on {formatDate(publishDate)}
+      </p>
     </div>
   );
 }

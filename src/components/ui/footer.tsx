@@ -4,17 +4,32 @@ import { Twitter, Github, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative mt-auto w-full bg-black pt-8">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-8">
+    <footer className="relative mt-auto w-full bg-stone-100 pt-8 dark:bg-neutral-950">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-8">
         <Link href="/" aria-label="Go to homepage">
-          <Image src="/logo-white.png" alt="alpha-logo" width={100} height={100} loading="lazy" />
+          <Image
+            src="/logo.png"
+            alt="alpha-logo"
+            width={32}
+            height={32}
+            loading="lazy"
+            className="hidden dark:block"
+          />
+          <Image
+            src="/logo-dark.png"
+            alt="alpha-logo"
+            width={32}
+            height={32}
+            loading="lazy"
+            className="block dark:hidden"
+          />
         </Link>
-        <div className="h-[1px] w-full bg-slate-300 opacity-20" />
+        <div className="h-[1px] w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
-          <p className="mb-4 text-sm text-slate-400 md:mb-0">
+          <p className="mb-4 text-sm text-slate-600 dark:text-slate-400 md:mb-0">
             &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.
           </p>
-          <div className="flex gap-4 text-white sm:justify-center">
+          <div className="flex gap-4 text-neutral-700 dark:text-white sm:justify-center">
             <Link
               href="https://twitter.com/matteoo_eth"
               target="__blank"

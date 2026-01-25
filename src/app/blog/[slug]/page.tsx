@@ -61,14 +61,16 @@ function BlogPostContent({ source }: { source: string }) {
   const components = useMDXComponents({});
 
   return (
-    <article className="mx-auto w-full max-w-4xl p-4 md:p-8">
-      <MDXRemote
-        source={source}
-        components={components}
-        options={{ mdxOptions: { rehypePlugins: [rehypeHighlight] } }}
-      />
-      <Comments />
-    </article>
+    <div className="min-h-screen bg-stone-100 py-8 dark:bg-neutral-950 md:py-16">
+      <article className="mx-auto w-full max-w-4xl rounded-2xl bg-white px-6 py-8 shadow-sm dark:bg-neutral-900 md:px-12 md:py-12">
+        <MDXRemote
+          source={source}
+          components={components}
+          options={{ mdxOptions: { rehypePlugins: [rehypeHighlight] } }}
+        />
+        <Comments />
+      </article>
+    </div>
   );
 }
 

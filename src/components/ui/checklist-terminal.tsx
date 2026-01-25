@@ -102,15 +102,15 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center justify-center bg-black px-4 py-20 md:py-40"
+      className="flex flex-col items-center justify-center bg-stone-100 px-4 py-20 dark:bg-neutral-950 md:py-40"
     >
       <div
         className={cn(
-          "border-border bg-background z-0 h-[540px] w-full max-w-lg rounded-xl border md:h-[500px]",
+          "z-0 h-[540px] w-full max-w-lg rounded-xl border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-900 md:h-[500px]",
           className,
         )}
       >
-        <div className="border-border flex flex-col gap-y-2 border-b p-4">
+        <div className="flex flex-col gap-y-2 rounded-t-xl border-b border-neutral-200 bg-neutral-100 p-4 dark:border-neutral-800 dark:bg-neutral-800">
           <div className="flex flex-row gap-x-2">
             <div className="h-2 w-2 rounded-full bg-red-500"></div>
             <div className="h-2 w-2 rounded-full bg-yellow-500"></div>

@@ -1,25 +1,102 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "highlight.js/styles/github-dark.css";
+
+/* Syntax highlighting - using github theme as base */
+@import "highlight.js/styles/github.css";
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground: 23 23 23;
+  --background: 245 245 244;
+  --muted-foreground: 115 115 115;
+  --border: 214 211 209;
+
+  /* Extended palette for light mode */
+  --card-bg: 255 255 255;
+  --card-border: 214 211 209;
+  --section-bg: 245 245 244;
+  --section-alt-bg: 231 229 228;
+  --header-bg: 245 245 244 / 0.9;
+  --terminal-header: 231 229 228;
+  --terminal-bg: 255 255 255;
+  --window-bg: 250 250 249;
+  --window-header: 231 229 228;
+  --icon-muted: 120 113 108;
+  --shadow-color: 0 0 0 / 0.08;
+  --hover-shadow: 0 0 0 / 0.12;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.dark {
+  --foreground: 255 255 255;
+  --background: 0 0 0;
+  --muted-foreground: 163 163 163;
+  --border: 38 38 38;
+
+  /* Extended palette for dark mode */
+  --card-bg: 0 0 0;
+  --card-border: 38 38 38;
+  --section-bg: 0 0 0;
+  --section-alt-bg: 23 23 23;
+  --header-bg: 0 0 0 / 0.8;
+  --terminal-header: 64 64 64;
+  --terminal-bg: 23 23 23;
+  --window-bg: 30 41 59;
+  --window-header: 15 23 42;
+  --icon-muted: 100 116 139;
+  --shadow-color: 0 0 0 / 0.3;
+  --hover-shadow: 16 185 129 / 0.1;
+}
+
+/* Override highlight.js colors for dark mode */
+.dark .hljs {
+  background: #0d1117;
+  color: #c9d1d9;
+}
+
+.dark .hljs-keyword,
+.dark .hljs-selector-tag,
+.dark .hljs-literal,
+.dark .hljs-section,
+.dark .hljs-link {
+  color: #ff7b72;
+}
+
+.dark .hljs-string,
+.dark .hljs-title,
+.dark .hljs-name,
+.dark .hljs-type,
+.dark .hljs-attribute,
+.dark .hljs-symbol,
+.dark .hljs-bullet,
+.dark .hljs-addition,
+.dark .hljs-variable,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable {
+  color: #a5d6ff;
+}
+
+.dark .hljs-comment,
+.dark .hljs-quote,
+.dark .hljs-deletion,
+.dark .hljs-meta {
+  color: #8b949e;
+}
+
+.dark .hljs-function,
+.dark .hljs-class .hljs-title {
+  color: #d2a8ff;
+}
+
+.dark .hljs-number {
+  color: #79c0ff;
 }
 
 body {
-  background: black;
-  color: white;
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 @layer utilities {
@@ -102,4 +179,10 @@ body {
   .animate-highlight-sweep {
     animation: highlightSweep 2s linear forwards;
   }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
