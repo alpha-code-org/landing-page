@@ -18,8 +18,8 @@ const Header = () => {
           <Image
             src="/logo-dark.png"
             alt="alpha-logo"
-            width={40}
-            height={40}
+            width={24}
+            height={24}
             loading="lazy"
             className="block dark:hidden"
           />
