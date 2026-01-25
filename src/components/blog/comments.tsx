@@ -29,7 +29,7 @@ export function Comments() {
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="top"
-        theme={resolvedTheme === "dark" ? "dark" : "light"}
+        theme={resolvedTheme === "dark" ? "noborder_dark" : "noborder_light"}
         lang="en"
         loading="lazy"
       />
