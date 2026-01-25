@@ -52,8 +52,8 @@ const Card = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useIntersectionObserver(ref, {
-    amount: 0.1,
-    margin: "-45% 0px 0px 0px",
+    amount: 0,
+    margin: "-45% 0px -45% 0px",
   });
 
   useEffect(() => {
