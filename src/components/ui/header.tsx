@@ -10,16 +10,16 @@ const Header = () => {
           <Image
             src="/logo.png"
             alt="alpha-logo"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             loading="lazy"
             className="hidden dark:block"
           />
           <Image
             src="/logo-dark.png"
             alt="alpha-logo"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             loading="lazy"
             className="block dark:hidden"
           />
