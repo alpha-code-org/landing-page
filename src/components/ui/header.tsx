@@ -13,7 +13,7 @@ const Header = () => {
             width={20}
             height={20}
             loading="lazy"
-            className="hidden dark:block"
+            className="hidden h-auto w-auto dark:block"
           />
           <Image
             src="/logo-dark.png"
@@ -21,7 +21,7 @@ const Header = () => {
             width={20}
             height={20}
             loading="lazy"
-            className="block dark:hidden"
+            className="block h-auto w-auto dark:hidden"
           />
         </Link>
         <AnimatedThemeToggler />

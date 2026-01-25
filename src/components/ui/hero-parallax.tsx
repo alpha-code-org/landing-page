@@ -113,12 +113,13 @@ const getCardWidth = () =>
 
 const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [singleSetWidth, setSingleSetWidth] = useState(() => products.length * getCardWidth());
-  const [translateX, setTranslateX] = useState(() => -products.length * getCardWidth());
+  // Use desktop width as default for SSR to avoid hydration mismatch
+  const [singleSetWidth, setSingleSetWidth] = useState(products.length * DESKTOP_CARD_WIDTH);
+  const [translateX, setTranslateX] = useState(-products.length * DESKTOP_CARD_WIDTH);
   const isHovering = useRef(false);
   const lastTouchX = useRef(0);
 
-  // Update card width on resize
+  // Update card width on mount and resize
   useEffect(() => {
     const updateWidth = () => {
       const newSingleSetWidth = products.length * getCardWidth();
@@ -126,6 +127,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       setTranslateX(-newSingleSetWidth);
     };
 
+    updateWidth(); // Set correct width on mount
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
