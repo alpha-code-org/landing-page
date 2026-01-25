@@ -101,14 +101,34 @@ Title.displayName = "Title";
 // Triple the products array for infinite scroll illusion
 const infiniteProducts = [...products, ...products, ...products];
 
-// Width of one product card + gap (36rem + 5rem gap = 41rem, approx 656px)
-const CARD_WIDTH = 656;
-const SINGLE_SET_WIDTH = products.length * CARD_WIDTH;
+// Card widths: mobile (28rem + 5rem gap) vs desktop (36rem + 5rem gap)
+const MOBILE_CARD_WIDTH = 528; // 28rem (448px) + 5rem gap (80px)
+const DESKTOP_CARD_WIDTH = 656; // 36rem (576px) + 5rem gap (80px)
+const MD_BREAKPOINT = 768;
+
+const getCardWidth = () =>
+  typeof window !== "undefined" && window.innerWidth < MD_BREAKPOINT
+    ? MOBILE_CARD_WIDTH
+    : DESKTOP_CARD_WIDTH;
 
 const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [translateX, setTranslateX] = useState(-SINGLE_SET_WIDTH);
+  const [singleSetWidth, setSingleSetWidth] = useState(() => products.length * getCardWidth());
+  const [translateX, setTranslateX] = useState(() => -products.length * getCardWidth());
   const isHovering = useRef(false);
+  const lastTouchX = useRef(0);
+
+  // Update card width on resize
+  useEffect(() => {
+    const updateWidth = () => {
+      const newSingleSetWidth = products.length * getCardWidth();
+      setSingleSetWidth(newSingleSetWidth);
+      setTranslateX(-newSingleSetWidth);
+    };
+
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   // Handle wheel scrolling with infinite loop using transform (only when hovering)
   useEffect(() => {
@@ -132,9 +152,33 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
 
         // Wrap around for infinite scroll
         if (next > 0) {
-          next = next - SINGLE_SET_WIDTH;
-        } else if (next < -SINGLE_SET_WIDTH * 2) {
-          next = next + SINGLE_SET_WIDTH;
+          next = next - singleSetWidth;
+        } else if (next < -singleSetWidth * 2) {
+          next = next + singleSetWidth;
+        }
+
+        return next;
+      });
+    };
+
+    // Touch handlers for mobile
+    const onTouchStart = (e: TouchEvent) => {
+      lastTouchX.current = e.touches[0].clientX;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const currentX = e.touches[0].clientX;
+      const deltaX = currentX - lastTouchX.current;
+      lastTouchX.current = currentX;
+
+      setTranslateX((prev) => {
+        let next = prev + deltaX * 1.5;
+
+        // Wrap around for infinite scroll
+        if (next > 0) {
+          next = next - singleSetWidth;
+        } else if (next < -singleSetWidth * 2) {
+          next = next + singleSetWidth;
         }
 
         return next;
@@ -143,14 +187,18 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
 
     container.addEventListener("mouseenter", onMouseEnter);
     container.addEventListener("mouseleave", onMouseLeave);
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
       container.removeEventListener("mouseenter", onMouseEnter);
       container.removeEventListener("mouseleave", onMouseLeave);
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("wheel", onWheel);
     };
-  }, []);
+  }, [singleSetWidth]);
 
   return (
     <div
