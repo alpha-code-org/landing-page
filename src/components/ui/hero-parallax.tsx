@@ -6,6 +6,11 @@ import { Button } from "./moving-border-button";
 import { useRef, memo, useEffect, useState } from "react";
 import { products } from "../utils/products";
 
+const dotPatterns = {
+  light: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23a8a29e' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
+  dark: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23404040' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
+};
+
 const HeroParallax = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -46,6 +51,14 @@ const HeroParallax = () => {
       ref={ref}
       className="hero-parallax relative mx-auto flex h-full w-screen max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased perspective-near transform-3d md:pb-96"
     >
+      <div
+        className="pointer-events-none absolute inset-0 dark:hidden opacity-30 -z-10"
+        style={{ backgroundImage: dotPatterns.light }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 hidden dark:block opacity-30 -z-10"
+        style={{ backgroundImage: dotPatterns.dark }}
+      />
       <Title scrollY={scrollY} />
       <ProductList scrollProgress={scrollProgress} />
     </div>
