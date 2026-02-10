@@ -131,6 +131,8 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   const [translateX, setTranslateX] = useState(-products.length * DESKTOP_CARD_WIDTH);
   const isHovering = useRef(false);
   const lastTouchX = useRef(0);
+  const lastTouchY = useRef(0);
+  const touchDirection = useRef<"horizontal" | "vertical" | null>(null);
 
   // Update card width on mount and resize
   useEffect(() => {
@@ -179,12 +181,29 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
     // Touch handlers for mobile
     const onTouchStart = (e: TouchEvent) => {
       lastTouchX.current = e.touches[0].clientX;
+      lastTouchY.current = e.touches[0].clientY;
+      touchDirection.current = null;
     };
 
     const onTouchMove = (e: TouchEvent) => {
       const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
       const deltaX = currentX - lastTouchX.current;
+      const deltaY = currentY - lastTouchY.current;
+
+      // Lock direction on first significant movement
+      if (touchDirection.current === null) {
+        if (Math.abs(deltaX) < 3 && Math.abs(deltaY) < 3) return;
+        touchDirection.current = Math.abs(deltaX) > Math.abs(deltaY) ? "horizontal" : "vertical";
+      }
+
+      // Only handle horizontal swipes; let vertical scroll pass through
+      if (touchDirection.current === "vertical") return;
+
+      e.preventDefault();
+
       lastTouchX.current = currentX;
+      lastTouchY.current = currentY;
 
       setTranslateX((prev) => {
         let next = prev + deltaX * 1.5;
@@ -203,7 +222,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
     container.addEventListener("mouseenter", onMouseEnter);
     container.addEventListener("mouseleave", onMouseLeave);
     container.addEventListener("touchstart", onTouchStart, { passive: true });
-    container.addEventListener("touchmove", onTouchMove, { passive: true });
+    container.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
@@ -220,6 +239,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       className="product-list relative z-10 overflow-hidden"
       ref={containerRef}
       style={{
+        touchAction: "pan-y",
         transform: `
           rotateX(${15 - 15 * Math.min(scrollProgress / 0.2, 1)}deg)
           rotateZ(${20 - 20 * Math.min(scrollProgress / 0.2, 1)}deg)
