@@ -26,7 +26,6 @@ import { IconCaretDownFilled } from "@tabler/icons-react";
 import { cn } from "@/utils/cn";
 import { Highlight } from "./audit-highlight";
 
-
 export const MacbookScroll = ({
   src,
   showGradient,
