@@ -129,6 +129,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   // Use desktop width as default for SSR to avoid hydration mismatch
   const [singleSetWidth, setSingleSetWidth] = useState(products.length * DESKTOP_CARD_WIDTH);
   const [translateX, setTranslateX] = useState(-products.length * DESKTOP_CARD_WIDTH);
+  const [isSnapping, setIsSnapping] = useState(false);
   const isHovering = useRef(false);
   const lastTouchX = useRef(0);
   const lastTouchY = useRef(0);
@@ -178,8 +179,23 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       });
     };
 
+    const cardWidth = getCardWidth();
+
+    const snapToCard = () => {
+      setIsSnapping(true);
+      setTranslateX((prev) => {
+        const snapped = Math.round(prev / cardWidth) * cardWidth;
+        let next = snapped;
+        if (next > 0) next -= singleSetWidth;
+        else if (next < -singleSetWidth * 2) next += singleSetWidth;
+        return next;
+      });
+      setTimeout(() => setIsSnapping(false), 300);
+    };
+
     // Touch handlers for mobile
     const onTouchStart = (e: TouchEvent) => {
+      setIsSnapping(false);
       lastTouchX.current = e.touches[0].clientX;
       lastTouchY.current = e.touches[0].clientY;
       touchDirection.current = null;
@@ -219,10 +235,17 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       });
     };
 
+    const onTouchEnd = () => {
+      if (touchDirection.current === "horizontal") {
+        snapToCard();
+      }
+    };
+
     container.addEventListener("mouseenter", onMouseEnter);
     container.addEventListener("mouseleave", onMouseLeave);
     container.addEventListener("touchstart", onTouchStart, { passive: true });
     container.addEventListener("touchmove", onTouchMove, { passive: false });
+    container.addEventListener("touchend", onTouchEnd, { passive: true });
     window.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
@@ -230,6 +253,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       container.removeEventListener("mouseleave", onMouseLeave);
       container.removeEventListener("touchstart", onTouchStart);
       container.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("wheel", onWheel);
     };
   }, [singleSetWidth]);
@@ -255,6 +279,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
         style={{
           transform: `translateX(${translateX}px)`,
           willChange: "transform",
+          transition: isSnapping ? "transform 0.3s ease-out" : "none",
         }}
       >
         {infiniteProducts.map((product, index) => (
