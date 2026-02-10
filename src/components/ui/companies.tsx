@@ -29,7 +29,7 @@ export const Companies = () => {
               rel="noopener noreferrer"
               className={cn(
                 "opacity-0 transition-all duration-500 hover:scale-105",
-                isInView && "animate-fade-in-up opacity-100",
+                isInView && "animate-fade-in-up",
               )}
               style={{ animationDelay: `${i * 150}ms` }}
             >
