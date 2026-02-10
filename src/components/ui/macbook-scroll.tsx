@@ -126,8 +126,8 @@ export const MacbookScroll = ({
       >
         {title || (
           <span className="scale-200 md:scale-100">
-            Automate boring manual tasks with AI. <br />
-            <Highlight className="whitespace-nowrap text-white">Save time and resources.</Highlight>
+            Automate boring manual tasks with AI <br />
+            <Highlight className="whitespace-nowrap text-white">Save time and resources</Highlight>
           </span>
         )}
       </div>
