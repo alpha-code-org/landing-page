@@ -38,7 +38,7 @@ export const Companies = () => {
                 alt={company.name}
                 width={176}
                 height={32}
-                className="h-6 w-auto max-w-[300px] object-contain opacity-70 invert transition-opacity duration-300 hover:opacity-100 dark:invert-0"
+                className="h-6 w-auto max-w-[290px] object-contain opacity-70 invert transition-opacity duration-300 hover:opacity-100 dark:invert-0"
               />
             </Link>
           ))}
