@@ -52,11 +52,11 @@ const HeroParallax = () => {
       className="hero-parallax relative mx-auto flex h-full w-screen max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased perspective-near transform-3d md:pb-96"
     >
       <div
-        className="pointer-events-none absolute inset-0 dark:hidden opacity-30 -z-10"
+        className="pointer-events-none absolute inset-0 dark:hidden opacity-50 -z-10"
         style={{ backgroundImage: dotPatterns.light }}
       />
       <div
-        className="pointer-events-none absolute inset-0 hidden dark:block opacity-30 -z-10"
+        className="pointer-events-none absolute inset-0 hidden dark:block opacity-50 -z-10"
         style={{ backgroundImage: dotPatterns.dark }}
       />
       <Title scrollY={scrollY} />
