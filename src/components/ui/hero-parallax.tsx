@@ -206,7 +206,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       lastTouchY.current = currentY;
 
       setTranslateX((prev) => {
-        let next = prev + deltaX * 1.5;
+        let next = prev + deltaX * 3;
 
         // Wrap around for infinite scroll
         if (next > 0) {
