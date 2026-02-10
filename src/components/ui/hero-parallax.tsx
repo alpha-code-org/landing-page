@@ -288,7 +288,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
         style={{
           transform: `translateX(${translateX}px)`,
           willChange: "transform",
-          transition: isSnapping ? "transform 0.3s ease-out" : "none",
+          transition: isSnapping ? "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)" : "none",
         }}
       >
         {infiniteProducts.map((product, index) => (
