@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import {
   IconBrightnessDown,
@@ -25,7 +25,7 @@ import { IconCaretLeftFilled } from "@tabler/icons-react";
 import { IconCaretDownFilled } from "@tabler/icons-react";
 import { cn } from "@/utils/cn";
 import { Highlight } from "./audit-highlight";
-import { useIsMobile } from "@/hooks/useIsMobile";
+
 
 export const MacbookScroll = ({
   src,
@@ -43,70 +43,72 @@ export const MacbookScroll = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const macbookRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const screenRef = useRef<HTMLDivElement>(null);
+  const isMobileRef = useRef(false);
 
-  // Scroll progress tracking
+  // Track mobile state in ref to avoid re-renders
+  useEffect(() => {
+    const check = () => {
+      isMobileRef.current = window.innerWidth < 768;
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // Scroll-driven animation via refs — no state, no re-renders
   useEffect(() => {
     if (!containerRef.current) return;
 
     let ticking = false;
-    const updateScrollProgress = () => {
+
+    const updateTransforms = () => {
       if (!containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       const elementHeight = rect.height;
 
-      // Calculate progress based on element position with configurable delay
       const rawProgress = (windowHeight - rect.top) / (windowHeight + elementHeight);
       const progress = Math.max(
         0,
         Math.min(1, (rawProgress - animationDelay) / (1 - animationDelay)),
       );
 
-      setScrollProgress(progress);
+      const isMobile = isMobileRef.current;
+      const scaleX = 1.2 + progress * (isMobile ? -0.2 : 0.1);
+      const scaleY = Math.min(1.1, 0.6 + progress * (isMobile ? 0.4 : 1.5));
+      const translateY = progress * 750;
+      const rotateX = progress < 0.3 ? -28 + progress * 93.33 : 0;
+      const textTranslateY = progress * 200;
+      const textOpacity = Math.max(0, 1 - progress * 5);
+
+      if (titleRef.current) {
+        titleRef.current.style.transform = `translateY(${textTranslateY}px)`;
+        titleRef.current.style.opacity = String(textOpacity);
+      }
+
+      if (screenRef.current) {
+        screenRef.current.style.transform = `scaleX(${scaleX}) scaleY(${scaleY}) rotateX(${rotateX}deg) translateY(${translateY}px) translateZ(0px)`;
+      }
+
       ticking = false;
     };
 
     const handleScroll = () => {
       if (!ticking) {
-        setTimeout(() => {
-          requestAnimationFrame(updateScrollProgress);
-        }, 8);
+        requestAnimationFrame(updateTransforms);
         ticking = true;
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    updateScrollProgress(); // Initial calculation
+    updateTransforms();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [animationDelay]);
-
-  // Calculate transform values based on scroll progress
-  const getTransformValues = useCallback(() => {
-    const progress = scrollProgress;
-    const scaleX = 1.2 + progress * (isMobile ? -0.2 : 0.1);
-    const scaleY = Math.min(1.1, 0.6 + progress * (isMobile ? 0.4 : 1.5));
-    const translateY = progress * 750;
-    const rotateX = progress < 0.3 ? -28 + progress * 93.33 : 0; // -28 to 0 over first 30%
-    const textTranslateY = progress * 200;
-    const textOpacity = Math.max(0, 1 - progress * 5); // Fade out quickly
-
-    return {
-      scaleX,
-      scaleY,
-      translateY,
-      rotateX,
-      textTranslateY,
-      textOpacity,
-    };
-  }, [scrollProgress, isMobile]);
-
-  const transforms = useMemo(() => getTransformValues(), [getTransformValues]);
 
   return (
     <div
@@ -121,12 +123,7 @@ export const MacbookScroll = ({
     >
       <div
         ref={titleRef}
-        className="text-center text-3xl font-bold text-neutral-800 dark:text-white md:mb-20"
-        style={{
-          transform: `translateY(${transforms.textTranslateY}px)`,
-          opacity: transforms.textOpacity,
-          transition: "transform 0.1s ease-out, opacity 0.1s ease-out",
-        }}
+        className="text-center text-3xl font-bold text-neutral-800 will-change-transform dark:text-white md:mb-20"
       >
         {title || (
           <span className="scale-200 md:scale-100">
@@ -140,7 +137,7 @@ export const MacbookScroll = ({
         className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 backface-hidden perspective-midrange will-change-transform sm:scale-50 md:scale-100"
       >
         {/* Lid */}
-        <CSSLid src={src} transforms={transforms} />
+        <CSSLid src={src} screenRef={screenRef} />
         {/* Base area */}
         <div className="relative -z-10 h-88 w-lg overflow-hidden rounded-2xl bg-gray-200 will-change-transform dark:bg-[#272729]">
           {/* above keyboard bar */}
@@ -173,41 +170,19 @@ export const MacbookScroll = ({
 export const CSSLid = React.memo(
   ({
     src,
-    transforms,
+    screenRef,
   }: {
     src?: string;
-    transforms: {
-      scaleX: number;
-      scaleY: number;
-      translateY: number;
-      rotateX: number;
-      textTranslateY: number;
-      textOpacity: number;
-    };
+    screenRef: React.RefObject<HTMLDivElement | null>;
   }) => {
-    const lidStyle = useMemo(
-      () => ({
-        transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
-        transformOrigin: "bottom",
-        transformStyle: "preserve-3d" as const,
-      }),
-      [],
-    );
-
-    const screenStyle = useMemo(
-      () => ({
-        transform: `scaleX(${transforms.scaleX}) scaleY(${transforms.scaleY}) rotateX(${transforms.rotateX}deg) translateY(${transforms.translateY}px) translateZ(0px)`,
-        transformStyle: "preserve-3d" as const,
-        transformOrigin: "top",
-        transition: "transform 0.1s ease-out",
-      }),
-      [transforms],
-    );
-
     return (
       <div className="relative perspective-midrange will-change-transform">
         <div
-          style={lidStyle}
+          style={{
+            transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
+            transformOrigin: "bottom",
+            transformStyle: "preserve-3d",
+          }}
           className="relative h-48 w-lg rounded-2xl bg-[#010101] p-2 backface-hidden will-change-transform"
         >
           <div
@@ -227,7 +202,11 @@ export const CSSLid = React.memo(
           </div>
         </div>
         <div
-          style={screenStyle}
+          ref={screenRef}
+          style={{
+            transformStyle: "preserve-3d",
+            transformOrigin: "top",
+          }}
           className="absolute inset-0 h-96 w-lg rounded-2xl bg-[#010101] p-2 backface-hidden will-change-transform"
         >
           <div className="absolute inset-0 rounded-lg bg-[#272729]" />
