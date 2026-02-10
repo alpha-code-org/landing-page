@@ -133,6 +133,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   const isHovering = useRef(false);
   const lastTouchX = useRef(0);
   const lastTouchY = useRef(0);
+  const touchStartX = useRef(0);
   const touchDirection = useRef<"horizontal" | "vertical" | null>(null);
 
   // Update card width on mount and resize
@@ -183,10 +184,13 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
 
     const cardWidth = getCardWidth();
 
-    const snapToCard = () => {
+    const snapToCard = (swipedRight: boolean) => {
       setIsSnapping(true);
       setTranslateX((prev) => {
-        const snapped = Math.round(prev / cardWidth) * cardWidth;
+        // Snap in swipe direction so a small flick advances to next card
+        const snapped = swipedRight
+          ? Math.ceil(prev / cardWidth) * cardWidth
+          : Math.floor(prev / cardWidth) * cardWidth;
         let next = snapped;
         if (next > 0) next -= singleSetWidth;
         else if (next < -singleSetWidth * 2) next += singleSetWidth;
@@ -200,6 +204,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       setIsSnapping(false);
       lastTouchX.current = e.touches[0].clientX;
       lastTouchY.current = e.touches[0].clientY;
+      touchStartX.current = e.touches[0].clientX;
       touchDirection.current = null;
     };
 
@@ -237,9 +242,11 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       });
     };
 
-    const onTouchEnd = () => {
+    const onTouchEnd = (e: TouchEvent) => {
       if (touchDirection.current === "horizontal") {
-        snapToCard();
+        const endX = e.changedTouches[0].clientX;
+        const swipedRight = endX > touchStartX.current;
+        snapToCard(swipedRight);
       }
     };
 
