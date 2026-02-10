@@ -162,11 +162,13 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
 
     const onWheel = (e: WheelEvent) => {
       if (!isHovering.current) return;
+      // Only capture horizontal wheel; let vertical scroll pass through
+      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
 
       e.preventDefault();
 
       setTranslateX((prev) => {
-        let next = prev - e.deltaY * 1.5;
+        let next = prev - e.deltaX * 1.5;
 
         // Wrap around for infinite scroll
         if (next > 0) {
@@ -207,9 +209,9 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       const deltaX = currentX - lastTouchX.current;
       const deltaY = currentY - lastTouchY.current;
 
-      // Lock direction on first significant movement
+      // Lock direction on first significant movement (10px threshold)
       if (touchDirection.current === null) {
-        if (Math.abs(deltaX) < 3 && Math.abs(deltaY) < 3) return;
+        if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) return;
         touchDirection.current = Math.abs(deltaX) > Math.abs(deltaY) ? "horizontal" : "vertical";
       }
 
