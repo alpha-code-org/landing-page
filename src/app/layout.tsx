@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import Header from "@/components/ui/header";
 import Footer from "@/components/ui/footer";
 import { cn } from "@/utils/cn";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -65,6 +66,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning >
       <body className={cn("flex flex-col bg-stone-100 dark:bg-black", montserrat.className)}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <Header />
           {children}
           <Footer />
         </ThemeProvider>

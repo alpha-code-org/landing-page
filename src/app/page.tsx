@@ -6,11 +6,13 @@ import Blog from "@/components/ui/blog";
 import { ChecklistTerminal } from "@/components/ui/checklist-terminal";
 import { AuditHighlight } from "@/components/ui/audit-highlight";
 import { MacbookScroll } from "@/components/ui/macbook-scroll";
+import { Companies } from "@/components/ui/companies";
 
 export default function Home() {
   return (
     <main>
       <HeroParallax />
+      <Companies />
       <div className="bg-stone-200/30 dark:bg-transparent py-20 md:py-32">
         <StickyScroll services={services} />
       </div>
