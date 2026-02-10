@@ -13,5 +13,15 @@ export const companies = [
     name: "Heco et al",
     website: "https://hecoetal.com/",
     logo: "/companies/heco.svg",
+  },
+  {
+    name: "Longwood Labs",
+    website: "https://www.longwoodlabs.xyz/",
+    logo: "/companies/longwood-labs.svg",
+  },
+  {
+    name: "Sezona HR",
+    website: "https://sezona.hr/",
+    logo: "/companies/sezona-hr.svg",
   }
 ];

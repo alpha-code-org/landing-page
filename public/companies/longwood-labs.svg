@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 167 14">
+  <!-- Stylized "L" icon -->
+  <polygon points="7,0 11,0 5.5,14 1.5,14" />
+  <polygon points="8,8.5 16,8.5 13.5,14 5.5,14" />
+  <!-- LONGWOOD LABS inline text -->
+  <text x="19" y="13" font-family="'Helvetica Neue', Helvetica, 'Montserrat', 'Futura', Arial, sans-serif" font-size="14.5" fill="#FFFFFF" letter-spacing="1.5" dominant-baseline="auto"><tspan font-weight="700">LONGWOOD</tspan><tspan font-weight="300">LABS</tspan></text>
+</svg>
