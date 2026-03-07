@@ -27,7 +27,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h3>
     ),
     p: ({ children }) => (
-      <p className="mb-6 text-[17px] leading-[1.8] text-stone-800 dark:text-stone-200 md:text-lg md:leading-[1.9]">
+      <p className="mb-6 text-[17px] font-[450] leading-[1.8] text-stone-800 dark:text-stone-200 md:text-lg md:leading-[1.9]">
         {children}
       </p>
     ),
@@ -50,7 +50,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </pre>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-6 rounded-r-lg border-l-4 border-blue-500 bg-blue-50 py-4 pl-6 pr-4 text-stone-700 dark:border-blue-400 dark:bg-blue-900/30 dark:text-stone-200">
+      <blockquote className="my-6 rounded-r-lg border-l-4 border-blue-500 bg-blue-50 py-4 pl-6 pr-4 font-[450] text-stone-700 dark:border-blue-400 dark:bg-blue-900/30 dark:text-stone-200">
         {children}
       </blockquote>
     ),
@@ -64,7 +64,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </ol>
     ),
-    li: ({ children }) => <li className="text-[17px] leading-[1.8] md:text-lg">{children}</li>,
+    li: ({ children }) => <li className="text-[17px] font-[450] leading-[1.8] md:text-lg">{children}</li>,
     hr: () => <hr className="my-10 border-stone-200 dark:border-neutral-700" />,
     figure: ({ children }) => <figure className="my-8 text-center">{children}</figure>,
     figcaption: ({ children }) => (
