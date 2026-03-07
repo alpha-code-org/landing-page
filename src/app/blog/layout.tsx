@@ -4,7 +4,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="bg-stone-100 dark:bg-neutral-950">
+    <main className="bg-stone-100 dark:bg-neutral-900">
       {children}
     </main>
   );

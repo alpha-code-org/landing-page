@@ -112,8 +112,8 @@
 
   /* Override highlight.js colors for dark mode */
   .dark .hljs {
-    background: #0d1117;
-    color: #c9d1d9;
+    background: transparent;
+    color: #e2e8f0;
   }
 
   .dark .hljs-keyword,
@@ -121,7 +121,7 @@
   .dark .hljs-literal,
   .dark .hljs-section,
   .dark .hljs-link {
-    color: #ff7b72;
+    color: #fca5a5;
   }
 
   .dark .hljs-string,
@@ -135,23 +135,33 @@
   .dark .hljs-variable,
   .dark .hljs-template-tag,
   .dark .hljs-template-variable {
-    color: #a5d6ff;
+    color: #bfdbfe;
   }
 
   .dark .hljs-comment,
   .dark .hljs-quote,
   .dark .hljs-deletion,
   .dark .hljs-meta {
-    color: #8b949e;
+    color: #a1a1aa;
   }
 
   .dark .hljs-function,
   .dark .hljs-class .hljs-title {
-    color: #d2a8ff;
+    color: #d8b4fe;
   }
 
   .dark .hljs-number {
-    color: #79c0ff;
+    color: #bae6fd;
+  }
+
+  .dark .hljs-attr,
+  .dark .hljs-params,
+  .dark .hljs-built_in,
+  .dark .hljs-subst,
+  .dark .hljs-selector-id,
+  .dark .hljs-selector-class,
+  .dark .hljs-property {
+    color: #fdba74;
   }
 
   body {
