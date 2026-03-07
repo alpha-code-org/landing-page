@@ -12,13 +12,136 @@ export const metadata = {
 
 As of March, 2026 there is a strange notion that AI is only months away from making
 software development as a craft obsolete. Both pro and against camps are making their
-strong points, but past has thought as that prediciting future is never straighforward.
+strong points, but past has thought us that prediciting future is never straightforward.
 From my personal experience, it is really amazing to see how far we came, from simple
-GPT `copy-pasta` to Claude Code writting almost 90% of the code inside Alpha Code codebase.
+GPT `copy-pasta` to Claude Code writting almost 90% of the code inside
+[Alpha Code](https://www.linkedin.com/company/alpha-code-doo) codebase.
 
-AI is not just a cool tool for email Regex generation anymore, but I would argue,
+AI is not just a cool tool for email Regex anymore, but I would argue,
 an essential part of every serious software development company. I used to be an AI
 skeptic, but the first time model wrote code that is better than mine, it was time to
 put an ego aside and join the hype train. Today I can't imagine working without Claude
-Code in the background giving me fast feefback loops and helpful suggestions. Looking
-back couple of years, it kind of feels like unreal to write code by hand. Letter by letter.
+Code in the background giving me fast feedback loops and helpful suggestions. Looking
+back couple of years, it kind of feels unreal to write code by hand. Do you remember, how crazy is that?
+
+## Reality check
+
+Although AI is getting better at common day-to-day tasks, it has a big limitation, <Highlight>CONTEXT</Highlight>.
+That's why prompts like: `Build me a million dollar SaaS in Next.js. Make no mistakes.` do not
+work, at least yet. Making broad prompts like this will result in model hallucinating their way
+to a fairytale solution.
+
+It is important to make a clear distinction between vibe coding and using AI as a tool with developer
+in a driving seat. This post is for developers that want to improve their skills and get features out in
+fast and secure way.
+
+## Bread and butter
+
+Let's dive deep into how we at [Alpha Code](https://www.linkedin.com/company/alpha-code-doo) utilise Claude Code
+for crafting software solutions.
+
+### 1. Test driven development
+
+Yes, TDD mentioned. From my experience, this turned out to be a game changer when building
+an API in a classic MVC style. People tend to have a bad opinion when it comes to TDD, mostly
+because they haven't build any senstive apps that require careful data handling. It is considered
+a huge waste of time to write tests because they don't contribute to the user's percieved value.
+
+In my opinion, it was not the tests that were the bottleneck, but `writting` itself. In AI era where
+code is so darn cheap, when you think about it, there is no excuse to skip this crucial part.
+
+Another important issue not talked about much in the tech Twitter is that the only guardrails teams
+have are hand-written test suites. I say hand-written on purpose, because this is the only place now when you
+are given an opportunity to actually think about the feature impact on the system. How wild statement is that!
+
+One major bonus is that you get a "tests as a documentation" from a single source of truth for free.
+Nothing hits harder than outdated docs. Check out our
+[boilerplate](https://github.com/mateogalic112/node-postgres-demo) for working with Node.js APIs.
+
+Let's say you need to add a new feature to an ecommerce app for authenticated users to create products.
+You would first write a test with minimal data required for test to run, but not enough to pass.
+At this point, you are not using any AI tools, this is all you my friend. You set up the guardrails
+for AI to navigate. You set the acceptance criteria for a feature to be considered `DONE`. Doing this in
+small incremental steps, benefits you in these areas:
+
+1. Model does need to store a bunch of data in context, it can self-correct using test suite
+2. Based on test suite, model can suggest how to improve user flows and provide helpful suggestions
+3. There is a little room for model to hallucinate, since it has clear definition of success.
+
+After setting up bare-bone controller and service layer just for tests to run, now it's time to
+add some AI slop into our beloved codebase in order for tests to pass. Since code is not bottleneck anymore,
+we can iterate as much as we want until all use-cases are covered and all tests are passing.
+
+Nobody said that LLM should not write some edge case tests, but the starting point should always be
+a human thought: "What is the actual thing I am trying to build and verify here?". I have witnessed
+so many AI generated tests that were just polluting the codebase with slop and unreadable mess.
+This is what happens when starting point is 0, not your acceptance criteria. So important!
+
+### 2. Don't stop at the working solution
+
+After your assitent has generated some code, your tests are passing, code looks alright, not top notch, but
+fine for the first hand, I want to make a challenge for current solution. Here is the Claude skill that I like to invoke when feature is
+in the working state.
+
+```
+---
+name: review-changes
+description: Reviews changes on current git branch to find bugs or security issues
+---
+
+Before reviewing code, reffer to this checklist:
+
+1. **Find flows in logic**: Find areas where some actions do not make sense, or can be error prone, putting system in inconsistent state
+2. **Find security issues**: Overall things that are missing from simple validation checks to big security concerns like potential sensitive data exploits
+3. **Find ways to improve performance**: Suggest some quick wins or some big changes to improve performance
+4. **Make codebase cleaner**: Suggest potential refactor opportunities that will make code easier to read and understand for other humans. Reflect on programming best practices to improve some areas of the code.
+
+Always report back with a suggestions list for improvements, don't edit the code until explicilty requested.
+```
+
+I have a lot of battle scars from this prompt. First of all, if the PR is in the range of 100-300 lines,
+this is really helpful, because AI have some "meat" to work with. When running on smaller PRs, it
+sometimes makes changes that are not even stylistic, but just wrong, just to report something.
+That's why it is important to experiment with your model and find the best solutions for you.
+
+After tackling everything on that review list, now it's time for a more stylistic changes. Codebase should be
+readable like a story. Perfomance is important, but fixing critical bug in 2am is more likely to happen. That's why
+navigating codebase, searching and finding things in places where we expect them to be is a top priority for us.
+I like to spend a bit more time updating variable and function names, extract common logic into another class because it pays dividends in the long run.
+If I have touched something that is not pure style change, I run this skill again. One story that happened a couple of times,
+I would delete some "if" statement that would later crash the app. Trust but verify!
+
+At this point we are confortable enough that we have a working feature with readable code and great safety net.
+Next thing to do is push our code to GitHub and run our new AI helper, Bugbot.
+
+### 3. Code review
+
+This is the area where model really shines. It is so easy for a human to miss some critical security issues
+in code review, because of many reasons. The biggest one being large PRs stretching multiple domains,
+touching different parts of the system. If you want to make your colleague's life easier, please
+respect his time and write code not for the machines, but for human maintainers.
+Bugbot has saved me so many times, no just by finding some super hidden security flow, but a real
+big obvious ones. I learned my lesson the hard way to double check even 2 liner PRs.
+
+Bugbot runs inside your CI/CD pipeline, and if you don't want to spend the rest of the day trying to please
+AI bot, keep PRs as small and isolated as possible. This will make feedback loop faster and overall
+company workflow more pleasant.
+
+### 4. Don't be a naive fool
+
+Just because your team has access to the latest, strongest, most advanced AI models, this does not mean that
+delivering features takes 10 minutes with 2 prompts. Working on a complex feature, spaning multiple domains is not
+an easy task even for the LLM. I was witnessing first hand that person that was always
+calling out people how their work is slow and not efficient enough, made 80% of bugs in the app. Every time
+there was a 10 second db query, or useEffect bug, I knew who was the author.
+
+Crafting software takes time. Making prototypes is different than making maintainable software. Each has it's
+own use-case. When there is real money or senstive customer data on the line, better make sure you are on
+the right side of that problem.
+
+## Conclusion
+
+We at [Alpha Code](https://www.linkedin.com/company/alpha-code-doo) love to share our knowledge with the community. If you have any questions or suggestions, feel free to reach out to us.
+If you need help with setting up your project, code refactoring, or just want to chat, please reach out.
+
+<BlogFooter publishDate="2025-03-27T00:00:00.000Z" />
