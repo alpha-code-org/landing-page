@@ -82,8 +82,8 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center dark:bg-neutral-950 md:h-[75vh]">
-      <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-200 sm:text-xl md:mb-0">
+    <div className="flex h-[50vh] flex-col items-center justify-center md:h-[75vh] dark:bg-neutral-950">
+      <p className="mb-4 text-lg text-neutral-600 sm:text-xl md:mb-0 dark:text-neutral-200">
         Looking forward meeting you.
       </p>
 
@@ -98,11 +98,11 @@ export const Typewriter = ({
           {renderWords()}
         </div>
       </div>
-      <div className="flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+      <div className="flex flex-col space-y-4 space-x-0 md:flex-row md:space-y-0 md:space-x-4">
         <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
           <Button
             borderRadius="1.75rem"
-            className="z-10 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code"
+            className="bg-brand-code hover:text-brand-code z-10 border-slate-800 font-bold text-white transition-colors hover:bg-white"
           >
             Schedule a call
           </Button>

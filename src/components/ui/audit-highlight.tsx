@@ -9,7 +9,7 @@ export const AuditHighlight = () => {
   return (
     <HeroHighlight>
       <div className="animate-fade-in-bounce mx-auto flex max-w-4xl flex-col items-center gap-12 px-4">
-        <h1 className="text-center text-2xl font-bold leading-relaxed text-neutral-700 dark:text-white md:text-4xl lg:text-5xl lg:leading-snug">
+        <h1 className="text-center text-2xl leading-relaxed font-bold text-neutral-700 md:text-4xl lg:text-5xl lg:leading-snug dark:text-white">
           We identify security vulnerabilities{" "}
           <Highlight className="whitespace-nowrap text-white">in your codebase</Highlight>
         </h1>
@@ -17,7 +17,7 @@ export const AuditHighlight = () => {
         <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
           <Button
             borderRadius="1.75rem"
-            className="z-20 border-slate-800 bg-brand-alpha text-white transition-colors hover:bg-white hover:text-brand-code"
+            className="bg-brand-alpha hover:text-brand-code z-20 border-slate-800 text-white transition-colors hover:bg-white"
           >
             Request an audit
           </Button>
@@ -119,7 +119,8 @@ export const Highlight = ({
         className,
       )}
       style={{
-        backgroundImage: "linear-gradient(to right, var(--color-indigo-500), var(--color-purple-500))",
+        backgroundImage:
+          "linear-gradient(to right, var(--color-indigo-500), var(--color-purple-500))",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "left center",
         backgroundSize: "0% 100%",

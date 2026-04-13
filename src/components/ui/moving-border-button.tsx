@@ -25,7 +25,7 @@ export function Button({
   return (
     <Component
       className={cn(
-        "relative h-12 w-48 overflow-hidden bg-transparent p-[2px] text-xl md:h-16 cursor-pointer",
+        "relative h-12 w-48 cursor-pointer overflow-hidden bg-transparent p-[2px] text-xl md:h-16",
         containerClassName,
       )}
       style={{

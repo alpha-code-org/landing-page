@@ -13,7 +13,7 @@ export default function Home() {
     <main>
       <HeroParallax />
       <Companies />
-      <div className="bg-stone-200/30 dark:bg-transparent py-20 md:py-32">
+      <div className="bg-stone-200/30 py-20 md:py-32 dark:bg-transparent">
         <StickyScroll services={services} />
       </div>
       <MacbookScroll src="/business.webp" />

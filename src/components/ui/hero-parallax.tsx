@@ -52,11 +52,11 @@ const HeroParallax = () => {
       className="hero-parallax relative mx-auto flex h-full w-screen max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased perspective-near transform-3d md:pb-96"
     >
       <div
-        className="pointer-events-none absolute inset-0 dark:hidden opacity-50 -z-10"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-50 dark:hidden"
         style={{ backgroundImage: dotPatterns.light }}
       />
       <div
-        className="pointer-events-none absolute inset-0 hidden dark:block opacity-50 -z-10"
+        className="pointer-events-none absolute inset-0 -z-10 hidden opacity-50 dark:block"
         style={{ backgroundImage: dotPatterns.dark }}
       />
       <Title scrollY={scrollY} />
@@ -68,19 +68,19 @@ const HeroParallax = () => {
 const Title = memo(({ scrollY }: { scrollY: number }) => {
   return (
     <div
-      className="title-fade relative left-[5%] top-[50vh] z-20 w-full md:top-[40vh]"
+      className="title-fade relative top-[50vh] left-[5%] z-20 w-full md:top-[40vh]"
       style={{
         opacity: Math.max(0, 1 - scrollY / 200),
         willChange: "opacity",
       }}
     >
-      <h1 className="relative flex items-center gap-2 text-4xl font-bold text-neutral-900 dark:text-white sm:text-6xl md:text-7xl lg:text-8xl">
+      <h1 className="relative flex items-center gap-2 text-4xl font-bold text-neutral-900 sm:text-6xl md:text-7xl lg:text-8xl dark:text-white">
         <Image
           alt="ac-logo"
           src="/logo.png"
           width={80}
           height={77}
-          className="mr-2 hidden w-10 dark:block sm:w-16 md:w-20"
+          className="mr-2 hidden w-10 sm:w-16 md:w-20 dark:block"
           fetchPriority="high"
         />
         <Image
@@ -88,19 +88,19 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
           src="/logo-dark.png"
           width={80}
           height={77}
-          className="mr-2 block w-10 dark:hidden sm:w-16 md:w-20"
+          className="mr-2 block w-10 sm:w-16 md:w-20 dark:hidden"
           fetchPriority="high"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
       </h1>
-      <p className="relative z-20 mb-4 mt-4 max-w-2xl text-xl text-neutral-600 dark:text-neutral-200 sm:text-3xl md:text-4xl md:font-bold">
+      <p className="relative z-20 mt-4 mb-4 max-w-2xl text-xl text-neutral-600 sm:text-3xl md:text-4xl md:font-bold dark:text-neutral-200">
         We craft beautiful software.
       </p>
       <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
         <Button
           borderRadius="1.75rem"
-          className="z-20 border-slate-800 bg-brand-code font-bold text-white transition-colors hover:bg-white hover:text-brand-code"
+          className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white"
         >
           Book a meeting
         </Button>

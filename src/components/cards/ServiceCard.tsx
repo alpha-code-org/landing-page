@@ -18,13 +18,13 @@ function ServiceCard({ title, description, imageSrc, children, width }: Props) {
       <CardBody className="group/card relative flex h-auto w-full flex-1 flex-col rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-xl hover:shadow-neutral-200/50 dark:border-neutral-800 dark:bg-black dark:shadow-none dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10">
         <CardItem
           translateZ="50"
-          className="mb-auto text-xl font-bold text-neutral-900 dark:text-white md:text-2xl"
+          className="mb-auto text-xl font-bold text-neutral-900 md:text-2xl dark:text-white"
         >
           {title}
         </CardItem>
         <CardItem
           translateZ="60"
-          className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-400 md:text-lg"
+          className="mt-2 max-w-sm text-sm text-neutral-600 md:text-lg dark:text-neutral-400"
         >
           {description}
         </CardItem>

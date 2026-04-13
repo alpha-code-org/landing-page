@@ -61,8 +61,8 @@ function BlogPostContent({ source }: { source: string }) {
   const components = useMDXComponents({});
 
   return (
-    <div className="min-h-screen bg-stone-100 py-8 dark:bg-neutral-900 md:py-16">
-      <article className="mx-auto w-full max-w-prose rounded-2xl bg-stone-50 px-6 py-8 shadow-sm dark:bg-neutral-800 md:px-12 md:py-12 lg:max-w-4xl">
+    <div className="min-h-screen bg-stone-100 py-8 md:py-16 dark:bg-neutral-900">
+      <article className="mx-auto w-full max-w-prose rounded-2xl bg-stone-50 px-6 py-8 shadow-sm md:px-12 md:py-12 lg:max-w-4xl dark:bg-neutral-800">
         <MDXRemote
           source={source}
           components={components}

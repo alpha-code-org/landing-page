@@ -1,62 +1,37 @@
-import { readdir } from "fs/promises";
-import path from "path";
-import ServiceCard from "../cards/ServiceCard";
 import Link from "next/link";
-import { CardItem } from "./3d-card";
-
-async function getPosts() {
-  const slugs = await readdir(path.join(process.cwd(), "src/app/(posts)"));
-
-  const posts = await Promise.all(
-    slugs.map(async (slug) => {
-      const { metadata } = await import(`../../app/(posts)/${slug}`);
-      return { slug: slug.replace(".mdx", ""), ...metadata };
-    }),
-  );
-
-  return posts;
-}
+import { getPosts } from "@/lib/getPosts";
+import { PostCard } from "../blog/post-card";
+import { sortByDate } from "@/utils/post";
 
 const Blog = async () => {
   const posts = await getPosts();
 
   return (
-    <section className="relative py-20 w-full md:mb-40">
+    <section className="relative w-full py-20 md:mb-40">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-8">
         <h2 className="mx-auto text-2xl font-bold md:text-3xl">Blog</h2>
 
         <ul className="grid auto-rows-max grid-cols-12 place-items-start items-stretch gap-4">
-          {posts
-            .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
-            .map(({ slug, title, publishDate }) => (
+          {sortByDate(posts)
+            .slice(0, 3)
+            .map((post) => (
               <li
-                key={slug}
+                key={post.slug}
                 className="col-span-12 flex w-full justify-center md:col-span-6 lg:col-span-4"
               >
-                <Link href={`/blog/${slug}`} className="flex w-full flex-col">
-                  <ServiceCard
-                    title={title}
-                    description={new Date(publishDate).toLocaleString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                    imageSrc={`/blog/${slug}/hero.webp`}
-                    width="w-full"
-                  >
-                    <div className="mt-4 flex items-center justify-between md:mt-20">
-                      <CardItem
-                        translateZ={20}
-                        className="rounded-xl px-4 py-2 text-base font-normal text-neutral-900 dark:text-white"
-                      >
-                        Read now →
-                      </CardItem>
-                    </div>
-                  </ServiceCard>
-                </Link>
+                <PostCard {...post} />
               </li>
             ))}
         </ul>
+
+        {posts.length > 3 && (
+          <Link
+            href="/blog"
+            className="mx-auto text-base font-medium text-neutral-900 underline-offset-4 hover:underline dark:text-white"
+          >
+            View all articles →
+          </Link>
+        )}
       </div>
     </section>
   );

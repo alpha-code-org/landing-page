@@ -23,5 +23,5 @@ export const companies = [
     name: "Sezona HR",
     website: "https://sezona.hr/",
     logo: "/companies/sezona-hr.svg",
-  }
+  },
 ];

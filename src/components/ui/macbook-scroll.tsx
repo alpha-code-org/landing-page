@@ -122,7 +122,7 @@ export const MacbookScroll = ({
     >
       <div
         ref={titleRef}
-        className="text-center text-3xl font-bold text-neutral-800 will-change-transform dark:text-white md:mb-20"
+        className="text-center text-3xl font-bold text-neutral-800 will-change-transform md:mb-20 dark:text-white"
       >
         {title || (
           <span className="scale-200 md:scale-100">
@@ -133,7 +133,7 @@ export const MacbookScroll = ({
       </div>
       <div
         ref={macbookRef}
-        className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 backface-hidden perspective-midrange will-change-transform sm:scale-50 md:scale-100"
+        className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 will-change-transform backface-hidden perspective-midrange sm:scale-50 md:scale-100"
       >
         {/* Lid */}
         <CSSLid src={src} screenRef={screenRef} />
@@ -167,22 +167,16 @@ export const MacbookScroll = ({
 };
 
 export const CSSLid = React.memo(
-  ({
-    src,
-    screenRef,
-  }: {
-    src?: string;
-    screenRef: React.RefObject<HTMLDivElement | null>;
-  }) => {
+  ({ src, screenRef }: { src?: string; screenRef: React.RefObject<HTMLDivElement | null> }) => {
     return (
-      <div className="relative perspective-midrange will-change-transform">
+      <div className="relative will-change-transform perspective-midrange">
         <div
           style={{
             transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
             transformOrigin: "bottom",
             transformStyle: "preserve-3d",
           }}
-          className="relative h-48 w-lg rounded-2xl bg-[#010101] p-2 backface-hidden will-change-transform"
+          className="relative h-48 w-lg rounded-2xl bg-[#010101] p-2 will-change-transform backface-hidden"
         >
           <div
             style={{
@@ -206,7 +200,7 @@ export const CSSLid = React.memo(
             transformStyle: "preserve-3d",
             transformOrigin: "top",
           }}
-          className="absolute inset-0 h-96 w-lg rounded-2xl bg-[#010101] p-2 backface-hidden will-change-transform"
+          className="absolute inset-0 h-96 w-lg rounded-2xl bg-[#010101] p-2 will-change-transform backface-hidden"
         >
           <div className="absolute inset-0 rounded-lg bg-[#272729]" />
           {src && (
@@ -241,7 +235,7 @@ Trackpad.displayName = "Trackpad";
 
 export const Keypad = React.memo(() => {
   return (
-    <div className="mx-1 h-full rounded-md bg-[#050505] p-1 transform-[translateZ(0)] will-change-transform">
+    <div className="mx-1 h-full transform-[translateZ(0)] rounded-md bg-[#050505] p-1 will-change-transform">
       {/* First Row */}
       <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
         <KBtn
@@ -360,7 +354,7 @@ export const Keypad = React.memo(() => {
           <span className="block"> = </span>
         </KBtn>
         <KBtn
-          className="w-10 items-end justify-end pb-[2px] pr-[4px]"
+          className="w-10 items-end justify-end pr-[4px] pb-[2px]"
           childrenClassName="items-end"
         >
           delete
@@ -463,7 +457,7 @@ export const Keypad = React.memo(() => {
           <span className="block">{`'`}</span>
         </KBtn>
         <KBtn
-          className="w-[2.85rem] items-end justify-end pb-[2px] pr-[4px]"
+          className="w-[2.85rem] items-end justify-end pr-[4px] pb-[2px]"
           childrenClassName="items-end"
         >
           return
@@ -512,7 +506,7 @@ export const Keypad = React.memo(() => {
           <span className="block">{`/`}</span>
         </KBtn>
         <KBtn
-          className="w-[3.65rem] items-end justify-end pb-[2px] pr-[4px]"
+          className="w-[3.65rem] items-end justify-end pr-[4px] pb-[2px]"
           childrenClassName="items-end"
         >
           shift
@@ -607,7 +601,7 @@ export const KBtn = React.memo(
     return (
       <div
         className={cn(
-          "rounded-[4px] p-[0.5px] backface-hidden transform-[translateZ(0)] will-change-transform",
+          "transform-[translateZ(0)] rounded-[4px] p-[0.5px] will-change-transform backface-hidden",
           backlit && "bg-white/20 shadow-xl shadow-white",
         )}
       >

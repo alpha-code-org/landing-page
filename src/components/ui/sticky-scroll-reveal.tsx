@@ -22,7 +22,7 @@ export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
           ))}
         </div>
       </div>
-      <div className="sticky top-[32%] hidden h-max min-w-120 max-w-160 grow rounded-md lg:block">
+      <div className="sticky top-[32%] hidden h-max max-w-160 min-w-120 grow rounded-md lg:block">
         <div className="w-full rounded-xl border border-neutral-200 bg-neutral-50 pb-8 shadow-xl dark:border-neutral-800 dark:bg-slate-800">
           <div className="flex w-full gap-1.5 rounded-t-xl bg-neutral-200 p-3 dark:bg-slate-900">
             <div className="h-3 w-3 rounded-full bg-red-500" />

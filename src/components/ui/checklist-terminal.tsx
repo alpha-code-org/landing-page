@@ -102,11 +102,11 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center justify-center bg-stone-100 px-4 py-20 dark:bg-neutral-950 md:py-40"
+      className="flex flex-col items-center justify-center bg-stone-100 px-4 py-20 md:py-40 dark:bg-neutral-950"
     >
       <div
         className={cn(
-          "z-0 h-[540px] w-full max-w-lg rounded-xl border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-900 md:h-[500px]",
+          "z-0 h-[540px] w-full max-w-lg rounded-xl border border-neutral-200 bg-white shadow-lg md:h-[500px] dark:border-neutral-800 dark:bg-neutral-900",
           className,
         )}
       >
@@ -118,7 +118,7 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
           </div>
         </div>
         <pre className="p-4">
-          <code className="grid gap-y-2 overflow-auto px-1 pb-4 pt-2">
+          <code className="grid gap-y-2 overflow-auto px-1 pt-2 pb-4">
             {isInView && (
               <>
                 <TypingAnimation duration={6}>
