@@ -10,18 +10,18 @@ const Header = () => {
           <Image
             src="/logo.png"
             alt="alpha-logo"
-            width={20}
-            height={20}
+            width={24}
+            height={24}
             loading="lazy"
-            className="hidden h-auto w-auto dark:block"
+            className="hidden h-6 w-6 dark:block"
           />
           <Image
             src="/logo-dark.png"
             alt="alpha-logo"
-            width={20}
-            height={20}
+            width={24}
+            height={24}
             loading="lazy"
-            className="block h-auto w-auto dark:hidden"
+            className="block h-6 w-6 dark:hidden"
           />
         </Link>
         <div className="flex items-center gap-6">
