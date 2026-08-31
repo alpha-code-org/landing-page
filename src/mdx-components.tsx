@@ -50,7 +50,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </pre>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-8 rounded-md border-l-4 border-gray-600 bg-gray-800/60 px-6 py-4 text-gray-300 italic [&>p]:mb-0">
+      <blockquote className="my-8 rounded-md border-l-4 border-stone-300 bg-stone-100 px-6 py-4 text-stone-700 italic dark:border-neutral-600 dark:bg-neutral-800/60 dark:text-stone-300 [&>p]:mb-0 [&>p]:text-inherit">
         {children}
       </blockquote>
     ),
