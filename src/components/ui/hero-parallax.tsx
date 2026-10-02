@@ -91,7 +91,7 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
         <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
       </p>
-      <h1 className="relative z-20 mt-4 mb-4 max-w-2xl text-xl text-neutral-600 sm:text-3xl md:text-4xl md:font-bold dark:text-neutral-200">
+      <h1 className="relative z-20 mt-4 mb-4 max-w-2xl text-xl font-bold text-neutral-600 sm:text-3xl md:text-4xl md:font-extrabold dark:text-neutral-200">
         AI automation for your business.
       </h1>
       <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
