@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
 
 export function Button({
@@ -73,38 +73,49 @@ export const MovingBorder = ({
   [key: string]: any;
 }) => {
   const pathRef = useRef<SVGRectElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const animationRef = useRef<number | undefined>(undefined);
-  const startTimeRef = useRef<number | undefined>(undefined);
+  const markerRef = useRef<HTMLDivElement>(null);
 
+  // Animate via direct DOM writes (no React re-renders) and only while on screen
   useEffect(() => {
+    const pathElement = pathRef.current;
+    const marker = markerRef.current;
+    if (!pathElement || !marker) return;
+
+    let frame: number | undefined;
+    let startTime: number | undefined;
+    let length = pathElement.getTotalLength();
+
     const animate = (timestamp: number) => {
-      if (!startTimeRef.current) {
-        startTimeRef.current = timestamp;
-      }
-
-      const pathElement = pathRef.current;
-      if (!pathElement) {
-        animationRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
-      const length = pathElement.getTotalLength();
-      const elapsed = timestamp - startTimeRef.current;
-      const progress = ((elapsed % duration) / duration) * length;
-
-      const point = pathElement.getPointAtLength(progress);
-      setPosition({ x: point.x, y: point.y });
-
-      animationRef.current = requestAnimationFrame(animate);
+      startTime ??= timestamp;
+      const elapsed = timestamp - startTime;
+      const point = pathElement.getPointAtLength(((elapsed % duration) / duration) * length);
+      marker.style.transform = `translateX(${point.x}px) translateY(${point.y}px) translateX(-50%) translateY(-50%)`;
+      frame = requestAnimationFrame(animate);
     };
 
-    animationRef.current = requestAnimationFrame(animate);
+    const stop = () => {
+      if (frame !== undefined) cancelAnimationFrame(frame);
+      frame = undefined;
+    };
+
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        if (frame === undefined) frame = requestAnimationFrame(animate);
+      } else {
+        stop();
+      }
+    });
+    const resizeObserver = new ResizeObserver(() => {
+      length = pathElement.getTotalLength();
+    });
+
+    visibilityObserver.observe(pathElement);
+    resizeObserver.observe(pathElement);
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      stop();
+      visibilityObserver.disconnect();
+      resizeObserver.disconnect();
     };
   }, [duration]);
 
@@ -121,12 +132,13 @@ export const MovingBorder = ({
         <rect fill="none" width="100%" height="100%" rx={rx} ry={ry} ref={pathRef} />
       </svg>
       <div
+        ref={markerRef}
         style={{
           position: "absolute",
           top: 0,
           left: 0,
           display: "inline-block",
-          transform: `translateX(${position.x}px) translateY(${position.y}px) translateX(-50%) translateY(-50%)`,
+          transform: "translateX(-50%) translateY(-50%)",
         }}
       >
         {children}

@@ -138,7 +138,7 @@ export const MacbookScroll = ({
         {/* Lid */}
         <CSSLid src={src} screenRef={screenRef} />
         {/* Base area */}
-        <div className="relative -z-10 h-88 w-lg overflow-hidden rounded-2xl bg-gray-200 will-change-transform dark:bg-[#272729]">
+        <div className="relative -z-10 h-88 w-lg overflow-hidden rounded-2xl bg-gray-200 dark:bg-[#272729]">
           {/* above keyboard bar */}
           <div className="relative h-10 w-full">
             <div className="absolute inset-x-0 mx-auto h-4 w-[80%] bg-[#050505]" />
@@ -210,6 +210,7 @@ export const CSSLid = React.memo(
               className="absolute inset-0 h-full w-full rounded-lg object-cover object-top-left"
               width={1536}
               height={1024}
+              sizes="(max-width: 768px) 320px, 640px"
               loading="lazy"
               quality={90}
             />
@@ -224,7 +225,7 @@ CSSLid.displayName = "CSSLid";
 export const Trackpad = React.memo(() => {
   return (
     <div
-      className="mx-auto my-1 h-32 w-[40%] rounded-xl will-change-transform"
+      className="mx-auto my-1 h-32 w-[40%] rounded-xl"
       style={{
         boxShadow: "0px 0px 1px 1px #00000020 inset",
       }}
@@ -235,7 +236,7 @@ Trackpad.displayName = "Trackpad";
 
 export const Keypad = React.memo(() => {
   return (
-    <div className="mx-1 h-full transform-[translateZ(0)] rounded-md bg-[#050505] p-1 will-change-transform">
+    <div className="mx-1 h-full rounded-md bg-[#050505] p-1">
       {/* First Row */}
       <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
         <KBtn
@@ -600,10 +601,7 @@ export const KBtn = React.memo(
   }) => {
     return (
       <div
-        className={cn(
-          "transform-[translateZ(0)] rounded-[4px] p-[0.5px] will-change-transform backface-hidden",
-          backlit && "bg-white/20 shadow-xl shadow-white",
-        )}
+        className={cn("rounded-[4px] p-[0.5px]", backlit && "bg-white/20 shadow-xl shadow-white")}
       >
         <div
           className={cn(
@@ -638,12 +636,7 @@ export const SpeakerGrid = React.memo(() => {
     };
   }, []);
 
-  return (
-    <div
-      className="mt-2 flex h-40 gap-[2px] px-[0.5px] will-change-transform"
-      style={backgroundStyle}
-    ></div>
-  );
+  return <div className="mt-2 flex h-40 gap-[2px] px-[0.5px]" style={backgroundStyle}></div>;
 });
 SpeakerGrid.displayName = "SpeakerGrid";
 

@@ -10,9 +10,17 @@ interface Props {
   imageSrc: string;
   children: React.ReactNode;
   width: string;
+  sizes?: string;
 }
 
-function ServiceCard({ title, description, imageSrc, children, width }: Props) {
+function ServiceCard({
+  title,
+  description,
+  imageSrc,
+  children,
+  width,
+  sizes = "(max-width: 768px) 90vw, 24rem",
+}: Props) {
   return (
     <CardContainer className={cn(`inter-var ${width} `)} containerClassName="flex-1">
       <CardBody className="group/card relative flex h-auto w-full flex-1 flex-col rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-xl hover:shadow-neutral-200/50 dark:border-neutral-800 dark:bg-black dark:shadow-none dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10">
@@ -35,6 +43,7 @@ function ServiceCard({ title, description, imageSrc, children, width }: Props) {
             width="1000"
             className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
             alt={title}
+            sizes={sizes}
             loading="lazy"
           />
         </CardItem>

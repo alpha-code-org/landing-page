@@ -17,6 +17,7 @@ export const PostCard = ({ title, slug, publishDate }: Props) => {
         description={formatPublishDate(publishDate)}
         imageSrc={`/blog/${slug}/hero.webp`}
         width="w-full"
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
       >
         <div className="mt-4 flex items-center justify-between md:mt-20">
           <CardItem

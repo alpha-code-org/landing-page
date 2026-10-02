@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Button } from "./moving-border-button";
 import Link from "next/link";
 
@@ -36,8 +36,6 @@ const HeroHighlight = ({
   className?: string;
   containerClassName?: string;
 }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
   // SVG patterns for different states and themes
   const dotPatterns = {
     light: {
@@ -50,11 +48,16 @@ const HeroHighlight = ({
     },
   };
 
+  // Update CSS variables directly instead of React state to avoid a re-render per mousemove
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
     if (!currentTarget) return;
     const { left, top } = currentTarget.getBoundingClientRect();
-    setMousePosition({ x: clientX - left, y: clientY - top });
+    currentTarget.style.setProperty("--mouse-x", `${clientX - left}px`);
+    currentTarget.style.setProperty("--mouse-y", `${clientY - top}px`);
   }
+
+  const spotlightMask =
+    "radial-gradient(200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 100%)";
   return (
     <div
       className={cn(
@@ -79,16 +82,16 @@ const HeroHighlight = ({
         className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 dark:hidden"
         style={{
           backgroundImage: dotPatterns.light.hover,
-          WebkitMaskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
-          maskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
+          WebkitMaskImage: spotlightMask,
+          maskImage: spotlightMask,
         }}
       />
       <div
         className="pointer-events-none absolute inset-0 hidden opacity-0 transition duration-300 group-hover:opacity-100 dark:block"
         style={{
           backgroundImage: dotPatterns.dark.hover,
-          WebkitMaskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
-          maskImage: `radial-gradient(200px circle at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
+          WebkitMaskImage: spotlightMask,
+          maskImage: spotlightMask,
         }}
       />
 
