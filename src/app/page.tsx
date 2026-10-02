@@ -1,7 +1,6 @@
 import HeroParallax from "@/components/ui/hero-parallax";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
-import { services } from "@/components/utils/services";
-import { Typewriter } from "@/components/ui/typewritter";
+import { Typewriter } from "@/components/ui/typewriter";
 import Blog from "@/components/ui/blog";
 import { ChecklistTerminal } from "@/components/ui/checklist-terminal";
 import { AuditHighlight } from "@/components/ui/audit-highlight";
@@ -14,7 +13,7 @@ export default function Home() {
       <HeroParallax />
       <Companies />
       <div className="bg-stone-200/30 py-20 md:py-32 dark:bg-transparent">
-        <StickyScroll services={services} />
+        <StickyScroll />
       </div>
       <MacbookScroll src="/business.webp" />
       <AuditHighlight />

@@ -1,5 +1,3 @@
-"use client";
-
 import { Code2, Container, HandHelping, LucideIcon } from "lucide-react";
 
 export type ServiceType = {
