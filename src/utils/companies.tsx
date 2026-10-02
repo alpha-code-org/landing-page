@@ -24,4 +24,9 @@ export const companies = [
     website: "https://sezona.hr/",
     logo: "/companies/sezona-hr.svg",
   },
+  {
+    name: "Blockroad",
+    website: "https://blockroad.hr/",
+    logo: "/companies/blockroad.svg",
+  },
 ];
