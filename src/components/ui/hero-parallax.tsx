@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "./moving-border-button";
 import { useRef, memo, useEffect, useState } from "react";
 import { products } from "../utils/products";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const dotPatterns = {
   light: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23a8a29e' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
@@ -15,8 +16,11 @@ const HeroParallax = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [scrollY, setScrollY] = useState(0);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
+
     let ticking = false;
 
     const onScroll = () => {
@@ -33,8 +37,9 @@ const HeroParallax = () => {
           const maxScroll = Math.max(1, elementHeight - windowHeight); // avoid 0
           const progress = Math.max(0, Math.min(0.5, scrollTop / maxScroll));
 
+          // Values are clamped so state settles (and re-renders stop) once the hero is scrolled past
           setScrollProgress(progress);
-          setScrollY(Math.max(0, scrollTop));
+          setScrollY(Math.min(TITLE_FADE_DISTANCE, Math.max(0, scrollTop)));
           ticking = false;
         });
       }
@@ -44,7 +49,7 @@ const HeroParallax = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll(); // initial
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div
@@ -65,12 +70,14 @@ const HeroParallax = () => {
   );
 };
 
+const TITLE_FADE_DISTANCE = 200;
+
 const Title = memo(({ scrollY }: { scrollY: number }) => {
   return (
     <div
       className="title-fade relative top-[50vh] left-[5%] z-20 w-full md:top-[40vh]"
       style={{
-        opacity: Math.max(0, 1 - scrollY / 200),
+        opacity: Math.max(0, 1 - scrollY / TITLE_FADE_DISTANCE),
         willChange: "opacity",
       }}
     >
@@ -82,6 +89,7 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
           height={77}
           className="mr-2 hidden w-10 sm:w-16 md:w-20 dark:block"
           fetchPriority="high"
+          loading="eager"
         />
         <Image
           alt="ac-logo"
@@ -90,6 +98,7 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
           height={77}
           className="mr-2 block w-10 sm:w-16 md:w-20 dark:hidden"
           fetchPriority="high"
+          loading="eager"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
@@ -130,7 +139,6 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   const [singleSetWidth, setSingleSetWidth] = useState(products.length * DESKTOP_CARD_WIDTH);
   const [translateX, setTranslateX] = useState(-products.length * DESKTOP_CARD_WIDTH);
   const [isSnapping, setIsSnapping] = useState(false);
-  const isHovering = useRef(false);
   const lastTouchX = useRef(0);
   const lastTouchY = useRef(0);
   const touchStartX = useRef(0);
@@ -149,20 +157,13 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // Handle wheel scrolling with infinite loop using transform (only when hovering)
+  // Handle wheel scrolling with infinite loop using transform (container-scoped so it
+  // doesn't block scrolling elsewhere on the page)
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const onMouseEnter = () => {
-      isHovering.current = true;
-    };
-    const onMouseLeave = () => {
-      isHovering.current = false;
-    };
-
     const onWheel = (e: WheelEvent) => {
-      if (!isHovering.current) return;
       // Only capture horizontal wheel; let vertical scroll pass through
       if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
 
@@ -250,20 +251,16 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       }
     };
 
-    container.addEventListener("mouseenter", onMouseEnter);
-    container.addEventListener("mouseleave", onMouseLeave);
     container.addEventListener("touchstart", onTouchStart, { passive: true });
     container.addEventListener("touchmove", onTouchMove, { passive: false });
     container.addEventListener("touchend", onTouchEnd, { passive: true });
-    window.addEventListener("wheel", onWheel, { passive: false });
+    container.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
-      container.removeEventListener("mouseenter", onMouseEnter);
-      container.removeEventListener("mouseleave", onMouseLeave);
       container.removeEventListener("touchstart", onTouchStart);
       container.removeEventListener("touchmove", onTouchMove);
       container.removeEventListener("touchend", onTouchEnd);
-      window.removeEventListener("wheel", onWheel);
+      container.removeEventListener("wheel", onWheel);
     };
   }, [singleSetWidth]);
 
@@ -317,9 +314,6 @@ const ProductCard = memo(
       <div
         key={product.title}
         className="product-card group/product relative h-60 w-md shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-xl"
-        style={{
-          willChange: "transform",
-        }}
       >
         <Link
           href={product.link}
@@ -337,14 +331,8 @@ const ProductCard = memo(
             loading={index < 6 ? "eager" : "lazy"}
           />
         </Link>
-        <div
-          className="pointer-events-none absolute inset-0 h-full w-full bg-neutral-900 opacity-0 transition-opacity duration-300 group-hover/product:opacity-40 dark:bg-black dark:group-hover/product:opacity-50"
-          style={{ willChange: "opacity" }}
-        ></div>
-        <h2
-          className="absolute bottom-4 left-4 text-white opacity-0 transition-opacity duration-300 group-hover/product:opacity-100"
-          style={{ willChange: "opacity" }}
-        >
+        <div className="pointer-events-none absolute inset-0 h-full w-full bg-neutral-900 opacity-0 transition-opacity duration-300 group-hover/product:opacity-40 dark:bg-black dark:group-hover/product:opacity-50"></div>
+        <h2 className="absolute bottom-4 left-4 text-white opacity-0 transition-opacity duration-300 group-hover/product:opacity-100">
           {product.title}
         </h2>
       </div>

@@ -5,6 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { flushSync } from "react-dom";
 import { cn } from "@/utils/cn";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"button"> {
   duration?: number;
@@ -18,13 +19,14 @@ export const AnimatedThemeToggler = ({
   const { resolvedTheme, setTheme } = useTheme();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const isDark = resolvedTheme === "dark";
+  const reducedMotion = useReducedMotion();
 
   const toggleTheme = useCallback(async () => {
     if (!buttonRef.current) return;
 
     const newTheme = isDark ? "light" : "dark";
 
-    if (!document.startViewTransition) {
+    if (!document.startViewTransition || reducedMotion) {
       setTheme(newTheme);
       return;
     }
@@ -53,7 +55,7 @@ export const AnimatedThemeToggler = ({
         pseudoElement: "::view-transition-new(root)",
       },
     );
-  }, [isDark, duration, setTheme]);
+  }, [isDark, duration, setTheme, reducedMotion]);
 
   return (
     <button ref={buttonRef} onClick={toggleTheme} className={cn(className)} {...props}>
