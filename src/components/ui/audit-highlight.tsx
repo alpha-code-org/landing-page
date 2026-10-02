@@ -2,8 +2,8 @@
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import React, { useRef } from "react";
-import { Button } from "./moving-border-button";
-import Link from "next/link";
+import { dotPatterns } from "@/utils/dot-patterns";
+import { BookingButton } from "./booking-button";
 
 export const AuditHighlight = () => {
   return (
@@ -14,14 +14,9 @@ export const AuditHighlight = () => {
           <Highlight className="whitespace-nowrap text-white">in your codebase</Highlight>
         </h1>
 
-        <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
-          <Button
-            borderRadius="1.75rem"
-            className="bg-brand-alpha hover:text-brand-code z-20 border-slate-800 text-white transition-colors hover:bg-white"
-          >
-            Request an audit
-          </Button>
-        </Link>
+        <BookingButton className="bg-brand-alpha hover:text-brand-code z-20 border-slate-800 text-white transition-colors hover:bg-white">
+          Request an audit
+        </BookingButton>
       </div>
     </HeroHighlight>
   );
@@ -36,18 +31,6 @@ const HeroHighlight = ({
   className?: string;
   containerClassName?: string;
 }) => {
-  // SVG patterns for different states and themes
-  const dotPatterns = {
-    light: {
-      default: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23a8a29e' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-      hover: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%236366f1' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-    },
-    dark: {
-      default: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23404040' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-      hover: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%238183f4' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-    },
-  };
-
   // Update CSS variables directly instead of React state to avoid a re-render per mousemove
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
     if (!currentTarget) return;

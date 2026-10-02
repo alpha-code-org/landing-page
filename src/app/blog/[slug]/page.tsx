@@ -1,18 +1,12 @@
-import fs from "fs/promises";
-import path from "path";
-import { useMDXComponents } from "@/mdx-components";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
-import rehypeHighlight from "rehype-highlight";
 import { Comments } from "@/components/blog/comments";
+import { getPostContent, getPostMetadata, getPostSlugs } from "@/lib/getPosts";
 
 export const dynamic = "force-static";
 
-const CONTENT_SOURCE = "src/app/(posts)";
-
 export async function generateStaticParams() {
-  const files = await fs.readdir(path.join(process.cwd(), CONTENT_SOURCE));
-  return files.map((file) => ({ slug: file.replace(".mdx", "") }));
+  const slugs = await getPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -21,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const { metadata } = await import(`../../(posts)/${slug}.mdx`);
+  const metadata = await getPostMetadata(slug);
 
   return {
     title: "Alpha Code | " + metadata.title,
@@ -53,30 +47,16 @@ export async function generateMetadata({
   };
 }
 
-async function getPostContent(slug: string) {
-  return await fs.readFile(path.join(process.cwd(), CONTENT_SOURCE, `${slug}.mdx`), "utf8");
-}
-
-function BlogPostContent({ source }: { source: string }) {
-  const components = useMDXComponents({});
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const PostContent = await getPostContent(slug);
 
   return (
     <div className="min-h-screen bg-stone-100 py-8 md:py-16 dark:bg-neutral-900">
       <article className="mx-auto w-full max-w-prose rounded-2xl bg-stone-50 px-6 py-8 shadow-sm md:px-12 md:py-12 lg:max-w-4xl dark:bg-neutral-800">
-        <MDXRemote
-          source={source}
-          components={components}
-          options={{ mdxOptions: { rehypePlugins: [rehypeHighlight] } }}
-        />
+        <PostContent />
         <Comments />
       </article>
     </div>
   );
-}
-
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const source = await getPostContent(slug);
-
-  return <BlogPostContent source={source} />;
 }

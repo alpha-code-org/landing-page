@@ -1,38 +1,23 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Twitter, Github, Linkedin } from "lucide-react";
+import { ThemedLogo } from "./themed-logo";
 
 const Footer = () => {
   return (
     <footer className="relative mt-auto w-full bg-stone-100 pt-8 dark:bg-neutral-950">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-8">
         <Link href="/" aria-label="Go to homepage">
-          <Image
-            src="/logo.png"
-            alt="alpha-logo"
-            width={32}
-            height={32}
-            loading="lazy"
-            className="hidden dark:block"
-          />
-          <Image
-            src="/logo-dark.png"
-            alt="alpha-logo"
-            width={32}
-            height={32}
-            loading="lazy"
-            className="block dark:hidden"
-          />
+          <ThemedLogo width={32} height={32} />
         </Link>
         <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
           <p className="mb-4 text-sm text-slate-600 md:mb-0 dark:text-slate-400">
-            &copy; 2026 Alpha Code d.o.o. All Rights Reserved.
+            &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.
           </p>
           <div className="flex gap-4 text-neutral-700 sm:justify-center dark:text-white">
             <Link
               href="https://twitter.com/matteoo_eth"
-              target="__blank"
+              target="_blank"
               rel="noopener noreferrer"
               className="opacity-80 transition-opacity hover:opacity-100"
               aria-label="Follow us on Twitter"
@@ -41,7 +26,7 @@ const Footer = () => {
             </Link>
             <Link
               href="https://github.com/mateogalic112"
-              target="__blank"
+              target="_blank"
               rel="noopener noreferrer"
               className="opacity-80 transition-opacity hover:opacity-100"
               aria-label="View our GitHub profile"
@@ -50,7 +35,7 @@ const Footer = () => {
             </Link>
             <Link
               href="https://www.linkedin.com/company/alpha-code-doo"
-              target="__blank"
+              target="_blank"
               rel="noopener noreferrer"
               className="opacity-80 transition-opacity hover:opacity-100"
               aria-label="Connect with us on LinkedIn"

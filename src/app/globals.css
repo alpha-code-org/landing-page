@@ -15,10 +15,12 @@
 
   /* Custom animations */
   --animate-fade-in: fade-in 250ms ease var(--animation-delay, 0ms) forwards;
+  --animate-fade-in-up: fade-in-up 0.3s ease-out both;
+  --animate-fade-in-bounce: fade-in-bounce 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   --animate-typewriter-char: typewriter-char 10ms both;
   --animate-cursor-move: cursor-move 50ms;
-  --animate-cursor-blink: cursor-blink 500ms infinite;
-  --animate-highlight-sweep: highlight-sweep 100ms ease both;
+  --animate-cursor-blink: cursor-blink 0.8s infinite;
+  --animate-highlight-sweep: highlight-sweep 2s linear forwards;
 
   @keyframes fade-in {
     from {
@@ -26,6 +28,32 @@
       transform: translateY(-10px);
     }
     to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-bounce {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(-5px);
+    }
+    100% {
       opacity: 1;
       transform: translateY(0);
     }
@@ -71,43 +99,11 @@
   :root {
     --foreground: 23 23 23;
     --background: 245 245 244;
-    --muted-foreground: 115 115 115;
-    --border: 214 211 209;
-
-    /* Extended palette for light mode */
-    --card-bg: 255 255 255;
-    --card-border: 214 211 209;
-    --section-bg: 245 245 244;
-    --section-alt-bg: 231 229 228;
-    --header-bg: 245 245 244 / 0.9;
-    --terminal-header: 231 229 228;
-    --terminal-bg: 255 255 255;
-    --window-bg: 250 250 249;
-    --window-header: 231 229 228;
-    --icon-muted: 120 113 108;
-    --shadow-color: 0 0 0 / 0.08;
-    --hover-shadow: 0 0 0 / 0.12;
   }
 
   .dark {
     --foreground: 255 255 255;
     --background: 0 0 0;
-    --muted-foreground: 163 163 163;
-    --border: 38 38 38;
-
-    /* Extended palette for dark mode */
-    --card-bg: 0 0 0;
-    --card-border: 38 38 38;
-    --section-bg: 0 0 0;
-    --section-alt-bg: 23 23 23;
-    --header-bg: 0 0 0 / 0.8;
-    --terminal-header: 64 64 64;
-    --terminal-bg: 23 23 23;
-    --window-bg: 30 41 59;
-    --window-header: 15 23 42;
-    --icon-muted: 100 116 139;
-    --shadow-color: 0 0 0 / 0.3;
-    --hover-shadow: 16 185 129 / 0.1;
   }
 
   /* Override highlight.js colors for dark mode */
@@ -170,92 +166,6 @@
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Keyframe animations for replacing framer-motion */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(-5px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInBounce {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    60% {
-      opacity: 1;
-      transform: translateY(-5px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes revealWidth {
-    from {
-      width: 0;
-    }
-    to {
-      width: fit-content;
-    }
-  }
-
-  @keyframes cursorBlink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-
-  @keyframes highlightSweep {
-    from {
-      background-size: 0% 100%;
-    }
-    to {
-      background-size: 100% 100%;
-    }
-  }
-
-  /* Utility classes */
-  .animate-fade-in {
-    animation: fade-in 250ms ease var(--animation-delay, 0ms) forwards;
-  }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.3s ease-out both;
-  }
-
-  .animate-fade-in-bounce {
-    animation: fadeInBounce 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  .animate-reveal-width {
-    animation: revealWidth 1s linear forwards;
-  }
-
-  .animate-cursor-blink {
-    animation: cursorBlink 0.8s infinite;
-  }
-
-  .animate-highlight-sweep {
-    animation: highlightSweep 2s linear forwards;
   }
 }
 

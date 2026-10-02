@@ -1,28 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatedThemeToggler } from "./theme-toggle";
+import { ThemedLogo } from "./themed-logo";
 
 const Header = () => {
   return (
     <header className="animate-fade-in fixed top-0 left-0 z-50 w-full bg-stone-100/90 opacity-0 backdrop-blur-md dark:bg-black/80">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2">
         <Link href="/" aria-label="Go to homepage">
-          <Image
-            src="/logo.png"
-            alt="alpha-logo"
-            width={24}
-            height={24}
-            loading="eager"
-            className="hidden h-6 w-6 dark:block"
-          />
-          <Image
-            src="/logo-dark.png"
-            alt="alpha-logo"
-            width={24}
-            height={24}
-            loading="eager"
-            className="block h-6 w-6 dark:hidden"
-          />
+          <ThemedLogo width={24} height={24} loading="eager" className="h-6 w-6" />
         </Link>
         <div className="flex items-center gap-6">
           <Link

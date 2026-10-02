@@ -2,11 +2,10 @@
 
 import { cn } from "@/utils/cn";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import React, { createContext, useState, useContext, useRef, useEffect } from "react";
+import React, { createContext, useState, useContext, useRef } from "react";
 
-const MouseEnterContext = createContext<
-  [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
->(undefined);
+// Whether the pointer is over the enclosing CardContainer
+const MouseEnterContext = createContext(false);
 
 export const CardContainer = ({
   children,
@@ -29,18 +28,17 @@ export const CardContainer = ({
     containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
   };
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsMouseEntered(true);
-    if (!containerRef.current) return;
+  const handleMouseEnter = () => setIsMouseEntered(true);
+
+  const handleMouseLeave = () => {
+    setIsMouseEntered(false);
+    if (containerRef.current) {
+      containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    }
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    setIsMouseEntered(false);
-    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
-  };
   return (
-    <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
+    <MouseEnterContext.Provider value={isMouseEntered}>
       <div
         className={cn("flex flex-col items-center justify-center", containerClassName)}
         style={{
@@ -88,7 +86,6 @@ export const CardItem = ({
   rotateX = 0,
   rotateY = 0,
   rotateZ = 0,
-  ...rest
 }: {
   children: React.ReactNode;
   className?: string;
@@ -99,36 +96,20 @@ export const CardItem = ({
   rotateY?: number | string;
   rotateZ?: number | string;
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isMouseEntered] = useMouseEnter();
+  const isMouseEntered = useContext(MouseEnterContext);
   const reducedMotion = useReducedMotion();
+  const isLifted = isMouseEntered && !reducedMotion;
 
-  useEffect(() => {
-    handleAnimations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMouseEntered]);
-
-  const handleAnimations = () => {
-    if (!ref.current) return;
-    if (isMouseEntered && !reducedMotion) {
-      ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
-    } else {
-      ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
-    }
-  };
+  const transform = isLifted
+    ? `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`
+    : "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)";
 
   return (
-    <div ref={ref} className={cn("w-fit transition duration-200 ease-linear", className)} {...rest}>
+    <div
+      className={cn("w-fit transition duration-200 ease-linear", className)}
+      style={{ transform }}
+    >
       {children}
     </div>
   );
-};
-
-// Create a hook to use the context
-export const useMouseEnter = () => {
-  const context = useContext(MouseEnterContext);
-  if (context === undefined) {
-    throw new Error("useMouseEnter must be used within a MouseEnterProvider");
-  }
-  return context;
 };

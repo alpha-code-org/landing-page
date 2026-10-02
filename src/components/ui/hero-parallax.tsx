@@ -2,15 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "./moving-border-button";
 import { useRef, memo, useEffect, useState } from "react";
-import { products } from "../utils/products";
+import { products } from "@/data/products";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-
-const dotPatterns = {
-  light: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23a8a29e' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-  dark: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23404040' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
-};
+import { dotPatterns } from "@/utils/dot-patterns";
+import { BookingButton } from "./booking-button";
+import { ThemedLogo } from "./themed-logo";
 
 const HeroParallax = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -54,15 +51,15 @@ const HeroParallax = () => {
   return (
     <div
       ref={ref}
-      className="hero-parallax relative mx-auto flex h-full w-screen max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased perspective-near transform-3d md:pb-96"
+      className="relative mx-auto flex h-full w-screen max-w-[1600px] flex-col self-auto overflow-hidden pb-80 antialiased perspective-near transform-3d md:pb-96"
     >
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-50 dark:hidden"
-        style={{ backgroundImage: dotPatterns.light }}
+        style={{ backgroundImage: dotPatterns.light.default }}
       />
       <div
         className="pointer-events-none absolute inset-0 -z-10 hidden opacity-50 dark:block"
-        style={{ backgroundImage: dotPatterns.dark }}
+        style={{ backgroundImage: dotPatterns.dark.default }}
       />
       <Title scrollY={scrollY} />
       <ProductList scrollProgress={scrollProgress} />
@@ -75,28 +72,19 @@ const TITLE_FADE_DISTANCE = 200;
 const Title = memo(({ scrollY }: { scrollY: number }) => {
   return (
     <div
-      className="title-fade relative top-[50vh] left-[5%] z-20 w-full md:top-[40vh]"
+      className="relative top-[50vh] left-[5%] z-20 w-full md:top-[40vh]"
       style={{
         opacity: Math.max(0, 1 - scrollY / TITLE_FADE_DISTANCE),
         willChange: "opacity",
       }}
     >
       <h1 className="relative flex items-center gap-2 text-4xl font-bold text-neutral-900 sm:text-6xl md:text-7xl lg:text-8xl dark:text-white">
-        <Image
-          alt="ac-logo"
-          src="/logo.png"
+        {/* Decorative: the heading text already names the brand */}
+        <ThemedLogo
+          alt=""
           width={80}
           height={77}
-          className="mr-2 hidden w-10 sm:w-16 md:w-20 dark:block"
-          fetchPriority="high"
-          loading="eager"
-        />
-        <Image
-          alt="ac-logo"
-          src="/logo-dark.png"
-          width={80}
-          height={77}
-          className="mr-2 block w-10 sm:w-16 md:w-20 dark:hidden"
+          className="mr-2 w-10 sm:w-16 md:w-20"
           fetchPriority="high"
           loading="eager"
         />
@@ -106,14 +94,9 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
       <p className="relative z-20 mt-4 mb-4 max-w-2xl text-xl text-neutral-600 sm:text-3xl md:text-4xl md:font-bold dark:text-neutral-200">
         We craft beautiful software.
       </p>
-      <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
-        <Button
-          borderRadius="1.75rem"
-          className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white"
-        >
-          Book a meeting
-        </Button>
-      </Link>
+      <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
+        Book a meeting
+      </BookingButton>
     </div>
   );
 });
@@ -266,7 +249,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
 
   return (
     <div
-      className="product-list relative z-10 overflow-hidden"
+      className="relative z-10 overflow-hidden"
       ref={containerRef}
       style={{
         touchAction: "pan-y",
@@ -281,7 +264,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       }}
     >
       <div
-        className="product-container mb-20 flex w-max cursor-grab gap-20 active:cursor-grabbing"
+        className="mb-20 flex w-max cursor-grab gap-20 active:cursor-grabbing"
         style={{
           transform: `translateX(${translateX}px)`,
           willChange: "transform",
@@ -311,10 +294,7 @@ const ProductCard = memo(
     index: number;
   }) => {
     return (
-      <div
-        key={product.title}
-        className="product-card group/product relative h-60 w-md shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-xl"
-      >
+      <div className="group/product relative h-60 w-md shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-xl">
         <Link
           href={product.link}
           className="block group-hover/product:shadow-2xl"

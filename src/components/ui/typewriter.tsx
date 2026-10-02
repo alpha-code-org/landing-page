@@ -2,9 +2,8 @@
 
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { Button } from "./moving-border-button";
-import Link from "next/link";
-import { words } from "../utils/words";
+import { BookingButton } from "./booking-button";
+import { words } from "@/data/words";
 import { useRef } from "react";
 
 export const Typewriter = ({
@@ -99,14 +98,9 @@ export const Typewriter = ({
         </div>
       </div>
       <div className="flex flex-col space-y-4 space-x-0 md:flex-row md:space-y-0 md:space-x-4">
-        <Link href="https://calendly.com/alphacode/alpha-code" target="__blank">
-          <Button
-            borderRadius="1.75rem"
-            className="bg-brand-code hover:text-brand-code z-10 border-slate-800 font-bold text-white transition-colors hover:bg-white"
-          >
-            Schedule a call
-          </Button>
-        </Link>
+        <BookingButton className="bg-brand-code hover:text-brand-code z-10 border-slate-800 font-bold text-white transition-colors hover:bg-white">
+          Schedule a call
+        </BookingButton>
       </div>
     </div>
   );

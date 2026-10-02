@@ -16,7 +16,7 @@ export function Button({
 }: {
   borderRadius?: string;
   children: React.ReactNode;
-  as?: any;
+  as?: React.ElementType;
   containerClassName?: string;
   borderClassName?: string;
   duration?: number;
@@ -26,7 +26,7 @@ export function Button({
   return (
     <Component
       className={cn(
-        "relative h-12 w-48 cursor-pointer overflow-hidden bg-transparent p-[2px] text-xl md:h-16",
+        "relative inline-block h-12 w-48 cursor-pointer overflow-hidden bg-transparent p-[2px] text-xl md:h-16",
         containerClassName,
       )}
       style={{

@@ -11,27 +11,15 @@ interface AnimatedSpanProps {
   className?: string;
 }
 
+// Fades in after `delay` ms; the delay is handled by CSS so no timers or state are needed
 export const AnimatedSpan = ({ children, delay = 0, className }: AnimatedSpanProps) => {
-  const [shouldAnimate, setShouldAnimate] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShouldAnimate(true);
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
-
   return (
     <div
       className={cn(
-        "grid text-base font-normal tracking-tight md:text-lg",
-        shouldAnimate && "animate-fade-in-up",
+        "animate-fade-in-up grid text-base font-normal tracking-tight md:text-lg",
         className,
       )}
-      style={{
-        opacity: shouldAnimate ? undefined : 0,
-        transform: shouldAnimate ? undefined : "translateY(-5px)",
-      }}
+      style={{ animationDelay: `${delay}ms` }}
     >
       {children}
     </div>
@@ -53,38 +41,28 @@ export const TypingAnimation = ({
   delay = 0,
   as: Component = "span",
 }: TypingAnimationProps) => {
-  if (typeof children !== "string") {
-    throw new Error("TypingAnimation: children must be a string. Received:");
-  }
-
-  const [displayedText, setDisplayedText] = useState<string>("");
-  const [started, setStarted] = useState(false);
+  const [displayedText, setDisplayedText] = useState("");
   const reducedMotion = useReducedMotion();
 
+  // After `delay` ms, reveal one more character every `duration` ms
   useEffect(() => {
-    const startTimeout = setTimeout(() => {
-      setStarted(true);
+    if (reducedMotion) return;
+
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const timeout = setTimeout(() => {
+      let length = 0;
+      interval = setInterval(() => {
+        length++;
+        setDisplayedText(children.slice(0, length));
+        if (length >= children.length) clearInterval(interval);
+      }, duration);
     }, delay);
-    return () => clearTimeout(startTimeout);
-  }, [delay]);
-
-  useEffect(() => {
-    if (!started || reducedMotion) return;
-
-    let i = 0;
-    const typingEffect = setInterval(() => {
-      if (i < children.length) {
-        setDisplayedText(children.substring(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typingEffect);
-      }
-    }, duration);
 
     return () => {
-      clearInterval(typingEffect);
+      clearTimeout(timeout);
+      clearInterval(interval);
     };
-  }, [children, duration, started, reducedMotion]);
+  }, [children, delay, duration, reducedMotion]);
 
   return (
     <Component className={cn("text-base font-normal tracking-tight md:text-lg", className)}>
@@ -154,11 +132,19 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
                   <span className="pl-2">- Active participation.</span>
                 </AnimatedSpan>
 
-                <TypingAnimation delay={4000} duration={15} className="text-muted-foreground">
+                <TypingAnimation
+                  delay={4000}
+                  duration={15}
+                  className="text-neutral-500 dark:text-neutral-400"
+                >
                   Success! Project initialization completed.
                 </TypingAnimation>
 
-                <TypingAnimation delay={5000} duration={15} className="text-muted-foreground">
+                <TypingAnimation
+                  delay={5000}
+                  duration={15}
+                  className="text-neutral-500 dark:text-neutral-400"
+                >
                   Let&apos;s make your business grow.
                 </TypingAnimation>
               </>
