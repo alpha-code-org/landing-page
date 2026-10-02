@@ -42,7 +42,7 @@ export const MacbookScroll = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const macbookRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const isMobileRef = useRef(false);
   const reducedMotion = useReducedMotion();
@@ -125,17 +125,18 @@ export const MacbookScroll = ({
         perspective: "1000px",
       }}
     >
-      <div
+      <h2
         ref={titleRef}
         className="text-center text-3xl font-bold text-neutral-800 will-change-transform md:mb-20 dark:text-white"
       >
         {title || (
           <span className="scale-200 md:scale-100">
-            Automate manual tasks with{" "}
-            <Highlight className="whitespace-nowrap text-white">AI workflows</Highlight>
+            Automate repetitive business tasks
+            <br />
+            with <Highlight className="whitespace-nowrap text-white">AI workflows</Highlight>
           </span>
         )}
-      </div>
+      </h2>
       <div
         ref={macbookRef}
         className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 will-change-transform backface-hidden perspective-midrange sm:scale-50 md:scale-100"
@@ -191,7 +192,7 @@ export const CSSLid = React.memo(
           >
             <Image
               src="/logo-white.png"
-              alt="alpha code logo"
+              alt="Alpha Code logo"
               width={66}
               height={65}
               style={{ objectFit: "cover" }}
@@ -211,7 +212,7 @@ export const CSSLid = React.memo(
           {src && (
             <Image
               src={src}
-              alt="screen content"
+              alt="Two business owners high-fiving at a desk with an Alpha Code laptop"
               className="absolute inset-0 h-full w-full rounded-lg object-cover object-top-left"
               width={1536}
               height={1024}

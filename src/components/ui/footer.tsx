@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Twitter, Github, Linkedin } from "lucide-react";
+import { industries } from "@/components/utils/industries";
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
         <Link href="/" aria-label="Go to homepage">
           <Image
             src="/logo.png"
-            alt="alpha-logo"
+            alt="Alpha Code logo"
             width={32}
             height={32}
             loading="lazy"
@@ -17,13 +18,30 @@ const Footer = () => {
           />
           <Image
             src="/logo-dark.png"
-            alt="alpha-logo"
+            alt="Alpha Code logo"
             width={32}
             height={32}
             loading="lazy"
             className="block dark:hidden"
           />
         </Link>
+        <nav aria-label="AI automation by industry" className="flex flex-col gap-3 py-6">
+          <h2 className="text-sm font-medium tracking-widest text-neutral-500 uppercase">
+            AI automation by industry
+          </h2>
+          <ul className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2 md:grid-cols-5">
+            {industries.map((industry) => (
+              <li key={industry.slug}>
+                <Link
+                  href={`/ai-automation/${industry.slug}`}
+                  className="text-sm text-neutral-600 underline-offset-4 hover:underline dark:text-neutral-400"
+                >
+                  {industry.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
           <p className="mb-4 text-sm text-slate-600 md:mb-0 dark:text-slate-400">

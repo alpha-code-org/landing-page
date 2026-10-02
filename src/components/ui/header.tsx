@@ -9,7 +9,7 @@ const Header = () => {
         <Link href="/" aria-label="Go to homepage">
           <Image
             src="/logo.png"
-            alt="alpha-logo"
+            alt="Alpha Code logo"
             width={24}
             height={24}
             loading="eager"
@@ -17,7 +17,7 @@ const Header = () => {
           />
           <Image
             src="/logo-dark.png"
-            alt="alpha-logo"
+            alt="Alpha Code logo"
             width={24}
             height={24}
             loading="eager"
