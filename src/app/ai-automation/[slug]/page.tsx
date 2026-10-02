@@ -28,7 +28,7 @@ export async function generateMetadata({
   return pageMetadata({
     path: `/ai-automation/${industry.slug}`,
     title: `AI Automation for ${titleName} | Alpha Code`,
-    description: `${industry.automation} AI automation for ${industry.name.toLowerCase()}, starting with a free review.`,
+    description: `${industry.metaDescription} AI automation for ${industry.name.toLowerCase()}, starting with a free review.`,
   });
 }
 

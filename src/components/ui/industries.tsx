@@ -25,7 +25,7 @@ export const Industries = () => {
                   {industry.name}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                  {industry.automation}
+                  {industry.summary}
                 </p>
               </Link>
             </li>
