@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getPosts } from "@/lib/getPosts";
-import { PostCard } from "../blog/post-card";
-import { sortByDate } from "@/utils/post";
+import { PostGrid } from "../blog/post-grid";
 
 const Blog = async () => {
   const posts = await getPosts();
@@ -11,18 +10,7 @@ const Blog = async () => {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-8">
         <h2 className="mx-auto text-2xl font-bold md:text-3xl">Blog</h2>
 
-        <ul className="grid auto-rows-max grid-cols-12 place-items-start items-stretch gap-4">
-          {sortByDate(posts)
-            .slice(0, 3)
-            .map((post) => (
-              <li
-                key={post.slug}
-                className="col-span-12 flex w-full justify-center md:col-span-6 lg:col-span-4"
-              >
-                <PostCard {...post} />
-              </li>
-            ))}
-        </ul>
+        <PostGrid posts={posts.slice(0, 3)} />
 
         {posts.length > 3 && (
           <Link

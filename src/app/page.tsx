@@ -1,17 +1,16 @@
 import { pageMetadata, homeDescription, homeTitle } from "@/utils/seo";
 import HeroParallax from "@/components/ui/hero-parallax";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
-import { services } from "@/components/utils/services";
-import { Typewriter } from "@/components/ui/typewritter";
+import { Typewriter } from "@/components/ui/typewriter";
 import Blog from "@/components/ui/blog";
 import { ChecklistTerminal } from "@/components/ui/checklist-terminal";
 import { AuditHighlight } from "@/components/ui/audit-highlight";
 import { MacbookScroll } from "@/components/ui/macbook-scroll";
 import { Companies } from "@/components/ui/companies";
 import { Industries } from "@/components/ui/industries";
-import { industries } from "@/components/utils/industries";
+import { industries } from "@/data/industries";
 import { Faq } from "@/components/ui/faq";
-import { faq } from "@/components/utils/faq";
+import { faq } from "@/data/faq";
 
 export const metadata = pageMetadata({ path: "", title: homeTitle, description: homeDescription });
 
@@ -77,7 +76,7 @@ export default function Home() {
       <HeroParallax />
       <Companies />
       <div className="bg-stone-200/30 py-20 md:py-32 dark:bg-transparent">
-        <StickyScroll services={services} />
+        <StickyScroll />
       </div>
       <MacbookScroll src="/business.webp" />
       <Industries />

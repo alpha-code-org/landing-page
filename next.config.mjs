@@ -12,11 +12,14 @@ const nextConfig = {
       { hostname: "avatars.githubusercontent.com" },
     ],
   },
-  transpilePackages: ["next-mdx-remote"],
 };
 
 const withMDX = createMDX({
   extension: /\.mdx?$/, // Specify file extensions for MDX
+  options: {
+    // Plugins are referenced by name so the config stays serializable for Turbopack
+    rehypePlugins: ["rehype-highlight"],
+  },
 });
 
 export default withMDX(nextConfig);

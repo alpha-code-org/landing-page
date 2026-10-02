@@ -1,7 +1,6 @@
 import { pageMetadata } from "@/utils/seo";
 import { getPosts } from "@/lib/getPosts";
-import { PostCard } from "@/components/blog/post-card";
-import { sortByDate } from "@/utils/post";
+import { PostGrid } from "@/components/blog/post-grid";
 
 export const metadata = pageMetadata({
   path: "/blog",
@@ -17,16 +16,7 @@ export default async function BlogPage() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-8">
           <h1 className="mx-auto text-2xl font-bold md:text-3xl">Blog</h1>
 
-          <ul className="grid auto-rows-max grid-cols-12 place-items-start items-stretch gap-4">
-            {sortByDate(posts).map((post) => (
-              <li
-                key={post.slug}
-                className="col-span-12 flex w-full justify-center md:col-span-6 lg:col-span-4"
-              >
-                <PostCard {...post} />
-              </li>
-            ))}
-          </ul>
+          <PostGrid posts={posts} />
         </div>
       </section>
     </main>

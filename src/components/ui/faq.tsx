@@ -1,4 +1,4 @@
-import { faq } from "@/components/utils/faq";
+import { faq } from "@/data/faq";
 
 export const Faq = () => {
   return (

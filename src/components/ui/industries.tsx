@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { industries } from "@/components/utils/industries";
+import { industries } from "@/data/industries";
 
 export const Industries = () => {
   return (

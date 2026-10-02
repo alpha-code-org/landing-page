@@ -1,6 +1,6 @@
 "use client";
 
-import { companies } from "@/utils/companies";
+import { companies } from "@/data/companies";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";

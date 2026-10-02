@@ -1,24 +1,13 @@
-import fs from "fs/promises";
-import path from "path";
-import { useMDXComponents } from "@/mdx-components";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import { Metadata } from "next";
-import rehypeHighlight from "rehype-highlight";
 import { Comments } from "@/components/blog/comments";
+import { getPostContent, getPostMetadata, getPostSlugs } from "@/lib/getPosts";
 import { SITE_URL, pageMetadata } from "@/utils/seo";
 
 export const dynamic = "force-static";
 
-const CONTENT_SOURCE = "src/app/(posts)";
-
 export async function generateStaticParams() {
-  const files = await fs.readdir(path.join(process.cwd(), CONTENT_SOURCE));
-  return files.map((file) => ({ slug: file.replace(".mdx", "") }));
-}
-
-async function getPostMetadata(slug: string) {
-  const { metadata } = await import(`../../(posts)/${slug}.mdx`);
-  return metadata as { title: string; description: string; author: string; publishDate: string };
+  const slugs = await getPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -55,34 +44,9 @@ export async function generateMetadata({
   };
 }
 
-async function getPostContent(slug: string) {
-  return await fs.readFile(path.join(process.cwd(), CONTENT_SOURCE, `${slug}.mdx`), "utf8");
-}
-
-function BlogPostContent({ source, structuredData }: { source: string; structuredData: object }) {
-  const components = useMDXComponents({});
-
-  return (
-    <div className="min-h-screen bg-stone-100 py-8 md:py-16 dark:bg-neutral-900">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-      <article className="mx-auto w-full max-w-prose rounded-2xl bg-stone-50 px-6 py-8 shadow-sm md:px-12 md:py-12 lg:max-w-4xl dark:bg-neutral-800">
-        <MDXRemote
-          source={source}
-          components={components}
-          options={{ mdxOptions: { rehypePlugins: [rehypeHighlight] } }}
-        />
-        <Comments />
-      </article>
-    </div>
-  );
-}
-
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [source, post] = await Promise.all([getPostContent(slug), getPostMetadata(slug)]);
+  const [PostContent, post] = await Promise.all([getPostContent(slug), getPostMetadata(slug)]);
   const url = `${SITE_URL}/blog/${slug}`;
 
   const structuredData = {
@@ -98,5 +62,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     mainEntityOfPage: url,
   };
 
-  return <BlogPostContent source={source} structuredData={structuredData} />;
+  return (
+    <div className="min-h-screen bg-stone-100 py-8 md:py-16 dark:bg-neutral-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <article className="mx-auto w-full max-w-prose rounded-2xl bg-stone-50 px-6 py-8 shadow-sm md:px-12 md:py-12 lg:max-w-4xl dark:bg-neutral-800">
+        <PostContent />
+        <Comments />
+      </article>
+    </div>
+  );
 }

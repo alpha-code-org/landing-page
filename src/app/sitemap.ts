@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { getPosts } from "@/lib/getPosts";
-import { industries } from "@/components/utils/industries";
+import { industries } from "@/data/industries";
 
 const BASE_URL = "https://alpha-code.hr";
 

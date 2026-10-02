@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { industries } from "@/components/utils/industries";
-import { Button } from "@/components/ui/moving-border-button";
+import { industries } from "@/data/industries";
+import { BookingButton } from "@/components/ui/booking-button";
 import { SITE_URL, pageMetadata } from "@/utils/seo";
 
 export const dynamicParams = false;
@@ -131,18 +131,11 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           </p>
         </section>
 
-        <Link
-          href="https://calendly.com/alphacode/alpha-code"
-          target="__blank"
-          className="self-start"
-        >
-          <Button
-            borderRadius="1.75rem"
-            className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white"
-          >
+        <div className="self-start">
+          <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
             Book a free review
-          </Button>
-        </Link>
+          </BookingButton>
+        </div>
 
         <nav aria-label="Other industries" className="flex flex-col gap-4">
           <h2 className="text-sm font-medium tracking-widest text-neutral-500 uppercase">

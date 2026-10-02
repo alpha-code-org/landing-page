@@ -2,13 +2,13 @@
 
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import ServiceCard from "../cards/ServiceCard";
-import { ServiceType } from "../utils/services";
+import { services, ServiceType } from "@/data/services";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CardItem } from "./3d-card";
-import { cn } from "@/utils/cn";
+import { BOOKING_URL } from "@/utils/links";
 
-export const StickyScroll = ({ services }: { services: ServiceType[] }) => {
+export const StickyScroll = () => {
   const [activeCard, setActiveCard] = useState(0);
 
   const Icon = services[activeCard].icon;
@@ -66,13 +66,13 @@ const Card = ({
   return (
     <div
       ref={ref}
-      key={item.title}
-      className={cn("max-h-screen transition-opacity duration-300")}
+      className="max-h-screen transition-opacity duration-300"
       style={{ opacity: isInView ? 1 : 0.8 }}
     >
       <Link
-        href="https://calendly.com/alphacode/alpha-code"
-        target="__blank"
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label={`Schedule a consultation for ${item.title}`}
       >
         <ServiceCard

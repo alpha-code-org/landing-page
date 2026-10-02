@@ -5,43 +5,36 @@ import Image from "next/image";
 import {
   IconBrightnessDown,
   IconBrightnessUp,
+  IconCaretDownFilled,
+  IconCaretLeftFilled,
   IconCaretRightFilled,
   IconCaretUpFilled,
   IconChevronUp,
+  IconCommand,
   IconMicrophone,
   IconMoon,
   IconPlayerSkipForward,
   IconPlayerTrackNext,
   IconPlayerTrackPrev,
+  IconSearch,
   IconTable,
   IconVolume,
   IconVolume2,
   IconVolume3,
+  IconWorld,
 } from "@tabler/icons-react";
-import { IconSearch } from "@tabler/icons-react";
-import { IconWorld } from "@tabler/icons-react";
-import { IconCommand } from "@tabler/icons-react";
-import { IconCaretLeftFilled } from "@tabler/icons-react";
-import { IconCaretDownFilled } from "@tabler/icons-react";
 import { cn } from "@/utils/cn";
 import { Highlight } from "./audit-highlight";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const MacbookScroll = ({
   src,
-  showGradient,
-  title,
-  badge,
   animationDelay = 0.35,
 }: {
   src?: string;
-  showGradient?: boolean;
-  title?: string | React.ReactNode;
-  badge?: React.ReactNode;
   animationDelay?: number;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const macbookRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const isMobileRef = useRef(false);
@@ -129,18 +122,13 @@ export const MacbookScroll = ({
         ref={titleRef}
         className="text-center text-3xl font-bold text-neutral-800 will-change-transform md:mb-20 dark:text-white"
       >
-        {title || (
-          <span className="scale-200 md:scale-100">
-            Automate repetitive business tasks
-            <br />
-            with <Highlight className="whitespace-nowrap text-white">AI workflows</Highlight>
-          </span>
-        )}
+        <span className="scale-200 md:scale-100">
+          Automate repetitive business tasks
+          <br />
+          with <Highlight className="whitespace-nowrap text-white">AI workflows</Highlight>
+        </span>
       </h2>
-      <div
-        ref={macbookRef}
-        className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 will-change-transform backface-hidden perspective-midrange sm:scale-50 md:scale-100"
-      >
+      <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 will-change-transform backface-hidden perspective-midrange sm:scale-50 md:scale-100">
         {/* Lid */}
         <CSSLid src={src} screenRef={screenRef} />
         {/* Base area */}
@@ -162,10 +150,6 @@ export const MacbookScroll = ({
           </div>
           <Trackpad />
           <div className="absolute inset-x-0 bottom-0 mx-auto h-2 w-20 rounded-tl-3xl rounded-tr-3xl bg-linear-to-t from-[#272729] to-[#050505]" />
-          {showGradient && (
-            <div className="absolute inset-x-0 bottom-0 z-50 h-40 w-full bg-linear-to-t from-white via-white to-transparent dark:from-black dark:via-black"></div>
-          )}
-          {badge && <div className="absolute bottom-4 left-4">{badge}</div>}
         </div>
       </div>
     </div>
@@ -240,65 +224,134 @@ export const Trackpad = React.memo(() => {
 });
 Trackpad.displayName = "Trackpad";
 
+const ICON = "h-[6px] w-[6px]";
+const ROW = "mb-[2px] flex w-full shrink-0 gap-[2px]";
+
+const FUNCTION_KEYS = [
+  [IconBrightnessDown, "F1"],
+  [IconBrightnessUp, "F2"],
+  [IconTable, "F3"],
+  [IconSearch, "F4"],
+  [IconMicrophone, "F5"],
+  [IconMoon, "F6"],
+  [IconPlayerTrackPrev, "F7"],
+  [IconPlayerSkipForward, "F8"],
+  [IconPlayerTrackNext, "F9"],
+  [IconVolume3, "F10"],
+  [IconVolume2, "F11"],
+  [IconVolume, "F12"],
+] as const;
+
+// [shifted, unshifted] pairs; letters have no second character
+const NUMBER_KEYS = [
+  ["!", "1"],
+  ["@", "2"],
+  ["#", "3"],
+  ["$", "4"],
+  ["%", "5"],
+  ["^", "6"],
+  ["&", "7"],
+  ["*", "8"],
+  ["(", "9"],
+  [")", "0"],
+  ["—", "_"],
+  ["+", " = "],
+];
+const QWERTY_KEYS = [..."QWERTYUIOP"]
+  .map((c) => [c])
+  .concat([
+    ["{", "["],
+    ["}", "]"],
+    ["|", "\\"],
+  ]);
+const HOME_KEYS = [..."ASDFGHJKL"]
+  .map((c) => [c])
+  .concat([
+    [":", ";"],
+    ['"', "'"],
+  ]);
+const BOTTOM_KEYS = [..."ZXCVBNM"]
+  .map((c) => [c])
+  .concat([
+    ["<", ","],
+    [">", "."],
+    ["?", "/"],
+  ]);
+
+// Key with one or two stacked characters
+const CharKey = ({
+  chars: [top, bottom],
+  bottomClassName,
+}: {
+  chars: string[];
+  bottomClassName?: string;
+}) => (
+  <KBtn>
+    <span className="block">{top}</span>
+    {bottom !== undefined && <span className={cn(bottomClassName, "block")}>{bottom}</span>}
+  </KBtn>
+);
+
+// Wide text key (esc, tab, shift, ...) with its label pinned to the outer edge
+const ModifierKey = ({
+  label,
+  width,
+  side,
+}: {
+  label: string;
+  width: string;
+  side: "left" | "right";
+}) =>
+  side === "left" ? (
+    <KBtn
+      className={cn(width, "items-end justify-start pb-[2px] pl-[4px]")}
+      childrenClassName="items-start"
+    >
+      {label}
+    </KBtn>
+  ) : (
+    <KBtn
+      className={cn(width, "items-end justify-end pr-[4px] pb-[2px]")}
+      childrenClassName="items-end"
+    >
+      {label}
+    </KBtn>
+  );
+
+// Bottom-row key with a symbol above its label
+const StackedKey = ({
+  top,
+  bottom,
+  topAlign = "end",
+  className = "",
+}: {
+  top: React.ReactNode;
+  bottom: React.ReactNode;
+  topAlign?: "start" | "end";
+  className?: string;
+}) => (
+  <KBtn className={className} childrenClassName="h-full justify-between py-[4px]">
+    <div
+      className={cn("flex w-full", topAlign === "end" ? "justify-end pr-1" : "justify-start pl-1")}
+    >
+      {top}
+    </div>
+    <div className="flex w-full justify-start pl-1">{bottom}</div>
+  </KBtn>
+);
+
 export const Keypad = React.memo(() => {
   return (
     <div className="mx-1 h-full rounded-md bg-[#050505] p-1">
-      {/* First Row */}
-      <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
-        <KBtn
-          className="w-10 items-end justify-start pb-[2px] pl-[4px]"
-          childrenClassName="items-start"
-        >
-          esc
-        </KBtn>
-        <KBtn>
-          <IconBrightnessDown className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F1</span>
-        </KBtn>
-        <KBtn>
-          <IconBrightnessUp className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F2</span>
-        </KBtn>
-        <KBtn>
-          <IconTable className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F3</span>
-        </KBtn>
-        <KBtn>
-          <IconSearch className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F4</span>
-        </KBtn>
-        <KBtn>
-          <IconMicrophone className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F5</span>
-        </KBtn>
-        <KBtn>
-          <IconMoon className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F6</span>
-        </KBtn>
-        <KBtn>
-          <IconPlayerTrackPrev className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F7</span>
-        </KBtn>
-        <KBtn>
-          <IconPlayerSkipForward className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F8</span>
-        </KBtn>
-        <KBtn>
-          <IconPlayerTrackNext className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F8</span>
-        </KBtn>
-        <KBtn>
-          <IconVolume3 className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F10</span>
-        </KBtn>
-        <KBtn>
-          <IconVolume2 className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F11</span>
-        </KBtn>
-        <KBtn>
-          <IconVolume className="h-[6px] w-[6px]" />
-          <span className="mt-1 inline-block">F12</span>
-        </KBtn>
+      <div className={ROW}>
+        <ModifierKey label="esc" width="w-10" side="left" />
+        {FUNCTION_KEYS.map(([Icon, label]) => (
+          <KBtn key={label}>
+            <Icon className={ICON} />
+            <span className="mt-1 inline-block">{label}</span>
+          </KBtn>
+        ))}
+        {/* Power / Touch ID */}
         <KBtn>
           <div className="h-4 w-4 rounded-full bg-linear-to-b from-neutral-900 from-20% via-black via-50% to-neutral-900 to-95% p-px">
             <div className="h-full w-full rounded-full bg-black" />
@@ -306,284 +359,80 @@ export const Keypad = React.memo(() => {
         </KBtn>
       </div>
 
-      {/* Second row */}
-      <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
-        <KBtn>
-          <span className="block">~</span>
-          <span className="mt-1 block">`</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">!</span>
-          <span className="block">1</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">@</span>
-          <span className="block">2</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">#</span>
-          <span className="block">3</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">$</span>
-          <span className="block">4</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">%</span>
-          <span className="block">5</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">^</span>
-          <span className="block">6</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">&</span>
-          <span className="block">7</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">*</span>
-          <span className="block">8</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">(</span>
-          <span className="block">9</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">)</span>
-          <span className="block">0</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">&mdash;</span>
-          <span className="block">_</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">+</span>
-          <span className="block"> = </span>
-        </KBtn>
-        <KBtn
-          className="w-10 items-end justify-end pr-[4px] pb-[2px]"
-          childrenClassName="items-end"
-        >
-          delete
-        </KBtn>
+      <div className={ROW}>
+        <CharKey chars={["~", "`"]} bottomClassName="mt-1" />
+        {NUMBER_KEYS.map((chars) => (
+          <CharKey key={chars[0]} chars={chars} />
+        ))}
+        <ModifierKey label="delete" width="w-10" side="right" />
       </div>
 
-      {/* Third row */}
-      <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
-        <KBtn
-          className="w-10 items-end justify-start pb-[2px] pl-[4px]"
-          childrenClassName="items-start"
-        >
-          tab
-        </KBtn>
-        <KBtn>
-          <span className="block">Q</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">W</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">E</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">R</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">T</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">Y</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">U</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">I</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">O</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">P</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`{`}</span>
-          <span className="block">{`[`}</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`}`}</span>
-          <span className="block">{`]`}</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`|`}</span>
-          <span className="block">{`\\`}</span>
-        </KBtn>
+      <div className={ROW}>
+        <ModifierKey label="tab" width="w-10" side="left" />
+        {QWERTY_KEYS.map((chars) => (
+          <CharKey key={chars[0]} chars={chars} />
+        ))}
       </div>
 
-      {/* Fourth Row */}
-      <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
-        <KBtn
-          className="w-[2.8rem] items-end justify-start pb-[2px] pl-[4px]"
-          childrenClassName="items-start"
-        >
-          caps lock
-        </KBtn>
-        <KBtn>
-          <span className="block">A</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">S</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">D</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">F</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">G</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">H</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">J</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">K</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">L</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`:`}</span>
-          <span className="block">{`;`}</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`"`}</span>
-          <span className="block">{`'`}</span>
-        </KBtn>
-        <KBtn
-          className="w-[2.85rem] items-end justify-end pr-[4px] pb-[2px]"
-          childrenClassName="items-end"
-        >
-          return
-        </KBtn>
+      <div className={ROW}>
+        <ModifierKey label="caps lock" width="w-[2.8rem]" side="left" />
+        {HOME_KEYS.map((chars) => (
+          <CharKey key={chars[0]} chars={chars} />
+        ))}
+        <ModifierKey label="return" width="w-[2.85rem]" side="right" />
       </div>
 
-      {/* Fifth Row */}
-      <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
-        <KBtn
-          className="w-[3.65rem] items-end justify-start pb-[2px] pl-[4px]"
-          childrenClassName="items-start"
-        >
-          shift
-        </KBtn>
-        <KBtn>
-          <span className="block">Z</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">X</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">C</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">V</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">B</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">N</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">M</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`<`}</span>
-          <span className="block">{`,`}</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`>`}</span>
-          <span className="block">{`.`}</span>
-        </KBtn>
-        <KBtn>
-          <span className="block">{`?`}</span>
-          <span className="block">{`/`}</span>
-        </KBtn>
-        <KBtn
-          className="w-[3.65rem] items-end justify-end pr-[4px] pb-[2px]"
-          childrenClassName="items-end"
-        >
-          shift
-        </KBtn>
+      <div className={ROW}>
+        <ModifierKey label="shift" width="w-[3.65rem]" side="left" />
+        {BOTTOM_KEYS.map((chars) => (
+          <CharKey key={chars[0]} chars={chars} />
+        ))}
+        <ModifierKey label="shift" width="w-[3.65rem]" side="right" />
       </div>
 
-      {/* sixth Row */}
-      <div className="mb-[2px] flex w-full shrink-0 gap-[2px]">
-        <KBtn className="" childrenClassName="h-full justify-between py-[4px]">
-          <div className="flex w-full justify-end pr-1">
-            <span className="block">fn</span>
-          </div>
-          <div className="flex w-full justify-start pl-1">
-            <IconWorld className="h-[6px] w-[6px]" />
-          </div>
-        </KBtn>
-        <KBtn className="" childrenClassName="h-full justify-between py-[4px]">
-          <div className="flex w-full justify-end pr-1">
-            <IconChevronUp className="h-[6px] w-[6px]" />
-          </div>
-          <div className="flex w-full justify-start pl-1">
-            <span className="block">control</span>
-          </div>
-        </KBtn>
-        <KBtn className="" childrenClassName="h-full justify-between py-[4px]">
-          <div className="flex w-full justify-end pr-1">
-            <OptionKey className="h-[6px] w-[6px]" />
-          </div>
-          <div className="flex w-full justify-start pl-1">
-            <span className="block">option</span>
-          </div>
-        </KBtn>
-        <KBtn className="w-8" childrenClassName="h-full justify-between py-[4px]">
-          <div className="flex w-full justify-end pr-1">
-            <IconCommand className="h-[6px] w-[6px]" />
-          </div>
-          <div className="flex w-full justify-start pl-1">
-            <span className="block">command</span>
-          </div>
-        </KBtn>
+      <div className={ROW}>
+        <StackedKey
+          top={<span className="block">fn</span>}
+          bottom={<IconWorld className={ICON} />}
+        />
+        <StackedKey
+          top={<IconChevronUp className={ICON} />}
+          bottom={<span className="block">control</span>}
+        />
+        <StackedKey
+          top={<OptionKey className={ICON} />}
+          bottom={<span className="block">option</span>}
+        />
+        <StackedKey
+          className="w-8"
+          top={<IconCommand className={ICON} />}
+          bottom={<span className="block">command</span>}
+        />
         <KBtn className="w-[8.2rem]"></KBtn>
-        <KBtn className="w-8" childrenClassName="h-full justify-between py-[4px]">
-          <div className="flex w-full justify-start pl-1">
-            <IconCommand className="h-[6px] w-[6px]" />
-          </div>
-          <div className="flex w-full justify-start pl-1">
-            <span className="block">command</span>
-          </div>
-        </KBtn>
-        <KBtn className="" childrenClassName="h-full justify-between py-[4px]">
-          <div className="flex w-full justify-start pl-1">
-            <OptionKey className="h-[6px] w-[6px]" />
-          </div>
-          <div className="flex w-full justify-start pl-1">
-            <span className="block">option</span>
-          </div>
-        </KBtn>
+        <StackedKey
+          className="w-8"
+          topAlign="start"
+          top={<IconCommand className={ICON} />}
+          bottom={<span className="block">command</span>}
+        />
+        <StackedKey
+          topAlign="start"
+          top={<OptionKey className={ICON} />}
+          bottom={<span className="block">option</span>}
+        />
         <div className="mt-[2px] flex h-6 w-[4.9rem] flex-col items-center justify-end rounded-[4px] p-[0.5px]">
           <KBtn className="h-3 w-6">
-            <IconCaretUpFilled className="h-[6px] w-[6px]" />
+            <IconCaretUpFilled className={ICON} />
           </KBtn>
           <div className="flex">
             <KBtn className="h-3 w-6">
-              <IconCaretLeftFilled className="h-[6px] w-[6px]" />
+              <IconCaretLeftFilled className={ICON} />
             </KBtn>
             <KBtn className="h-3 w-6">
-              <IconCaretDownFilled className="h-[6px] w-[6px]" />
+              <IconCaretDownFilled className={ICON} />
             </KBtn>
             <KBtn className="h-3 w-6">
-              <IconCaretRightFilled className="h-[6px] w-[6px]" />
+              <IconCaretRightFilled className={ICON} />
             </KBtn>
           </div>
         </div>
