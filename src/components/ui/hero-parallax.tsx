@@ -78,8 +78,8 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
         willChange: "opacity",
       }}
     >
-      <h1 className="relative flex items-center gap-2 text-4xl font-bold text-neutral-900 sm:text-6xl md:text-7xl lg:text-8xl dark:text-white">
-        {/* Decorative: the heading text already names the brand */}
+      <p className="relative flex items-center gap-2 text-4xl font-bold text-neutral-900 sm:text-6xl md:text-7xl lg:text-8xl dark:text-white">
+        {/* Decorative: the text next to it already names the brand */}
         <ThemedLogo
           alt=""
           width={80}
@@ -90,12 +90,12 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
-      </h1>
-      <p className="relative z-20 mt-4 mb-4 max-w-2xl text-xl text-neutral-600 sm:text-3xl md:text-4xl md:font-bold dark:text-neutral-200">
-        We craft beautiful software.
       </p>
+      <h1 className="relative z-20 mt-4 mb-4 max-w-2xl text-xl text-neutral-600 sm:text-3xl md:text-4xl md:font-bold dark:text-neutral-200">
+        AI automation for your business.
+      </h1>
       <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
-        Book a meeting
+        Book a free review
       </BookingButton>
     </div>
   );
@@ -305,16 +305,16 @@ const ProductCard = memo(
             height="600"
             width="600"
             className="absolute inset-0 h-full w-full object-cover object-center"
-            alt={product.title}
+            alt={`${product.title} website built by Alpha Code`}
             sizes="(max-width: 768px) 28rem, 36rem"
             fetchPriority={index < 3 ? "high" : "auto"}
             loading={index < 6 ? "eager" : "lazy"}
           />
         </Link>
         <div className="pointer-events-none absolute inset-0 h-full w-full bg-neutral-900 opacity-0 transition-opacity duration-300 group-hover/product:opacity-40 dark:bg-black dark:group-hover/product:opacity-50"></div>
-        <h2 className="absolute bottom-4 left-4 text-white opacity-0 transition-opacity duration-300 group-hover/product:opacity-100">
+        <p className="absolute bottom-4 left-4 text-white opacity-0 transition-opacity duration-300 group-hover/product:opacity-100">
           {product.title}
-        </h2>
+        </p>
       </div>
     );
   },

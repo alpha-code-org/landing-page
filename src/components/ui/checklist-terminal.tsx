@@ -102,23 +102,23 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
             {isInView && (
               <>
                 <TypingAnimation duration={6}>
-                  &gt; Alpha Code Software Development Checklist
+                  &gt; Alpha Code AI Automation Checklist
                 </TypingAnimation>
 
                 <AnimatedSpan delay={400} className="text-green-500">
-                  <span>✔ Modern design.</span>
+                  <span>✔ Free review of what can be automated.</span>
                 </AnimatedSpan>
 
                 <AnimatedSpan delay={800} className="text-green-500">
-                  <span>✔ Blazingly fast performance.</span>
+                  <span>✔ Built around the tools you already use.</span>
                 </AnimatedSpan>
 
                 <AnimatedSpan delay={1200} className="text-green-500">
-                  <span>✔ SEO optimized.</span>
+                  <span>✔ Hours saved every week, fewer mistakes.</span>
                 </AnimatedSpan>
 
                 <AnimatedSpan delay={1600} className="text-green-500">
-                  <span>✔ Robust testing suite.</span>
+                  <span>✔ NDA signed before we look at anything.</span>
                 </AnimatedSpan>
 
                 <AnimatedSpan delay={2000} className="text-green-500">
@@ -145,7 +145,7 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
                   duration={15}
                   className="text-neutral-500 dark:text-neutral-400"
                 >
-                  Let&apos;s make your business grow.
+                  Let&apos;s automate your business.
                 </TypingAnimation>
               </>
             )}

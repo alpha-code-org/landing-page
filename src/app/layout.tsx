@@ -4,43 +4,18 @@ import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/ui/header";
 import Footer from "@/components/ui/footer";
 import { cn } from "@/utils/cn";
+import { SITE_URL, homeDescription, homeTitle } from "@/utils/seo";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-const title = "Alpha Code | We craft beautiful software";
-const description =
-  "Alpha Code delivers custom software solutions and in-depth codebase audits. We help businesses improve performance, security, and scalability through smart technology and clean code.";
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://alpha-code.hr"),
-  title,
-  description,
+  metadataBase: new URL(SITE_URL),
+  title: homeTitle,
+  description: homeDescription,
   keywords:
-    "software development, codebase audit, business tools, small business, freelancing, programming, IT consulting, digital transformation, Alpha Code, AI, automation",
-  openGraph: {
-    type: "website",
-    url: "https://alpha-code.hr",
-    title,
-    description,
-    siteName: "Alpha Code",
-    images: [
-      {
-        url: "https://alpha-code.hr/logo-white-bg.jpg",
-        width: 1200,
-        height: 627,
-        alt: "Alpha Code Logo",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@AlphaCode",
-    title,
-    description,
-    images: "https://alpha-code.hr/logo-white-bg.jpg",
-  },
+    "AI automation, business process automation, AI automation for small businesses, AI automation agency, workflow automation, invoice automation, booking automation, AI for SMEs, custom software development, codebase audit, Alpha Code, Zagreb, Croatia",
   icons: {
     icon: "/favicon.ico",
   },
@@ -51,9 +26,6 @@ export const metadata: Metadata = {
     "max-snippet": -1,
     "max-video-preview": -1,
     googleBot: "index, follow",
-  },
-  alternates: {
-    canonical: "https://alpha-code.hr",
   },
 };
 

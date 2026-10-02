@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "./moving-border-button";
 import { BOOKING_URL } from "@/utils/links";
