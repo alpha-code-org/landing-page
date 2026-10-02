@@ -25,6 +25,7 @@ import { IconCaretLeftFilled } from "@tabler/icons-react";
 import { IconCaretDownFilled } from "@tabler/icons-react";
 import { cn } from "@/utils/cn";
 import { Highlight } from "./audit-highlight";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export const MacbookScroll = ({
   src,
@@ -44,6 +45,7 @@ export const MacbookScroll = ({
   const titleRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const isMobileRef = useRef(false);
+  const reducedMotion = useReducedMotion();
 
   // Track mobile state in ref to avoid re-renders
   useEffect(() => {
@@ -101,13 +103,16 @@ export const MacbookScroll = ({
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
     updateTransforms();
+    // With reduced motion, keep the initial frame and skip scroll-driven updates
+    if (reducedMotion) return;
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [animationDelay]);
+  }, [animationDelay, reducedMotion]);
 
   return (
     <div

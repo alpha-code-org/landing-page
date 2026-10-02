@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function Button({
   borderRadius = "1.75rem",
@@ -74,12 +75,13 @@ export const MovingBorder = ({
 }) => {
   const pathRef = useRef<SVGRectElement>(null);
   const markerRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
 
   // Animate via direct DOM writes (no React re-renders) and only while on screen
   useEffect(() => {
     const pathElement = pathRef.current;
     const marker = markerRef.current;
-    if (!pathElement || !marker) return;
+    if (!pathElement || !marker || reducedMotion) return;
 
     let frame: number | undefined;
     let startTime: number | undefined;
@@ -117,7 +119,7 @@ export const MovingBorder = ({
       visibilityObserver.disconnect();
       resizeObserver.disconnect();
     };
-  }, [duration]);
+  }, [duration, reducedMotion]);
 
   return (
     <>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "./moving-border-button";
 import { useRef, memo, useEffect, useState } from "react";
 import { products } from "../utils/products";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const dotPatterns = {
   light: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='16' height='16' fill='none'%3E%3Ccircle fill='%23a8a29e' id='pattern-circle' cx='10' cy='10' r='2.5'%3E%3C/circle%3E%3C/svg%3E")`,
@@ -15,8 +16,11 @@ const HeroParallax = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [scrollY, setScrollY] = useState(0);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
+
     let ticking = false;
 
     const onScroll = () => {
@@ -45,7 +49,7 @@ const HeroParallax = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll(); // initial
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div
@@ -85,6 +89,7 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
           height={77}
           className="mr-2 hidden w-10 sm:w-16 md:w-20 dark:block"
           fetchPriority="high"
+          loading="eager"
         />
         <Image
           alt="ac-logo"
@@ -93,6 +98,7 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
           height={77}
           className="mr-2 block w-10 sm:w-16 md:w-20 dark:hidden"
           fetchPriority="high"
+          loading="eager"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>

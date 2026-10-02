@@ -2,6 +2,7 @@
 
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
 
 interface AnimatedSpanProps {
@@ -58,6 +59,7 @@ export const TypingAnimation = ({
 
   const [displayedText, setDisplayedText] = useState<string>("");
   const [started, setStarted] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const startTimeout = setTimeout(() => {
@@ -67,7 +69,7 @@ export const TypingAnimation = ({
   }, [delay]);
 
   useEffect(() => {
-    if (!started) return;
+    if (!started || reducedMotion) return;
 
     let i = 0;
     const typingEffect = setInterval(() => {
@@ -82,11 +84,11 @@ export const TypingAnimation = ({
     return () => {
       clearInterval(typingEffect);
     };
-  }, [children, duration, started]);
+  }, [children, duration, started, reducedMotion]);
 
   return (
     <Component className={cn("text-base font-normal tracking-tight md:text-lg", className)}>
-      {displayedText}
+      {reducedMotion ? children : displayedText}
     </Component>
   );
 };
