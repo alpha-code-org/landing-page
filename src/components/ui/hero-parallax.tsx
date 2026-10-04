@@ -111,6 +111,12 @@ const MOBILE_CARD_WIDTH = 528; // 28rem (448px) + 5rem gap (80px)
 const DESKTOP_CARD_WIDTH = 656; // 36rem (576px) + 5rem gap (80px)
 const MD_BREAKPOINT = 768;
 
+// The track starts on the middle copy; these are the cards visible on first paint.
+// Copies share the same image URLs, so the others load eagerly too at no extra cost —
+// the 3D perspective can project them into the viewport, and lazy loading delays LCP.
+const isInitiallyVisible = (index: number) =>
+  index >= products.length && index < products.length * 2;
+
 const getCardWidth = () =>
   typeof window !== "undefined" && window.innerWidth < MD_BREAKPOINT
     ? MOBILE_CARD_WIDTH
@@ -118,9 +124,10 @@ const getCardWidth = () =>
 
 const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  // Use desktop width as default for SSR to avoid hydration mismatch
+  // Only used for wrapping; the initial offset comes from CSS so SSR matches every breakpoint
   const [singleSetWidth, setSingleSetWidth] = useState(products.length * DESKTOP_CARD_WIDTH);
-  const [translateX, setTranslateX] = useState(-products.length * DESKTOP_CARD_WIDTH);
+  // Offset relative to the start of the middle copy, kept within [-singleSetWidth, singleSetWidth]
+  const [translateX, setTranslateX] = useState(0);
   const [isSnapping, setIsSnapping] = useState(false);
   const lastTouchX = useRef(0);
   const lastTouchY = useRef(0);
@@ -130,9 +137,8 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
   // Update card width on mount and resize
   useEffect(() => {
     const updateWidth = () => {
-      const newSingleSetWidth = products.length * getCardWidth();
-      setSingleSetWidth(newSingleSetWidth);
-      setTranslateX(-newSingleSetWidth);
+      setSingleSetWidth(products.length * getCardWidth());
+      setTranslateX(0); // Back to the start of the middle copy
     };
 
     updateWidth(); // Set correct width on mount
@@ -156,9 +162,9 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
         let next = prev - e.deltaX * 1.5;
 
         // Wrap around for infinite scroll
-        if (next > 0) {
+        if (next > singleSetWidth) {
           next = next - singleSetWidth;
-        } else if (next < -singleSetWidth * 2) {
+        } else if (next < -singleSetWidth) {
           next = next + singleSetWidth;
         }
 
@@ -176,8 +182,8 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
           ? Math.ceil(prev / cardWidth) * cardWidth
           : Math.floor(prev / cardWidth) * cardWidth;
         let next = snapped;
-        if (next > 0) next -= singleSetWidth;
-        else if (next < -singleSetWidth * 2) next += singleSetWidth;
+        if (next > singleSetWidth) next -= singleSetWidth;
+        else if (next < -singleSetWidth) next += singleSetWidth;
         return next;
       });
       setTimeout(() => setIsSnapping(false), 300);
@@ -216,9 +222,9 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
         let next = prev + deltaX * 2;
 
         // Wrap around for infinite scroll
-        if (next > 0) {
+        if (next > singleSetWidth) {
           next = next - singleSetWidth;
-        } else if (next < -singleSetWidth * 2) {
+        } else if (next < -singleSetWidth) {
           next = next + singleSetWidth;
         }
 
@@ -264,9 +270,10 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
       }}
     >
       <div
-        className="mb-20 flex w-max cursor-grab gap-20 active:cursor-grabbing"
+        // One set of cards is 5 × (card + gap): 5 × 33rem on mobile, 5 × 41rem on desktop
+        className="mb-20 flex w-max cursor-grab gap-20 [--set-width:165rem] active:cursor-grabbing md:[--set-width:205rem]"
         style={{
-          transform: `translateX(${translateX}px)`,
+          transform: `translateX(calc(-1 * var(--set-width) + ${translateX}px))`,
           willChange: "transform",
           transition: isSnapping ? "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)" : "none",
         }}
@@ -307,8 +314,8 @@ const ProductCard = memo(
             className="absolute inset-0 h-full w-full object-cover object-center"
             alt={`${product.title} website built by Alpha Code`}
             sizes="(max-width: 768px) 28rem, 36rem"
-            fetchPriority={index < 3 ? "high" : "auto"}
-            loading={index < 6 ? "eager" : "lazy"}
+            fetchPriority={isInitiallyVisible(index) ? "high" : "auto"}
+            loading="eager"
           />
         </Link>
         <div className="pointer-events-none absolute inset-0 h-full w-full bg-neutral-900 opacity-0 transition-opacity duration-300 group-hover/product:opacity-40 dark:bg-black dark:group-hover/product:opacity-50"></div>
