@@ -73,7 +73,6 @@ const Card = ({
         href={BOOKING_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`Schedule a consultation for ${item.title}`}
       >
         <ServiceCard
           title={item.title}

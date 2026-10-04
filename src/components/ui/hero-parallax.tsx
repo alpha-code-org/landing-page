@@ -111,11 +111,6 @@ const MOBILE_CARD_WIDTH = 528; // 28rem (448px) + 5rem gap (80px)
 const DESKTOP_CARD_WIDTH = 656; // 36rem (576px) + 5rem gap (80px)
 const MD_BREAKPOINT = 768;
 
-// The track starts on the middle copy; these are the cards visible on first paint.
-// Copies share the same image URLs, so the others load eagerly too at no extra cost —
-// the 3D perspective can project them into the viewport, and lazy loading delays LCP.
-const isInitiallyVisible = (index: number) =>
-  index >= products.length && index < products.length * 2;
 
 const getCardWidth = () =>
   typeof window !== "undefined" && window.innerWidth < MD_BREAKPOINT
@@ -314,7 +309,9 @@ const ProductCard = memo(
             className="absolute inset-0 h-full w-full object-cover object-center"
             alt={`${product.title} website built by Alpha Code`}
             sizes="(max-width: 768px) 28rem, 36rem"
-            fetchPriority={isInitiallyVisible(index) ? "high" : "auto"}
+            // Every copy shares the same 5 image URLs, so prioritizing them all costs nothing
+            // extra — and the 3D perspective can project any copy into view as the LCP
+            fetchPriority="high"
             loading="eager"
           />
         </Link>

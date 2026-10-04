@@ -11,7 +11,7 @@ const Footer = () => {
           <ThemedLogo width={32} height={32} />
         </Link>
         <nav aria-label="AI automation by industry" className="flex flex-col gap-3 py-6">
-          <h2 className="text-sm font-medium tracking-widest text-neutral-500 uppercase">
+          <h2 className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
             AI automation by industry
           </h2>
           <ul className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2 md:grid-cols-5">

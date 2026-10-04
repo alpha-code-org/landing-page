@@ -81,7 +81,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       />
       <article className="mx-auto flex max-w-3xl flex-col gap-16 px-8">
         <header className="flex flex-col gap-6">
-          <p className="text-sm font-medium tracking-widest text-neutral-500 uppercase">
+          <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
             AI automation by industry
           </p>
           <h1 className="text-3xl font-bold text-neutral-900 md:text-5xl dark:text-white">
@@ -138,7 +138,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         </div>
 
         <nav aria-label="Other industries" className="flex flex-col gap-4">
-          <h2 className="text-sm font-medium tracking-widest text-neutral-500 uppercase">
+          <h2 className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
             Other industries
           </h2>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">

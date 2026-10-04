@@ -5,7 +5,7 @@ export const Faq = () => {
     <section className="relative px-8 py-20 md:py-32">
       <div className="mx-auto flex max-w-3xl flex-col gap-12">
         <div className="flex flex-col items-center gap-4 text-center">
-          <p className="text-sm font-medium tracking-widest text-neutral-500 uppercase">FAQ</p>
+          <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">FAQ</p>
           <h2 className="text-2xl font-bold text-neutral-800 md:text-4xl dark:text-white">
             Common questions
           </h2>
