@@ -85,8 +85,6 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
           width={80}
           height={77}
           className="mr-2 w-10 sm:w-16 md:w-20"
-          fetchPriority="high"
-          loading="eager"
         />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
