@@ -29,4 +29,9 @@ export const companies = [
     website: "https://blockroad.hr/",
     logo: "/companies/blockroad.svg",
   },
+  {
+    name: "FlowCraft DB",
+    website: "https://www.flowcraftdb.de/",
+    logo: "/companies/flowcraft-db.svg",
+  },
 ];
