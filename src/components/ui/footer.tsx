@@ -5,7 +5,7 @@ import { industries } from "@/data/industries";
 
 const Footer = () => {
   return (
-    <footer className="relative mt-auto w-full bg-stone-100 pt-8 dark:bg-neutral-950">
+    <footer className="relative mt-auto w-full bg-stone-100 pt-8 dark:bg-dark-bg">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-8">
         <Link href="/" aria-label="Go to homepage">
           <ThemedLogo width={32} height={32} />

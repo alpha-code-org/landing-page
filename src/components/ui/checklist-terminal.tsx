@@ -82,7 +82,7 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center justify-center bg-stone-100 px-4 py-20 md:py-40 dark:bg-neutral-950"
+      className="flex flex-col items-center justify-center bg-stone-100 px-4 py-20 md:py-40 dark:bg-dark-bg"
     >
       <div
         className={cn(

@@ -81,7 +81,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center md:h-[75vh] dark:bg-neutral-950">
+    <div className="flex h-[50vh] flex-col items-center justify-center md:h-[75vh] dark:bg-dark-bg">
       <p className="mb-4 text-lg text-neutral-600 sm:text-xl md:mb-0 dark:text-neutral-200">
         Ready to automate the busywork?
       </p>

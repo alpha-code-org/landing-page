@@ -257,7 +257,7 @@ const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
           rotateZ(${20 - 20 * Math.min(scrollProgress / 0.2, 1)}deg)
           translateY(${-100 + 480 * Math.min(scrollProgress / 0.1, 1)}px)
         `,
-        opacity: 0.25 + 0.75 * Math.min(scrollProgress / 0.6, 1),
+        opacity: 0.15 + 0.85 * Math.min(scrollProgress / 0.6, 1),
         willChange: "transform, opacity",
         transition: "transform 0.4s ease-out, opacity 0.4s ease-out",
       }}

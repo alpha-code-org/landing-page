@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("flex flex-col bg-stone-100 dark:bg-black", montserrat.className)}>
+      <body className={cn("flex flex-col bg-stone-100 dark:bg-dark-bg", montserrat.className)}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <Header />
           {children}

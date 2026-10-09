@@ -12,6 +12,7 @@
   --color-brand-alpha: #1e2444;
   --color-brand-code: #335aa6;
   --color-brand-alpha-dark: #ffffff;
+  --color-dark-bg: #121212;
 
   /* Custom animations */
   --animate-fade-in: fade-in 250ms ease var(--animation-delay, 0ms) forwards;
@@ -103,7 +104,7 @@
 
   .dark {
     --foreground: 255 255 255;
-    --background: 0 0 0;
+    --background: 18 18 18;
   }
 
   /* Override highlight.js colors for dark mode */

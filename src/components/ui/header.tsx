@@ -4,7 +4,7 @@ import { ThemedLogo } from "./themed-logo";
 
 const Header = () => {
   return (
-    <header className="animate-fade-in fixed top-0 left-0 z-50 w-full bg-stone-100/90 opacity-0 backdrop-blur-md dark:bg-black/80">
+    <header className="animate-fade-in fixed top-0 left-0 z-50 w-full bg-stone-100/90 opacity-0 backdrop-blur-md dark:bg-dark-bg/80">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2">
         <Link href="/" aria-label="Go to homepage">
           <ThemedLogo width={24} height={24} className="h-6 w-6" />

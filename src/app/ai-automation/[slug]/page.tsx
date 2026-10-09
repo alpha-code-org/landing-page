@@ -74,7 +74,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   };
 
   return (
-    <main className="bg-stone-100 py-16 md:py-24 dark:bg-black">
+    <main className="bg-stone-100 py-16 md:py-24 dark:bg-dark-bg">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
