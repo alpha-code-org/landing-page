@@ -405,24 +405,28 @@ const StepList = ({
   }, [currentStep]);
 
   return (
-    <ol ref={listRef} className="relative p-5 md:p-6">
+    // The highlight sits beside the <ol>, which may only contain <li> elements. The wrapper is
+    // the rows' offsetParent, so their offsetTop lines up with the highlight's coordinates.
+    <div className="relative p-5 md:p-6">
       <div
         ref={highlightRef}
         aria-hidden
         className="bg-brand-code/5 ring-brand-code/10 absolute inset-x-3 top-0 rounded-xl opacity-0 ring-1 transition-[transform,height,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:inset-x-4 dark:bg-blue-400/10 dark:ring-blue-400/15"
       />
-      {steps.map((item, index) => (
-        <WorkflowStep
-          key={item.title}
-          step={item}
-          index={index}
-          state={index < currentStep ? "done" : index === currentStep ? "active" : "pending"}
-          isLast={index === steps.length - 1}
-          // The connector below the step that just finished carries a glowing packet down
-          showPacket={index === currentStep - 1}
-        />
-      ))}
-    </ol>
+      <ol ref={listRef}>
+        {steps.map((item, index) => (
+          <WorkflowStep
+            key={item.title}
+            step={item}
+            index={index}
+            state={index < currentStep ? "done" : index === currentStep ? "active" : "pending"}
+            isLast={index === steps.length - 1}
+            // The connector below the step that just finished carries a glowing packet down
+            showPacket={index === currentStep - 1}
+          />
+        ))}
+      </ol>
+    </div>
   );
 };
 
