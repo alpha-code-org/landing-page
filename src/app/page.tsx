@@ -8,6 +8,7 @@ import { AuditHighlight } from "@/components/ui/audit-highlight";
 import { MacbookScroll } from "@/components/ui/macbook-scroll";
 import { Companies } from "@/components/ui/companies";
 import { Industries } from "@/components/ui/industries";
+import { AutomationWorkflow } from "@/components/ui/automation-workflow";
 import { industries } from "@/data/industries";
 import { Faq } from "@/components/ui/faq";
 import { faq } from "@/data/faq";
@@ -80,6 +81,7 @@ export default function Home() {
       </div>
       <MacbookScroll src="/business.webp" />
       <Industries />
+      <AutomationWorkflow />
       <AuditHighlight />
       <ChecklistTerminal />
       <div className="bg-stone-200/30 dark:bg-transparent">
