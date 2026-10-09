@@ -4,7 +4,6 @@ import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 import { Typewriter } from "@/components/ui/typewriter";
 import Blog from "@/components/ui/blog";
 import { ChecklistTerminal } from "@/components/ui/checklist-terminal";
-import { AuditHighlight } from "@/components/ui/audit-highlight";
 import { MacbookScroll } from "@/components/ui/macbook-scroll";
 import { Companies } from "@/components/ui/companies";
 import { Industries } from "@/components/ui/industries";
@@ -84,7 +83,6 @@ export default function Home() {
       <Industries />
       <AutomationWorkflow />
       <HowItWorks />
-      <AuditHighlight />
       <ChecklistTerminal />
       <div className="bg-stone-200/30 dark:bg-transparent">
         <Typewriter />

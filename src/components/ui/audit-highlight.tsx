@@ -5,14 +5,15 @@ import React, { useRef } from "react";
 import { dotPatterns } from "@/utils/dot-patterns";
 import { BookingButton } from "./booking-button";
 
-export const AuditHighlight = () => {
+// On the codebase audit page this banner is the hero, so its heading becomes the h1
+export const AuditHighlight = ({ as: Heading = "h2" }: { as?: "h1" | "h2" }) => {
   return (
     <HeroHighlight>
       <div className="animate-fade-in-bounce mx-auto flex max-w-4xl flex-col items-center gap-12 px-4">
-        <h2 className="text-center text-2xl leading-relaxed font-bold text-neutral-700 md:text-4xl lg:text-5xl lg:leading-snug dark:text-white">
+        <Heading className="text-center text-2xl leading-relaxed font-bold text-neutral-700 md:text-4xl lg:text-5xl lg:leading-snug dark:text-white">
           We identify security vulnerabilities{" "}
           <Highlight className="whitespace-nowrap text-white">in your codebase</Highlight>
-        </h2>
+        </Heading>
 
         <BookingButton className="bg-brand-alpha hover:text-brand-code z-20 border-slate-800 text-white transition-colors hover:bg-white">
           Request an audit
@@ -44,7 +45,7 @@ const HeroHighlight = ({
   return (
     <div
       className={cn(
-        "group relative flex h-160 w-full items-center justify-center bg-stone-100 dark:bg-dark-bg",
+        "group dark:bg-dark-bg relative flex h-160 w-full items-center justify-center bg-stone-100",
         containerClassName,
       )}
       onMouseMove={handleMouseMove}

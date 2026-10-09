@@ -5,7 +5,7 @@ import { industries } from "@/data/industries";
 
 const Footer = () => {
   return (
-    <footer className="relative mt-auto w-full bg-stone-100 pt-8 dark:bg-dark-bg">
+    <footer className="dark:bg-dark-bg relative mt-auto w-full bg-stone-100 pt-8">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-8">
         <Link href="/" aria-label="Go to homepage">
           <ThemedLogo width={32} height={32} />
@@ -26,6 +26,17 @@ const Footer = () => {
               </li>
             ))}
           </ul>
+        </nav>
+        <nav aria-label="Other services" className="flex flex-col gap-3 pb-6">
+          <h2 className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
+            Other services
+          </h2>
+          <Link
+            href="/codebase-audit"
+            className="self-start text-sm text-neutral-600 underline-offset-4 hover:underline dark:text-neutral-400"
+          >
+            Codebase audit
+          </Link>
         </nav>
         <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
