@@ -1,12 +1,18 @@
 export const words = [
   {
-    text: "Let's",
+    text: "Find",
   },
   {
-    text: "build",
+    text: "out",
   },
   {
-    text: "together.",
+    text: "what",
+  },
+  {
+    text: "to",
+  },
+  {
+    text: "automate.",
     className: "text-blue-500",
   },
 ];

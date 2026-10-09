@@ -82,11 +82,11 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center justify-center bg-stone-100 px-4 py-20 md:py-40 dark:bg-dark-bg"
+      className="dark:bg-dark-bg flex flex-col items-center justify-center bg-stone-100 px-4 py-20 md:py-40"
     >
       <div
         className={cn(
-          "z-0 h-[540px] w-full max-w-lg rounded-xl border border-neutral-200 bg-white shadow-lg md:h-[500px] dark:border-neutral-800 dark:bg-neutral-900",
+          "z-0 h-[420px] w-full max-w-lg rounded-xl border border-neutral-200 bg-white shadow-lg md:h-[380px] dark:border-neutral-800 dark:bg-neutral-900",
           className,
         )}
       >
@@ -121,19 +121,8 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
                   <span>✔ NDA signed before we look at anything.</span>
                 </AnimatedSpan>
 
-                <AnimatedSpan delay={2000} className="text-green-500">
-                  <span>✔ 100% customer satisfaction.</span>
-                </AnimatedSpan>
-
-                <AnimatedSpan delay={3000} className="text-blue-500">
-                  <span>ℹ What we want from you:</span>
-                  <span className="pl-2">- Clear communication.</span>
-                  <span className="pl-2">- Honest feedback.</span>
-                  <span className="pl-2">- Active participation.</span>
-                </AnimatedSpan>
-
                 <TypingAnimation
-                  delay={4000}
+                  delay={2400}
                   duration={15}
                   className="text-neutral-500 dark:text-neutral-400"
                 >
@@ -141,7 +130,7 @@ export const ChecklistTerminal = ({ className }: TerminalProps) => {
                 </TypingAnimation>
 
                 <TypingAnimation
-                  delay={5000}
+                  delay={3400}
                   duration={15}
                   className="text-neutral-500 dark:text-neutral-400"
                 >

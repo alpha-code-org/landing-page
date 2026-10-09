@@ -81,7 +81,7 @@ export const Typewriter = ({
   };
 
   return (
-    <div className="flex h-[50vh] flex-col items-center justify-center md:h-[75vh] dark:bg-dark-bg">
+    <div className="dark:bg-dark-bg flex h-[50vh] flex-col items-center justify-center md:h-[75vh]">
       <p className="mb-4 text-lg text-neutral-600 sm:text-xl md:mb-0 dark:text-neutral-200">
         Ready to automate the busywork?
       </p>
@@ -99,7 +99,7 @@ export const Typewriter = ({
       </div>
       <div className="flex flex-col space-y-4 space-x-0 md:flex-row md:space-y-0 md:space-x-4">
         <BookingButton className="bg-brand-code hover:text-brand-code z-10 border-slate-800 font-bold text-white transition-colors hover:bg-white">
-          Schedule a call
+          Book a free review
         </BookingButton>
       </div>
     </div>
