@@ -80,12 +80,7 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
     >
       <p className="relative flex items-center gap-2 text-4xl font-bold text-neutral-900 sm:text-6xl md:text-7xl lg:text-8xl dark:text-white">
         {/* Decorative: the text next to it already names the brand */}
-        <ThemedLogo
-          alt=""
-          width={80}
-          height={77}
-          className="mr-2 w-10 sm:w-16 md:w-20"
-        />
+        <ThemedLogo alt="" width={80} height={77} className="mr-2 w-10 sm:w-16 md:w-20" />
         <span className="text-brand-alpha dark:text-brand-alpha-dark">Alpha</span>{" "}
         <span className="text-brand-code">Code</span>
       </p>
@@ -95,6 +90,9 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
       <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
         Book a free review
       </BookingButton>
+      <p className="relative z-20 mt-3 text-sm font-medium text-neutral-600 dark:text-neutral-400">
+        Free · NDA first · No obligation
+      </p>
     </div>
   );
 });
@@ -108,7 +106,6 @@ const infiniteProducts = [...products, ...products, ...products];
 const MOBILE_CARD_WIDTH = 528; // 28rem (448px) + 5rem gap (80px)
 const DESKTOP_CARD_WIDTH = 656; // 36rem (576px) + 5rem gap (80px)
 const MD_BREAKPOINT = 768;
-
 
 const getCardWidth = () =>
   typeof window !== "undefined" && window.innerWidth < MD_BREAKPOINT
