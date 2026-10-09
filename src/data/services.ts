@@ -1,4 +1,4 @@
-import { Code2, Container, HandHelping, LucideIcon } from "lucide-react";
+import { Code2, Container, LucideIcon } from "lucide-react";
 
 export type ServiceType = {
   title: string;
@@ -26,13 +26,5 @@ export const services: Array<ServiceType> = [
     sideTitle:
       "From concept to deployment, we build complete digital solutions that bring your vision to life.",
     icon: Code2,
-  },
-  {
-    title: "Codebase Audit",
-    description: "Expert codebase analysis to improve performance and security.",
-    imageSrc: "/services/consulting.webp",
-    sideTitle:
-      "Deep dive into your codebase to identify security vulnerabilities and areas for improvement.",
-    icon: HandHelping,
   },
 ];

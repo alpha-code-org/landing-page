@@ -69,11 +69,7 @@ const Card = ({
       className="max-h-screen transition-opacity duration-300"
       style={{ opacity: isInView ? 1 : 0.8 }}
     >
-      <Link
-        href={BOOKING_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
         <ServiceCard
           title={item.title}
           description={item.description}
@@ -85,7 +81,7 @@ const Card = ({
               translateZ={20}
               className="rounded-xl px-4 py-2 text-base font-normal text-neutral-900 dark:text-white"
             >
-              Try now →
+              Book a free review →
             </CardItem>
           </div>
         </ServiceCard>
