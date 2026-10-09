@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Twitter, Github, Linkedin } from "lucide-react";
+import { Twitter, Github, Linkedin, Mail } from "lucide-react";
 import { ThemedLogo } from "./themed-logo";
 import { industries } from "@/data/industries";
+import { CONTACT_EMAIL } from "@/utils/links";
 
 const Footer = () => {
   return (
@@ -44,6 +45,13 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.
           </p>
           <div className="flex gap-4 text-neutral-700 sm:justify-center dark:text-white">
+            <Link
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="opacity-80 transition-opacity hover:opacity-100"
+              aria-label={`Email us at ${CONTACT_EMAIL}`}
+            >
+              <Mail size={24} color="currentColor" />
+            </Link>
             <Link
               href="https://twitter.com/matteoo_eth"
               target="_blank"

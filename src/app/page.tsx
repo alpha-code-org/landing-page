@@ -12,6 +12,7 @@ import { HowItWorks } from "@/components/ui/how-it-works";
 import { industries } from "@/data/industries";
 import { Faq } from "@/components/ui/faq";
 import { faq } from "@/data/faq";
+import { CONTACT_EMAIL } from "@/utils/links";
 
 export const metadata = pageMetadata({ path: "", title: homeTitle, description: homeDescription });
 
@@ -20,6 +21,7 @@ const structuredData = {
   "@type": "ProfessionalService",
   name: "Alpha Code",
   url: "https://alpha-code.hr",
+  email: CONTACT_EMAIL,
   logo: "https://alpha-code.hr/logo.png",
   description:
     "AI automation and custom software for small and medium businesses, starting with a free review of what can be automated.",

@@ -3,6 +3,7 @@
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { BookingButton } from "./booking-button";
+import { EmailLink } from "./email-link";
 import { words } from "@/data/words";
 import { useRef } from "react";
 
@@ -101,6 +102,9 @@ export const Typewriter = ({
         <BookingButton className="bg-brand-code hover:text-brand-code z-10 border-slate-800 font-bold text-white transition-colors hover:bg-white">
           Book a free review
         </BookingButton>
+      </div>
+      <div className="mt-4">
+        <EmailLink />
       </div>
     </div>
   );
