@@ -133,7 +133,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
         <div className="self-start">
           <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
-            Book a free review
+            Book a free discovery
           </BookingButton>
         </div>
 

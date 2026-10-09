@@ -100,7 +100,7 @@ export const Typewriter = ({
       </div>
       <div className="flex flex-col space-y-4 space-x-0 md:flex-row md:space-y-0 md:space-x-4">
         <BookingButton className="bg-brand-code hover:text-brand-code z-10 border-slate-800 font-bold text-white transition-colors hover:bg-white">
-          Book a free review
+          Book a free discovery
         </BookingButton>
       </div>
       <div className="mt-4">

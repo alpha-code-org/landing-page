@@ -81,7 +81,7 @@ const Card = ({
               translateZ={20}
               className="rounded-xl px-4 py-2 text-base font-normal text-neutral-900 dark:text-white"
             >
-              Book a free review →
+              Book a free discovery →
             </CardItem>
           </div>
         </ServiceCard>

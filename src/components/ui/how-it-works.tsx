@@ -84,7 +84,7 @@ export const HowItWorks = () => {
         </p>
 
         <BookingButton className="bg-brand-code hover:text-brand-code border-slate-800 font-bold text-white transition-colors hover:bg-white">
-          Book a free review
+          Book a free discovery
         </BookingButton>
         <EmailLink />
       </div>

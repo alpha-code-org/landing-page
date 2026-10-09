@@ -88,10 +88,10 @@ const Title = memo(({ scrollY }: { scrollY: number }) => {
         AI automation for your business.
       </h1>
       <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
-        Book a free review
+        Book a free discovery
       </BookingButton>
       <p className="relative z-20 mt-3 text-sm font-medium text-neutral-600 dark:text-neutral-400">
-        Free · NDA first · No obligation
+        Free discovery · No obligations after
       </p>
     </div>
   );

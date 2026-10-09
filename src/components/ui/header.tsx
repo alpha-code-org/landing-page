@@ -25,7 +25,7 @@ const Header = () => {
             className="bg-brand-code hover:bg-brand-alpha dark:hover:text-brand-code rounded-full px-4 py-1.5 text-sm font-bold text-white transition-colors dark:hover:bg-white"
           >
             <span className="sm:hidden">Free review</span>
-            <span className="hidden sm:inline">Book a free review</span>
+            <span className="hidden sm:inline">Book a free discovery</span>
           </Link>
         </div>
       </div>

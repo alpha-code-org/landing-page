@@ -19,6 +19,7 @@ export function BookingButton({
       target="_blank"
       rel="noopener noreferrer"
       borderRadius="1.75rem"
+      containerClassName="w-56 md:w-64"
       className={className}
     >
       {children}
