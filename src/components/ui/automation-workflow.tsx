@@ -6,6 +6,10 @@ import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { workflows, type WorkflowStepType } from "@/data/workflows";
+import { BOOKING_URL } from "@/utils/links";
+
+// Working weeks in a year, after holidays, for the yearly estimate
+const WORKING_WEEKS = 46;
 
 // How long a finished run stays on screen before the next one starts
 const FINISHED_HOLD_MS = 3200;
@@ -63,19 +67,23 @@ export const AutomationWorkflow = () => {
   // Once a visitor picks a tab, stop rotating through the workflows
   const [isPinned, setIsPinned] = useState(false);
   const [savedSeconds, setSavedSeconds] = useState(0);
+  // Weekly volume per workflow, adjustable by the visitor to estimate their own savings
+  const [volumes, setVolumes] = useState(() => workflows.map((item) => item.volume));
 
   const workflow = workflows[workflowIndex];
   const { steps } = workflow;
   const automatedSeconds = sumSeconds(steps);
   const manualSeconds = workflow.manualMinutes * 60;
   const savedPerRun = manualSeconds - automatedSeconds;
+  const volume = volumes[workflowIndex];
 
   // With reduced motion the finished run is shown as a static diagram
   const currentStep = reducedMotion ? steps.length : step;
   const isFinished = currentStep === steps.length;
   const elapsed = useCountUp(sumSeconds(steps.slice(0, currentStep)), 400);
   const saved = useCountUp(savedSeconds, 1200);
-  const weeklyHours = useCountUp((workflow.volume * savedPerRun) / 3600, 700);
+  const weeklyHours = useCountUp((volume * savedPerRun) / 3600, 300);
+  const yearlyDays = Math.round((weeklyHours * WORKING_WEEKS) / 8);
 
   // One timer drives the whole run, and it only ticks while the section is on screen
   useEffect(() => {
@@ -102,6 +110,12 @@ export const AutomationWorkflow = () => {
     setWorkflowIndex(index);
     setStep(0);
     setRun((count) => count + 1);
+    setIsPinned(true);
+  }
+
+  function changeVolume(value: number) {
+    setVolumes((current) => current.map((item, index) => (index === workflowIndex ? value : item)));
+    // Keep the visitor on the workflow they are estimating
     setIsPinned(true);
   }
 
@@ -140,13 +154,33 @@ export const AutomationWorkflow = () => {
               className="bg-green-500"
             />
 
-            <div className="flex items-end justify-between gap-4 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+            <label className="flex flex-col gap-2 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+              <span className="flex justify-between text-sm">
+                <span className="text-neutral-600 dark:text-neutral-400">
+                  Your {workflow.unit} per week
+                </span>
+                <span className="font-semibold text-neutral-800 tabular-nums dark:text-white">
+                  {volume}
+                </span>
+              </span>
+              <input
+                type="range"
+                min={5}
+                max={workflow.volume * 4}
+                step={5}
+                value={volume}
+                onChange={(event) => changeVolume(Number(event.target.value))}
+                className="accent-brand-code w-full cursor-pointer dark:accent-blue-400"
+              />
+            </label>
+
+            <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="text-3xl font-bold text-neutral-800 tabular-nums dark:text-white">
                   {Math.round(weeklyHours)} hours
                 </p>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  back every week at {workflow.volume} {workflow.unit}
+                  back every week, ≈ {yearlyDays} working days a year
                 </p>
               </div>
               {!reducedMotion && (
@@ -166,6 +200,15 @@ export const AutomationWorkflow = () => {
                 </p>
               )}
             </div>
+
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-code text-sm font-semibold underline-offset-4 hover:underline dark:text-blue-400"
+            >
+              Get your exact numbers in a free review →
+            </a>
           </div>
         </div>
 
