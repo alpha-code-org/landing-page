@@ -17,7 +17,7 @@ export const faq: Array<FaqType> = [
   {
     question: "How much does AI automation cost?",
     answer:
-      "The review is free. Only if the suggestions make sense do we talk about further work, and you pay nothing until you have seen them.",
+      "The review is free. If you want to go ahead, we quote based on how much effort the automation takes. If the savings don't outweigh the cost, we'll tell you honestly and won't build it.",
   },
   {
     question: "Is our business data safe with you?",
