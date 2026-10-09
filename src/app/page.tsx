@@ -9,6 +9,7 @@ import { Companies } from "@/components/ui/companies";
 import { Industries } from "@/components/ui/industries";
 import { AutomationWorkflow } from "@/components/ui/automation-workflow";
 import { HowItWorks } from "@/components/ui/how-it-works";
+import { Founder } from "@/components/ui/founder";
 import { industries } from "@/data/industries";
 import { Faq } from "@/components/ui/faq";
 import { faq } from "@/data/faq";
@@ -26,7 +27,7 @@ const structuredData = {
   description:
     "AI automation and custom software for small and medium businesses, starting with a free review of what can be automated.",
   address: { "@type": "PostalAddress", addressLocality: "Zagreb", addressCountry: "HR" },
-  areaServed: "Europe",
+  areaServed: ["Europe", "United States"],
   knowsAbout: ["AI automation", "Business process automation", "Custom software development"],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -86,6 +87,7 @@ export default function Home() {
       <AutomationWorkflow />
       <HowItWorks />
       <ChecklistTerminal />
+      <Founder />
       <div className="bg-stone-200/30 dark:bg-transparent">
         <Typewriter />
       </div>

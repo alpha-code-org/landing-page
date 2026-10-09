@@ -32,6 +32,6 @@ export const faq: Array<FaqType> = [
   {
     question: "Do you work with businesses outside Croatia?",
     answer:
-      "Yes. We are a software studio from Zagreb, Croatia, and work with small and medium businesses across Europe. Outside Zagreb we meet on a short video call.",
+      "Yes. We are a software studio from Zagreb, Croatia, and work with small and medium businesses across Europe and the US. Outside Zagreb we meet on a short video call.",
   },
 ];
