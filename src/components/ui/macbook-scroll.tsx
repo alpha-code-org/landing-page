@@ -101,9 +101,8 @@ export const MacbookScroll = ({
         className="text-center text-3xl font-bold text-neutral-800 will-change-transform md:mb-20 dark:text-white"
       >
         <span className="scale-200 md:scale-100">
-          Automate repetitive business tasks
-          <br />
-          with <Highlight className="whitespace-nowrap text-white">AI workflows</Highlight>
+          Automate the boring.{" "}
+          <Highlight className="whitespace-nowrap text-white">Focus on the creative.</Highlight>
         </span>
       </h2>
       <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 will-change-transform backface-hidden perspective-midrange sm:scale-50 md:scale-100">
