@@ -78,9 +78,24 @@ export const MacbookScroll = ({
     // With reduced motion, keep the initial frame and skip scroll-driven updates
     if (reducedMotion) return;
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Only listen to scroll while the section is on screen
+    let listening = false;
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !listening) {
+        listening = true;
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll();
+      } else if (!entry.isIntersecting && listening) {
+        listening = false;
+        window.removeEventListener("scroll", handleScroll);
+        // Settle on the final frame for wherever the section was left
+        updateTransforms();
+      }
+    });
+    visibilityObserver.observe(containerRef.current);
 
     return () => {
+      visibilityObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
     };
   }, [animationDelay, reducedMotion]);
@@ -88,24 +103,20 @@ export const MacbookScroll = ({
   return (
     <div
       ref={containerRef}
+      // No translateZ(0) here: on a 1000–1680px tall section it forces one huge GPU layer, which
+      // exhausts memory on weak devices. Only the elements that actually move get layers.
       className="mb-20 flex h-[1000px] shrink-0 flex-col items-center py-40 md:h-[1680px] md:py-80"
-      style={{
-        // Force hardware acceleration and optimize rendering
-        transform: "translateZ(0)",
-        backfaceVisibility: "hidden",
-        perspective: "1000px",
-      }}
     >
       <h2
         ref={titleRef}
-        className="text-center text-3xl font-bold text-neutral-800 will-change-transform md:mb-20 dark:text-white"
+        className="text-center text-3xl font-bold text-neutral-800 will-change-[transform,opacity] md:mb-20 dark:text-white"
       >
         <span className="scale-200 md:scale-100">
           Automate the boring.{" "}
           <Highlight className="whitespace-nowrap text-white">Focus on the creative.</Highlight>
         </span>
       </h2>
-      <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 will-change-transform backface-hidden perspective-midrange sm:scale-50 md:scale-100">
+      <div className="flex shrink-0 scale-[0.5] transform flex-col items-center justify-start py-0 perspective-midrange sm:scale-50 md:scale-100">
         {/* Lid */}
         <CSSLid src={src} screenRef={screenRef} />
         {/* Base area: the keyboard, speakers and trackpad are a static image (they look the same
@@ -132,14 +143,15 @@ export const MacbookScroll = ({
 export const CSSLid = React.memo(
   ({ src, screenRef }: { src?: string; screenRef: React.RefObject<HTMLDivElement | null> }) => {
     return (
-      <div className="relative will-change-transform perspective-midrange">
+      <div className="relative perspective-midrange">
+        {/* Static lid back: a fixed 3D transform needs no will-change */}
         <div
           style={{
             transform: "perspective(800px) rotateX(-25deg) translateZ(0px)",
             transformOrigin: "bottom",
             transformStyle: "preserve-3d",
           }}
-          className="relative h-48 w-lg rounded-2xl bg-[#010101] p-2 will-change-transform backface-hidden"
+          className="relative h-48 w-lg rounded-2xl bg-[#010101] p-2 backface-hidden"
         >
           <div
             style={{

@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function Button({
   borderRadius = "1.75rem",
@@ -34,20 +32,11 @@ export function Button({
       }}
       {...otherProps}
     >
-      <div className="absolute inset-0" style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}>
-        <MovingBorder duration={duration} rx="30%" ry="30%">
-          <div
-            className={cn(
-              "h-20 w-20 bg-[radial-gradient(var(--color-sky-500)_40%,transparent_60%)] opacity-[0.8]",
-              borderClassName,
-            )}
-          />
-        </MovingBorder>
-      </div>
+      <MovingBorder duration={duration} className={borderClassName} />
 
       <div
         className={cn(
-          "relative flex h-full w-full items-center justify-center border border-slate-800 bg-slate-900/80 text-sm font-bold text-white antialiased backdrop-blur-xl md:text-base",
+          "relative flex h-full w-full items-center justify-center border border-slate-800 bg-slate-900/80 text-sm font-bold text-white antialiased md:text-base",
           className,
         )}
         style={{
@@ -60,91 +49,26 @@ export function Button({
   );
 }
 
+// A glow that travels around the border. It's a conic gradient spun with a CSS transform, so the
+// animation runs on the compositor (GPU) with no per-frame JavaScript or repaints.
 export const MovingBorder = ({
-  children,
   duration = 2000,
-  rx,
-  ry,
-  ...otherProps
+  className,
 }: {
-  children: React.ReactNode;
   duration?: number;
-  rx?: string;
-  ry?: string;
-  [key: string]: any;
+  className?: string;
 }) => {
-  const pathRef = useRef<SVGRectElement>(null);
-  const markerRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
-
-  // Animate via direct DOM writes (no React re-renders) and only while on screen
-  useEffect(() => {
-    const pathElement = pathRef.current;
-    const marker = markerRef.current;
-    if (!pathElement || !marker || reducedMotion) return;
-
-    let frame: number | undefined;
-    let startTime: number | undefined;
-    let length = pathElement.getTotalLength();
-
-    const animate = (timestamp: number) => {
-      startTime ??= timestamp;
-      const elapsed = timestamp - startTime;
-      const point = pathElement.getPointAtLength(((elapsed % duration) / duration) * length);
-      marker.style.transform = `translateX(${point.x}px) translateY(${point.y}px) translateX(-50%) translateY(-50%)`;
-      frame = requestAnimationFrame(animate);
-    };
-
-    const stop = () => {
-      if (frame !== undefined) cancelAnimationFrame(frame);
-      frame = undefined;
-    };
-
-    const visibilityObserver = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        if (frame === undefined) frame = requestAnimationFrame(animate);
-      } else {
-        stop();
-      }
-    });
-    const resizeObserver = new ResizeObserver(() => {
-      length = pathElement.getTotalLength();
-    });
-
-    visibilityObserver.observe(pathElement);
-    resizeObserver.observe(pathElement);
-
-    return () => {
-      stop();
-      visibilityObserver.disconnect();
-      resizeObserver.disconnect();
-    };
-  }, [duration, reducedMotion]);
-
   return (
-    <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-        className="absolute h-full w-full"
-        width="100%"
-        height="100%"
-        {...otherProps}
-      >
-        <rect fill="none" width="100%" height="100%" rx={rx} ry={ry} ref={pathRef} />
-      </svg>
+    <div aria-hidden className="pointer-events-none absolute inset-0">
       <div
-        ref={markerRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          display: "inline-block",
-          transform: "translateX(-50%) translateY(-50%)",
-        }}
-      >
-        {children}
-      </div>
-    </>
+        className={cn(
+          // A square wider than the button's diagonal, centered, so it covers every edge as it spins
+          "absolute top-1/2 left-1/2 aspect-square w-[150%] -translate-x-1/2 -translate-y-1/2 animate-spin opacity-80",
+          "bg-[conic-gradient(transparent_0deg,transparent_290deg,var(--color-sky-500)_335deg,transparent_360deg)]",
+          className,
+        )}
+        style={{ animationDuration: `${duration}ms` }}
+      />
+    </div>
   );
 };

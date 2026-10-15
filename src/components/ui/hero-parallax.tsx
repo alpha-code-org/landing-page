@@ -9,21 +9,38 @@ import { dotPatterns } from "@/utils/dot-patterns";
 import { BookingButton } from "./booking-button";
 import { ThemedLogo } from "./themed-logo";
 
+const TITLE_FADE_DISTANCE = 200;
+
+const titleOpacity = (scrollY: number) => Math.max(0, 1 - scrollY / TITLE_FADE_DISTANCE);
+
+// Only transform and opacity change, so the browser can animate on the compositor (GPU)
+const listTransform = (progress: number) => {
+  const tilt = Math.min(progress / 0.2, 1);
+  const drop = Math.min(progress / 0.1, 1);
+  return `rotateX(${15 - 15 * tilt}deg) rotateZ(${20 - 20 * tilt}deg) translateY(${-100 + 480 * drop}px)`;
+};
+
+const listOpacity = (progress: number) => 0.15 + 0.85 * Math.min(progress / 0.6, 1);
+
 const HeroParallax = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [scrollY, setScrollY] = useState(0);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
 
+  // Scroll-driven styles are written straight to the DOM — no React re-render per frame
   useEffect(() => {
     if (reducedMotion) return;
 
     let ticking = false;
+    let lastProgress = -1;
+    let lastScrollY = -1;
 
     const onScroll = () => {
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(() => {
+          ticking = false;
           if (!ref.current) return;
 
           const rect = ref.current.getBoundingClientRect();
@@ -32,12 +49,19 @@ const HeroParallax = () => {
 
           const scrollTop = -rect.top;
           const maxScroll = Math.max(1, elementHeight - windowHeight); // avoid 0
+          // Values are clamped so writes stop once the hero is scrolled past
           const progress = Math.max(0, Math.min(0.5, scrollTop / maxScroll));
+          const scrollY = Math.min(TITLE_FADE_DISTANCE, Math.max(0, scrollTop));
 
-          // Values are clamped so state settles (and re-renders stop) once the hero is scrolled past
-          setScrollProgress(progress);
-          setScrollY(Math.min(TITLE_FADE_DISTANCE, Math.max(0, scrollTop)));
-          ticking = false;
+          if (scrollY !== lastScrollY && titleRef.current) {
+            lastScrollY = scrollY;
+            titleRef.current.style.opacity = String(titleOpacity(scrollY));
+          }
+          if (progress !== lastProgress && listRef.current) {
+            lastProgress = progress;
+            listRef.current.style.transform = listTransform(progress);
+            listRef.current.style.opacity = String(listOpacity(progress));
+          }
         });
       }
     };
@@ -61,20 +85,19 @@ const HeroParallax = () => {
         className="pointer-events-none absolute inset-0 -z-10 hidden opacity-50 dark:block"
         style={{ backgroundImage: dotPatterns.dark.default }}
       />
-      <Title scrollY={scrollY} />
-      <ProductList scrollProgress={scrollProgress} />
+      <Title titleRef={titleRef} />
+      <ProductList containerRef={listRef} />
     </div>
   );
 };
 
-const TITLE_FADE_DISTANCE = 200;
-
-const Title = memo(({ scrollY }: { scrollY: number }) => {
+const Title = memo(({ titleRef }: { titleRef: React.RefObject<HTMLDivElement | null> }) => {
   return (
     <div
+      ref={titleRef}
       className="relative top-[50vh] left-[5%] z-20 w-full md:top-[40vh]"
       style={{
-        opacity: Math.max(0, 1 - scrollY / TITLE_FADE_DISTANCE),
+        opacity: titleOpacity(0),
         willChange: "opacity",
       }}
     >
@@ -112,169 +135,168 @@ const getCardWidth = () =>
     ? MOBILE_CARD_WIDTH
     : DESKTOP_CARD_WIDTH;
 
-const ProductList = memo(({ scrollProgress }: { scrollProgress: number }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  // Only used for wrapping; the initial offset comes from CSS so SSR matches every breakpoint
-  const [singleSetWidth, setSingleSetWidth] = useState(products.length * DESKTOP_CARD_WIDTH);
-  // Offset relative to the start of the middle copy, kept within [-singleSetWidth, singleSetWidth]
-  const [translateX, setTranslateX] = useState(0);
-  const [isSnapping, setIsSnapping] = useState(false);
-  const lastTouchX = useRef(0);
-  const lastTouchY = useRef(0);
-  const touchStartX = useRef(0);
-  const touchDirection = useRef<"horizontal" | "vertical" | null>(null);
+const ProductList = memo(
+  ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
+    // Only used for wrapping; the initial offset comes from CSS so SSR matches every breakpoint
+    const [singleSetWidth, setSingleSetWidth] = useState(products.length * DESKTOP_CARD_WIDTH);
+    // Offset relative to the start of the middle copy, kept within [-singleSetWidth, singleSetWidth]
+    const [translateX, setTranslateX] = useState(0);
+    const [isSnapping, setIsSnapping] = useState(false);
+    const lastTouchX = useRef(0);
+    const lastTouchY = useRef(0);
+    const touchStartX = useRef(0);
+    const touchDirection = useRef<"horizontal" | "vertical" | null>(null);
 
-  // Update card width on mount and resize
-  useEffect(() => {
-    const updateWidth = () => {
-      setSingleSetWidth(products.length * getCardWidth());
-      setTranslateX(0); // Back to the start of the middle copy
-    };
+    // Update card width on mount and resize
+    useEffect(() => {
+      const updateWidth = () => {
+        setSingleSetWidth(products.length * getCardWidth());
+        setTranslateX(0); // Back to the start of the middle copy
+      };
 
-    updateWidth(); // Set correct width on mount
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
+      updateWidth(); // Set correct width on mount
+      window.addEventListener("resize", updateWidth);
+      return () => window.removeEventListener("resize", updateWidth);
+    }, []);
 
-  // Handle wheel scrolling with infinite loop using transform (container-scoped so it
-  // doesn't block scrolling elsewhere on the page)
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    // Handle wheel scrolling with infinite loop using transform (container-scoped so it
+    // doesn't block scrolling elsewhere on the page)
+    useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;
 
-    const onWheel = (e: WheelEvent) => {
-      // Only capture horizontal wheel; let vertical scroll pass through
-      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+      const onWheel = (e: WheelEvent) => {
+        // Only capture horizontal wheel; let vertical scroll pass through
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
 
-      e.preventDefault();
+        e.preventDefault();
 
-      setTranslateX((prev) => {
-        let next = prev - e.deltaX * 1.5;
+        setTranslateX((prev) => {
+          let next = prev - e.deltaX * 1.5;
 
-        // Wrap around for infinite scroll
-        if (next > singleSetWidth) {
-          next = next - singleSetWidth;
-        } else if (next < -singleSetWidth) {
-          next = next + singleSetWidth;
+          // Wrap around for infinite scroll
+          if (next > singleSetWidth) {
+            next = next - singleSetWidth;
+          } else if (next < -singleSetWidth) {
+            next = next + singleSetWidth;
+          }
+
+          return next;
+        });
+      };
+
+      const cardWidth = getCardWidth();
+
+      const snapToCard = (swipedRight: boolean) => {
+        setIsSnapping(true);
+        setTranslateX((prev) => {
+          // Snap in swipe direction so a small flick advances to next card
+          const snapped = swipedRight
+            ? Math.ceil(prev / cardWidth) * cardWidth
+            : Math.floor(prev / cardWidth) * cardWidth;
+          let next = snapped;
+          if (next > singleSetWidth) next -= singleSetWidth;
+          else if (next < -singleSetWidth) next += singleSetWidth;
+          return next;
+        });
+        setTimeout(() => setIsSnapping(false), 300);
+      };
+
+      // Touch handlers for mobile
+      const onTouchStart = (e: TouchEvent) => {
+        setIsSnapping(false);
+        lastTouchX.current = e.touches[0].clientX;
+        lastTouchY.current = e.touches[0].clientY;
+        touchStartX.current = e.touches[0].clientX;
+        touchDirection.current = null;
+      };
+
+      const onTouchMove = (e: TouchEvent) => {
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        const deltaX = currentX - lastTouchX.current;
+        const deltaY = currentY - lastTouchY.current;
+
+        // Lock direction on first significant movement (10px threshold)
+        if (touchDirection.current === null) {
+          if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) return;
+          touchDirection.current = Math.abs(deltaX) > Math.abs(deltaY) ? "horizontal" : "vertical";
         }
 
-        return next;
-      });
-    };
+        // Only handle horizontal swipes; let vertical scroll pass through
+        if (touchDirection.current === "vertical") return;
 
-    const cardWidth = getCardWidth();
+        e.preventDefault();
 
-    const snapToCard = (swipedRight: boolean) => {
-      setIsSnapping(true);
-      setTranslateX((prev) => {
-        // Snap in swipe direction so a small flick advances to next card
-        const snapped = swipedRight
-          ? Math.ceil(prev / cardWidth) * cardWidth
-          : Math.floor(prev / cardWidth) * cardWidth;
-        let next = snapped;
-        if (next > singleSetWidth) next -= singleSetWidth;
-        else if (next < -singleSetWidth) next += singleSetWidth;
-        return next;
-      });
-      setTimeout(() => setIsSnapping(false), 300);
-    };
+        lastTouchX.current = currentX;
+        lastTouchY.current = currentY;
 
-    // Touch handlers for mobile
-    const onTouchStart = (e: TouchEvent) => {
-      setIsSnapping(false);
-      lastTouchX.current = e.touches[0].clientX;
-      lastTouchY.current = e.touches[0].clientY;
-      touchStartX.current = e.touches[0].clientX;
-      touchDirection.current = null;
-    };
+        setTranslateX((prev) => {
+          let next = prev + deltaX * 2;
 
-    const onTouchMove = (e: TouchEvent) => {
-      const currentX = e.touches[0].clientX;
-      const currentY = e.touches[0].clientY;
-      const deltaX = currentX - lastTouchX.current;
-      const deltaY = currentY - lastTouchY.current;
+          // Wrap around for infinite scroll
+          if (next > singleSetWidth) {
+            next = next - singleSetWidth;
+          } else if (next < -singleSetWidth) {
+            next = next + singleSetWidth;
+          }
 
-      // Lock direction on first significant movement (10px threshold)
-      if (touchDirection.current === null) {
-        if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) return;
-        touchDirection.current = Math.abs(deltaX) > Math.abs(deltaY) ? "horizontal" : "vertical";
-      }
+          return next;
+        });
+      };
 
-      // Only handle horizontal swipes; let vertical scroll pass through
-      if (touchDirection.current === "vertical") return;
-
-      e.preventDefault();
-
-      lastTouchX.current = currentX;
-      lastTouchY.current = currentY;
-
-      setTranslateX((prev) => {
-        let next = prev + deltaX * 2;
-
-        // Wrap around for infinite scroll
-        if (next > singleSetWidth) {
-          next = next - singleSetWidth;
-        } else if (next < -singleSetWidth) {
-          next = next + singleSetWidth;
+      const onTouchEnd = (e: TouchEvent) => {
+        if (touchDirection.current === "horizontal") {
+          const endX = e.changedTouches[0].clientX;
+          const swipedRight = endX > touchStartX.current;
+          snapToCard(swipedRight);
         }
+      };
 
-        return next;
-      });
-    };
+      container.addEventListener("touchstart", onTouchStart, { passive: true });
+      container.addEventListener("touchmove", onTouchMove, { passive: false });
+      container.addEventListener("touchend", onTouchEnd, { passive: true });
+      container.addEventListener("wheel", onWheel, { passive: false });
 
-    const onTouchEnd = (e: TouchEvent) => {
-      if (touchDirection.current === "horizontal") {
-        const endX = e.changedTouches[0].clientX;
-        const swipedRight = endX > touchStartX.current;
-        snapToCard(swipedRight);
-      }
-    };
+      return () => {
+        container.removeEventListener("touchstart", onTouchStart);
+        container.removeEventListener("touchmove", onTouchMove);
+        container.removeEventListener("touchend", onTouchEnd);
+        container.removeEventListener("wheel", onWheel);
+      };
+    }, [singleSetWidth, containerRef]);
 
-    container.addEventListener("touchstart", onTouchStart, { passive: true });
-    container.addEventListener("touchmove", onTouchMove, { passive: false });
-    container.addEventListener("touchend", onTouchEnd, { passive: true });
-    container.addEventListener("wheel", onWheel, { passive: false });
-
-    return () => {
-      container.removeEventListener("touchstart", onTouchStart);
-      container.removeEventListener("touchmove", onTouchMove);
-      container.removeEventListener("touchend", onTouchEnd);
-      container.removeEventListener("wheel", onWheel);
-    };
-  }, [singleSetWidth]);
-
-  return (
-    <div
-      className="relative z-10 overflow-hidden"
-      ref={containerRef}
-      style={{
-        touchAction: "pan-y",
-        transform: `
-          rotateX(${15 - 15 * Math.min(scrollProgress / 0.2, 1)}deg)
-          rotateZ(${20 - 20 * Math.min(scrollProgress / 0.2, 1)}deg)
-          translateY(${-100 + 480 * Math.min(scrollProgress / 0.1, 1)}px)
-        `,
-        opacity: 0.15 + 0.85 * Math.min(scrollProgress / 0.6, 1),
-        willChange: "transform, opacity",
-        transition: "transform 0.4s ease-out, opacity 0.4s ease-out",
-      }}
-    >
+    return (
       <div
-        // One set of cards is 5 × (card + gap): 5 × 33rem on mobile, 5 × 41rem on desktop
-        className="mb-20 flex w-max cursor-grab gap-20 [--set-width:165rem] active:cursor-grabbing md:[--set-width:205rem]"
+        className="relative z-10 overflow-hidden"
+        ref={containerRef}
         style={{
-          transform: `translateX(calc(-1 * var(--set-width) + ${translateX}px))`,
-          willChange: "transform",
-          transition: isSnapping ? "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)" : "none",
+          touchAction: "pan-y",
+          // Initial frame; later frames are written by HeroParallax's scroll handler.
+          // The transition eases the cards into each new position for a smoother glide
+          transform: listTransform(0),
+          opacity: listOpacity(0),
+          willChange: "transform, opacity",
+          transition: "transform 0.4s ease-out, opacity 0.4s ease-out",
         }}
       >
-        {infiniteProducts.map((product, index) => (
-          <ProductCard product={product} key={`${product.title}-${index}`} index={index} />
-        ))}
+        <div
+          // One set of cards is 5 × (card + gap): 5 × 33rem on mobile, 5 × 41rem on desktop
+          className="mb-20 flex w-max cursor-grab gap-20 [--set-width:165rem] active:cursor-grabbing md:[--set-width:205rem]"
+          style={{
+            transform: `translateX(calc(-1 * var(--set-width) + ${translateX}px))`,
+            willChange: "transform",
+            transition: isSnapping ? "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)" : "none",
+          }}
+        >
+          {infiniteProducts.map((product, index) => (
+            <ProductCard product={product} key={`${product.title}-${index}`} index={index} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 ProductList.displayName = "ProductList";
 

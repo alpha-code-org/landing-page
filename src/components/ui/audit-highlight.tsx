@@ -98,22 +98,15 @@ export const Highlight = ({
   });
 
   return (
-    <span
-      ref={ref}
-      className={cn(
-        "relative inline-block rounded-lg px-1 pb-1",
-        isInView && "animate-highlight-sweep",
-        className,
-      )}
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, var(--color-indigo-500), var(--color-purple-500))",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "left center",
-        backgroundSize: "0% 100%",
-        animationDuration: "800ms",
-      }}
-    >
+    <span ref={ref} className={cn("relative isolate inline-block px-1 pb-1", className)}>
+      {/* Swept in with a transform instead of background-size, so it animates on the GPU */}
+      <span
+        aria-hidden
+        className={cn(
+          "absolute inset-0 -z-10 origin-left rounded-lg bg-linear-to-r from-indigo-500 to-purple-500 transition-transform duration-800 ease-linear",
+          isInView ? "scale-x-100" : "scale-x-0",
+        )}
+      />
       {children}
     </span>
   );
