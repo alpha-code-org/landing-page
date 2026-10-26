@@ -10,6 +10,7 @@ import { Industries } from "@/components/ui/industries";
 import { AutomationWorkflow } from "@/components/ui/automation-workflow";
 import { HowItWorks } from "@/components/ui/how-it-works";
 import { Founder } from "@/components/ui/founder";
+import { OutcomePricing } from "@/components/ui/outcome-pricing";
 import { industries } from "@/data/industries";
 import { Faq } from "@/components/ui/faq";
 import { faq } from "@/data/faq";
@@ -86,6 +87,7 @@ export default function Home() {
       <Industries />
       <AutomationWorkflow />
       <HowItWorks />
+      <OutcomePricing />
       <ChecklistTerminal />
       <Founder />
       <div className="bg-stone-200/30 dark:bg-transparent">

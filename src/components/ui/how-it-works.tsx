@@ -79,8 +79,8 @@ export const HowItWorks = () => {
         </div>
 
         <p className="max-w-xl text-center font-medium text-neutral-700 dark:text-neutral-300">
-          You get a quote based on the actual effort. If the savings don&apos;t outweigh the cost,
-          we&apos;ll tell you and won&apos;t build it.
+          Our fee is tied to the results the automation delivers. If the savings won&apos;t be
+          there, we&apos;ll tell you and won&apos;t build it.
         </p>
 
         <BookingButton className="bg-brand-code hover:text-brand-code border-slate-800 font-bold text-white transition-colors hover:bg-white">
