@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { industries } from "@/data/industries";
+import { processSteps } from "@/data/process";
 import { BookingButton } from "@/components/ui/booking-button";
 import { SITE_URL, pageMetadata } from "@/utils/seo";
 
@@ -32,21 +33,6 @@ export async function generateMetadata({
   });
 }
 
-const steps = [
-  {
-    title: "Free review",
-    text: "We go through your daily work with you and write down what could run on its own. You get a list of the specific places where time is being lost, with no obligation.",
-  },
-  {
-    title: "A clear proposal",
-    text: "Only if the suggestions make sense do we talk about further work. You pay nothing until you have seen them.",
-  },
-  {
-    title: "Automation that fits",
-    text: "We build the automation around the tools you already use, so your team spends less time on manual work and makes fewer mistakes.",
-  },
-];
-
 export default async function IndustryPage({ params }: { params: Promise<{ slug: string }> }) {
   const industry = findIndustry((await params).slug);
   if (!industry) notFound();
@@ -74,7 +60,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   };
 
   return (
-    <main className="bg-stone-100 py-16 md:py-24 dark:bg-dark-bg">
+    <main className="dark:bg-dark-bg bg-stone-100 py-16 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -106,34 +92,36 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
               </li>
             ))}
           </ul>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            That means hours saved every week and fewer mistakes.
-          </p>
         </section>
 
         <section className="flex flex-col gap-6">
           <h2 className="text-2xl font-bold text-neutral-800 dark:text-white">How it works</h2>
           <ol className="flex flex-col gap-6">
-            {steps.map((step, i) => (
+            {processSteps.map((step, i) => (
               <li key={step.title} className="flex gap-4">
                 <span className="text-brand-code font-bold">{i + 1}.</span>
                 <div>
                   <h3 className="font-bold text-neutral-800 dark:text-white">{step.title}</h3>
-                  <p className="mt-1 text-neutral-600 dark:text-neutral-400">{step.text}</p>
+                  <p className="mt-1 text-neutral-600 dark:text-neutral-400">{step.description}</p>
                 </div>
               </li>
             ))}
           </ol>
           <p className="text-neutral-600 dark:text-neutral-400">
-            We know that opening up your business to an outsider is a big step. We work with full
-            transparency, everything we see stays with you, and we gladly sign an NDA before we look
-            at anything.
+            Our fee is a share of the savings the automation proves, and we sign an NDA before we
+            look at anything.{" "}
+            <Link
+              href="/#pricing"
+              className="text-brand-code font-semibold underline-offset-4 hover:underline dark:text-blue-400"
+            >
+              How pricing works
+            </Link>
           </p>
         </section>
 
         <div className="self-start">
           <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
-            Book a free discovery
+            Book a free review
           </BookingButton>
         </div>
 

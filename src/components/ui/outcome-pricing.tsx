@@ -19,7 +19,7 @@ const feeSteps = [
   {
     title: "Our fee follows the result",
     description:
-      "We take 50% of the proven savings for the first year. After that, every euro saved is yours. If the automation doesn't save anything, we don't earn anything.",
+      "We take 50% of the proven savings for the first year. After that, every euro saved is yours. If the automation doesn't save anything, we don't earn anything. Running costs like AI usage and hosting are passed on at cost, with no markup.",
   },
 ];
 

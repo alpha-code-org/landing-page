@@ -17,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostMetadata(slug);
-  const title = "Alpha Code | " + post.title;
+  const title = `${post.title} | Alpha Code`;
   const image = {
     url: `${SITE_URL}/blog/${slug}/hero.webp`,
     width: 1200,

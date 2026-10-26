@@ -68,7 +68,7 @@ const HeroParallax = () => {
 
     // passive improves scrolling on Android
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // initial
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, [reducedMotion]);
 
@@ -111,10 +111,10 @@ const Title = memo(({ titleRef }: { titleRef: React.RefObject<HTMLDivElement | n
         AI automation for your business.
       </h1>
       <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
-        Book a free discovery
+        Book a free review
       </BookingButton>
       <p className="relative z-20 mt-3 text-sm font-medium text-neutral-600 dark:text-neutral-400">
-        Free discovery · No obligations after
+        No obligation · You only pay for proven savings
       </p>
     </div>
   );
@@ -122,7 +122,6 @@ const Title = memo(({ titleRef }: { titleRef: React.RefObject<HTMLDivElement | n
 
 Title.displayName = "Title";
 
-// Triple the products array for infinite scroll illusion
 const infiniteProducts = [...products, ...products, ...products];
 
 // Card widths: mobile (28rem + 5rem gap) vs desktop (36rem + 5rem gap)
@@ -147,14 +146,13 @@ const ProductList = memo(
     const touchStartX = useRef(0);
     const touchDirection = useRef<"horizontal" | "vertical" | null>(null);
 
-    // Update card width on mount and resize
     useEffect(() => {
       const updateWidth = () => {
         setSingleSetWidth(products.length * getCardWidth());
-        setTranslateX(0); // Back to the start of the middle copy
+        setTranslateX(0);
       };
 
-      updateWidth(); // Set correct width on mount
+      updateWidth();
       window.addEventListener("resize", updateWidth);
       return () => window.removeEventListener("resize", updateWidth);
     }, []);
@@ -174,7 +172,6 @@ const ProductList = memo(
         setTranslateX((prev) => {
           let next = prev - e.deltaX * 1.5;
 
-          // Wrap around for infinite scroll
           if (next > singleSetWidth) {
             next = next - singleSetWidth;
           } else if (next < -singleSetWidth) {
@@ -202,7 +199,6 @@ const ProductList = memo(
         setTimeout(() => setIsSnapping(false), 300);
       };
 
-      // Touch handlers for mobile
       const onTouchStart = (e: TouchEvent) => {
         setIsSnapping(false);
         lastTouchX.current = e.touches[0].clientX;
@@ -234,7 +230,6 @@ const ProductList = memo(
         setTranslateX((prev) => {
           let next = prev + deltaX * 2;
 
-          // Wrap around for infinite scroll
           if (next > singleSetWidth) {
             next = next - singleSetWidth;
           } else if (next < -singleSetWidth) {

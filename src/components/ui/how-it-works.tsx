@@ -1,29 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { ClipboardList, Search, Wrench } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { processSteps } from "@/data/process";
 import { BookingButton } from "./booking-button";
 import { EmailLink } from "./email-link";
-
-const steps = [
-  {
-    icon: Search,
-    title: "Free review",
-    description: "We look at where your team's week goes.",
-  },
-  {
-    icon: ClipboardList,
-    title: "Clear plan",
-    description: "You get a list of what to automate and the hours it saves.",
-  },
-  {
-    icon: Wrench,
-    title: "We build it",
-    description: "Automations that work inside the tools you already use.",
-  },
-];
 
 export const HowItWorks = () => {
   const ref = useRef<HTMLElement>(null);
@@ -54,7 +36,7 @@ export const HowItWorks = () => {
           </div>
 
           <ol className="relative grid gap-10 md:grid-cols-3 md:gap-8">
-            {steps.map((step, index) => (
+            {processSteps.map((step, index) => (
               <li
                 key={step.title}
                 className={cn(
@@ -78,13 +60,8 @@ export const HowItWorks = () => {
           </ol>
         </div>
 
-        <p className="max-w-xl text-center font-medium text-neutral-700 dark:text-neutral-300">
-          Our fee is tied to the results the automation delivers. If the savings won&apos;t be
-          there, we&apos;ll tell you and won&apos;t build it.
-        </p>
-
         <BookingButton className="bg-brand-code hover:text-brand-code border-slate-800 font-bold text-white transition-colors hover:bg-white">
-          Book a free discovery
+          Book a free review
         </BookingButton>
         <EmailLink />
       </div>

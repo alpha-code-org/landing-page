@@ -10,20 +10,12 @@ const nextConfig = {
   images: {
     // Next's defaults start at 640w, too big for the small cards whose `sizes` use vw
     deviceSizes: [384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    // Next only allows quality 75 unless others are listed (the MacBook images use 90 and 100)
-    qualities: [75, 90, 100],
-    remotePatterns: [
-      {
-        hostname: "aceternity.com",
-      },
-      { hostname: "source.unsplash.com" },
-      { hostname: "avatars.githubusercontent.com" },
-    ],
+    remotePatterns: [{ hostname: "avatars.githubusercontent.com" }],
   },
 };
 
 const withMDX = createMDX({
-  extension: /\.mdx?$/, // Specify file extensions for MDX
+  extension: /\.mdx?$/,
   options: {
     // Plugins are referenced by name so the config stays serializable for Turbopack
     rehypePlugins: ["rehype-highlight"],

@@ -1,10 +1,7 @@
 import { pageMetadata, homeDescription, homeTitle } from "@/utils/seo";
 import HeroParallax from "@/components/ui/hero-parallax";
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 import { Typewriter } from "@/components/ui/typewriter";
 import Blog from "@/components/ui/blog";
-import { ChecklistTerminal } from "@/components/ui/checklist-terminal";
-import { MacbookScroll } from "@/components/ui/macbook-scroll";
 import { Companies } from "@/components/ui/companies";
 import { Industries } from "@/components/ui/industries";
 import { AutomationWorkflow } from "@/components/ui/automation-workflow";
@@ -81,16 +78,11 @@ export default function Home() {
       />
       <HeroParallax />
       <Companies />
-      <div className="bg-stone-200/30 py-20 md:py-32 dark:bg-transparent">
-        <StickyScroll />
-      </div>
-      <MacbookScroll src="/business.webp" />
-      <Industries />
       <AutomationWorkflow />
+      <Industries />
       <HowItWorks />
       <OutcomePricing />
       <Transparency />
-      <ChecklistTerminal />
       <Founder />
       <div className="bg-stone-200/30 dark:bg-transparent">
         <Typewriter />

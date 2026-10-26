@@ -24,7 +24,7 @@ export const Founder = () => {
           </h2>
           <p className="leading-relaxed text-neutral-600 dark:text-neutral-400">
             We are based in Zagreb and build software for companies across Europe and the US. You
-            talk to me directly, from the first review to the day your automation goes live.
+            talk to me directly, from the first review to every improvement after launch.
           </p>
           <Link
             href="https://www.linkedin.com/company/alpha-code-doo"

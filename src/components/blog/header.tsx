@@ -8,7 +8,7 @@ interface Props {
 const authorData = {
   "Mateo Galić": {
     image: "https://avatars.githubusercontent.com/u/61632123?s=96&v=4",
-    bio: "Full-stack developer at Alpha Code",
+    bio: "Founder of Alpha Code",
     social: {
       linkedin: "https://www.linkedin.com/in/mateo-gali%C4%87-bb0b90200/",
       twitter: "https://x.com/matteoo_eth",

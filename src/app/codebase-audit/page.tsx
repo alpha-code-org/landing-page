@@ -5,7 +5,7 @@ export const metadata = pageMetadata({
   path: "/codebase-audit",
   title: "Codebase Audit | Alpha Code",
   description:
-    "An independent review of your codebase that finds security vulnerabilities and areas for improvement.",
+    "An independent review of your codebase that finds security vulnerabilities, performance bottlenecks and code that slows every change down.",
 });
 
 const checks = [

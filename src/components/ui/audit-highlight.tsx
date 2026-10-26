@@ -11,8 +11,8 @@ export const AuditHighlight = ({ as: Heading = "h2" }: { as?: "h1" | "h2" }) => 
     <HeroHighlight>
       <div className="animate-fade-in-bounce mx-auto flex max-w-4xl flex-col items-center gap-12 px-4">
         <Heading className="text-center text-2xl leading-relaxed font-bold text-neutral-700 md:text-4xl lg:text-5xl lg:leading-snug dark:text-white">
-          We identify security vulnerabilities{" "}
-          <Highlight className="whitespace-nowrap text-white">in your codebase</Highlight>
+          We find what&apos;s putting{" "}
+          <Highlight className="whitespace-nowrap text-white">your codebase at risk</Highlight>
         </Heading>
 
         <BookingButton className="bg-brand-alpha hover:text-brand-code z-20 border-slate-800 text-white transition-colors hover:bg-white">

@@ -18,7 +18,7 @@ export const Companies = () => {
       <div ref={ref} className="mx-auto flex max-w-5xl flex-col items-center gap-16 px-8">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
-            Trusted partners
+            Businesses we&apos;ve worked with
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export const Companies = () => {
             rel="noopener noreferrer"
             className="group text-brand-code inline-flex items-center gap-1 font-semibold underline-offset-4 hover:underline dark:text-blue-400"
           >
-            Become a trusted partner
+            Book a free review
             <ArrowRight
               className="size-4 transition-transform group-hover:translate-x-0.5"
               aria-hidden

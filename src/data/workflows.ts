@@ -151,7 +151,7 @@ export const workflows: Array<WorkflowType> = [
       {
         icon: Bell,
         title: "Reminder scheduled",
-        detail: "SMS goes out 24 hours before",
+        detail: "WhatsApp reminder 24 hours before",
         seconds: 0.4,
       },
     ],

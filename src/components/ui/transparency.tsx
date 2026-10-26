@@ -1,17 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { Eye, Handshake, MessageSquareText, TrendingUp } from "lucide-react";
+import { Handshake, MessageSquareText, TrendingUp } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const commitments = [
-  {
-    icon: Eye,
-    title: "Open numbers",
-    description:
-      "You see the same numbers we do. Every month you get a short report of what ran, what it saved and what it cost, with no surprise costs.",
-  },
   {
     icon: MessageSquareText,
     title: "Honest from day one",
@@ -28,7 +22,7 @@ const commitments = [
     icon: TrendingUp,
     title: "Here for the long run",
     description:
-      "Going live is where the work starts. We keep improving your automations as your business grows, because that's how we both get more out of them.",
+      "Going live is where the work starts. We keep your automations running and improve them as your business grows.",
   },
 ];
 

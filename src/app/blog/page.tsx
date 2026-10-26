@@ -4,7 +4,7 @@ import { PostGrid } from "@/components/blog/post-grid";
 
 export const metadata = pageMetadata({
   path: "/blog",
-  title: "Alpha Code | Blog",
+  title: "Blog | Alpha Code",
   description: "Articles on AI automation, software development and the craft of programming.",
 });
 export default async function BlogPage() {
