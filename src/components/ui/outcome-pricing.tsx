@@ -19,8 +19,23 @@ const feeSteps = [
   {
     title: "Our fee follows the result",
     description:
-      "Our fee is tied to the result we agreed on. If the automation doesn't deliver, we don't earn from it.",
+      "We take 50% of the proven savings for the first year. After that, every euro saved is yours. If the automation doesn't save anything, we don't earn anything.",
   },
+];
+
+const EXAMPLE_SAVINGS = 100_000;
+const OUR_SHARE = 0.5;
+
+const formatEuro = (amount: number) =>
+  new Intl.NumberFormat("en-IE", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+
+const exampleYears = [
+  { label: "First year", ourShare: OUR_SHARE },
+  { label: "Every year after", ourShare: 0 },
 ];
 
 const commitments = [
@@ -49,7 +64,11 @@ export const OutcomePricing = () => {
   const isInView = useIntersectionObserver(ref, { once: true, amount: 0.2 });
 
   return (
-    <section ref={ref} className="bg-stone-200/30 px-8 py-20 md:py-32 dark:bg-transparent">
+    <section
+      ref={ref}
+      id="pricing"
+      className="scroll-mt-12 bg-stone-200/30 px-8 py-20 md:py-32 dark:bg-transparent"
+    >
       <div className="mx-auto flex max-w-5xl flex-col gap-16">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
@@ -89,6 +108,67 @@ export const OutcomePricing = () => {
               </li>
             ))}
           </ol>
+
+          <div
+            className={cn(
+              "mt-10 flex flex-col gap-6 border-t border-neutral-300 pt-8 dark:border-neutral-800",
+              isInView ? "animate-step-in" : "opacity-0",
+            )}
+            style={{ animationDelay: "450ms" }}
+          >
+            <div className="flex flex-col gap-1">
+              <h3 className="font-bold text-neutral-800 dark:text-white">
+                Example: automation that saves {formatEuro(EXAMPLE_SAVINGS)} a year
+              </h3>
+              <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                Savings are measured against the numbers we agreed on before we started.
+              </p>
+            </div>
+
+            <dl className="flex flex-col gap-5">
+              {exampleYears.map((year) => {
+                const ours = EXAMPLE_SAVINGS * year.ourShare;
+                const yours = EXAMPLE_SAVINGS - ours;
+
+                return (
+                  <div key={year.label} className="flex flex-col gap-2">
+                    <dt className="text-sm font-semibold text-neutral-800 dark:text-white">
+                      {year.label}
+                    </dt>
+                    <dd className="flex flex-col gap-2">
+                      {/* Bar split between what the client keeps and our share, grown in once visible */}
+                      <div className="flex h-3 overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800">
+                        <div
+                          className="h-full origin-left bg-emerald-600 transition-transform delay-700 duration-1000 ease-out dark:bg-emerald-400"
+                          style={{
+                            width: `${(yours / EXAMPLE_SAVINGS) * 100}%`,
+                            transform: `scaleX(${isInView ? 1 : 0})`,
+                          }}
+                        />
+                        {ours > 0 && (
+                          <div
+                            className="h-full bg-neutral-400 transition-opacity delay-1000 duration-700 dark:bg-neutral-600"
+                            style={{
+                              width: `${(ours / EXAMPLE_SAVINGS) * 100}%`,
+                              opacity: isInView ? 1 : 0,
+                            }}
+                          />
+                        )}
+                      </div>
+                      <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm">
+                        <span className="text-neutral-800 dark:text-white">
+                          You keep <strong>{formatEuro(yours)}</strong>
+                        </span>
+                        <span className="text-neutral-600 dark:text-neutral-400">
+                          Our fee <strong>{formatEuro(ours)}</strong>
+                        </span>
+                      </div>
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </div>
         </div>
 
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">

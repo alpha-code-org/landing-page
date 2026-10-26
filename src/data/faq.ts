@@ -17,7 +17,7 @@ export const faq: Array<FaqType> = [
   {
     question: "How much does AI automation cost?",
     answer:
-      "The review is free. After that we use outcome-based pricing: before we start, we agree on a measurable result, such as hours saved each week, and our fee is tied to that result. You see the same numbers we do, and if the savings won't be there, we'll tell you honestly and won't build it.",
+      "The review is free. After that we use outcome-based pricing: before we start, we agree on a measurable result, such as hours saved each week, and our fee is 50% of the proven savings for the first year. After that, all the savings are yours. You see the same numbers we do, and if the savings won't be there, we'll tell you honestly and won't build it.",
   },
   {
     question: "Is our business data safe with you?",

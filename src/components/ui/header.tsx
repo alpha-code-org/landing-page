@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AnimatedThemeToggler } from "./theme-toggle";
 import { ThemedLogo } from "./themed-logo";
+import { SectionLink } from "./section-link";
 import { BOOKING_URL } from "@/utils/links";
 
 const Header = () => {
@@ -13,6 +14,12 @@ const Header = () => {
           <ThemedLogo width={24} height={24} className="h-6 w-6" />
         </Link>
         <div className="flex items-center gap-6">
+          <SectionLink
+            id="pricing"
+            className="text-sm font-medium text-neutral-900 underline-offset-4 hover:underline dark:text-white"
+          >
+            Pricing
+          </SectionLink>
           <Link
             href="/blog"
             className="text-sm font-medium text-neutral-900 underline-offset-4 hover:underline dark:text-white"
