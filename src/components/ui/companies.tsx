@@ -4,8 +4,10 @@ import { companies } from "@/data/companies";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { ArrowRight } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/utils/cn";
+import { BOOKING_URL } from "@/utils/links";
 
 export const Companies = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -43,6 +45,28 @@ export const Companies = () => {
             </Link>
           ))}
         </div>
+
+        <p
+          className={cn(
+            "text-center text-neutral-600 opacity-0 dark:text-neutral-400",
+            isInView && "animate-fade-in-up",
+          )}
+          style={{ animationDelay: `${companies.length * 150}ms` }}
+        >
+          Want your business on this list?{" "}
+          <Link
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group text-brand-code inline-flex items-center gap-1 font-semibold underline-offset-4 hover:underline dark:text-blue-400"
+          >
+            Become a trusted partner
+            <ArrowRight
+              className="size-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden
+            />
+          </Link>
+        </p>
       </div>
     </section>
   );
