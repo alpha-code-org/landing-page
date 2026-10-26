@@ -8,18 +8,16 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 const feeSteps = [
   {
     title: "We agree on the goal",
-    description:
-      "Before any work starts, we pick a result we can measure together, like hours saved each week or invoices processed without a person touching them.",
+    description: "Before we start, we pick a measurable result, like hours saved per week.",
   },
   {
     title: "We measure it in the open",
-    description:
-      "You see the same numbers we do. Every month you get a short report of what ran, what it saved and what it cost.",
+    description: "Each month you get a report of what ran, what it saved and what it cost.",
   },
   {
     title: "Our fee follows the result",
     description:
-      "We take 50% of the proven savings for the first year. After that, every euro saved is yours. If the automation doesn't save anything, we don't earn anything. Running costs like AI usage and hosting are passed on at cost, with no markup.",
+      "50% of the proven savings in year one, then nothing. No savings, no fee. Running costs are passed on at cost.",
   },
 ];
 
@@ -95,14 +93,9 @@ export const OutcomePricing = () => {
             )}
             style={{ animationDelay: "450ms" }}
           >
-            <div className="flex flex-col gap-1">
-              <h3 className="font-bold text-neutral-800 dark:text-white">
-                Example: automation that saves {formatEuro(EXAMPLE_SAVINGS)} a year
-              </h3>
-              <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                Savings are measured against the numbers we agreed on before we started.
-              </p>
-            </div>
+            <h3 className="font-bold text-neutral-800 dark:text-white">
+              Example: automation that saves {formatEuro(EXAMPLE_SAVINGS)} a year
+            </h3>
 
             <dl className="flex flex-col gap-5">
               {exampleYears.map((year) => {
