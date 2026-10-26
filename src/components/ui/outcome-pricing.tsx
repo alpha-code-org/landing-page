@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Eye, Handshake, Target, TrendingUp } from "lucide-react";
+import { Target } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
@@ -36,27 +36,6 @@ const formatEuro = (amount: number) =>
 const exampleYears = [
   { label: "First year", ourShare: OUR_SHARE },
   { label: "Every year after", ourShare: 0 },
-];
-
-const commitments = [
-  {
-    icon: Handshake,
-    title: "A win for both sides",
-    description:
-      "We only do well when your business does. That keeps us focused on the work that saves you the most time, not the work that makes the biggest invoice.",
-  },
-  {
-    icon: Eye,
-    title: "Nothing hidden",
-    description:
-      "Clear numbers, plain language and no surprise costs. If something isn't working, you hear it from us first.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Here for the long run",
-    description:
-      "Going live is where the work starts. We keep improving your automations as your business grows, because that's how we both get more out of them.",
-  },
 ];
 
 export const OutcomePricing = () => {
@@ -170,24 +149,6 @@ export const OutcomePricing = () => {
             </dl>
           </div>
         </div>
-
-        <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
-          {commitments.map((item, index) => (
-            <li
-              key={item.title}
-              className={cn("flex flex-col gap-3", isInView ? "animate-step-in" : "opacity-0")}
-              style={{ animationDelay: `${450 + index * 150}ms` }}
-            >
-              <div className="text-brand-code dark:bg-dark-bg flex size-10 items-center justify-center rounded-full border border-neutral-300 bg-stone-100 dark:border-neutral-700 dark:text-blue-400">
-                <item.icon className="size-5" aria-hidden />
-              </div>
-              <h3 className="font-bold text-neutral-800 dark:text-white">{item.title}</h3>
-              <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                {item.description}
-              </p>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
