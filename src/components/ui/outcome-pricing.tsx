@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { Target } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { formatEuro } from "@/utils/format";
 
 const feeSteps = [
   {
@@ -23,13 +24,6 @@ const feeSteps = [
 
 const EXAMPLE_SAVINGS = 100_000;
 const OUR_SHARE = 0.5;
-
-const formatEuro = (amount: number) =>
-  new Intl.NumberFormat("en-IE", {
-    style: "currency",
-    currency: "EUR",
-    maximumFractionDigits: 0,
-  }).format(amount);
 
 const exampleYears = [
   { label: "First year", ourShare: OUR_SHARE },
