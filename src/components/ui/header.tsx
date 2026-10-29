@@ -11,7 +11,7 @@ const Header = () => {
     <header className="animate-fade-in dark:bg-dark-bg/95 md:dark:bg-dark-bg/80 fixed top-0 left-0 z-50 w-full bg-stone-100/95 opacity-0 md:bg-stone-100/90 md:backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2">
         <Link href="/" aria-label="Go to homepage">
-          <ThemedLogo width={24} height={24} className="h-6 w-6" />
+          <ThemedLogo width={25} height={24} className="h-6 w-auto" />
         </Link>
         <div className="flex items-center gap-6">
           <SectionLink
