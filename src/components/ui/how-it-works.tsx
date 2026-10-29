@@ -19,7 +19,7 @@ export const HowItWorks = () => {
             How it works
           </p>
           <h2 className="text-2xl font-bold text-neutral-800 md:text-4xl dark:text-white">
-            From first call to hours saved
+            Three steps to hours saved
           </h2>
         </div>
 
