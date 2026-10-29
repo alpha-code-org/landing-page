@@ -38,10 +38,10 @@ export const Transparency = () => {
             {commitments.map((item) => (
               <li
                 key={item.text}
-                className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300"
+                className="flex items-start gap-2 text-left text-neutral-700 dark:text-neutral-300"
               >
                 <item.icon
-                  className="text-brand-code size-4 shrink-0 dark:text-blue-400"
+                  className="text-brand-code mt-1 size-4 shrink-0 dark:text-blue-400"
                   aria-hidden
                 />
                 {item.text}
