@@ -32,10 +32,10 @@ export const Industries = () => {
               )}
             >
               <Link href={`/ai-automation/${industry.slug}`} className="group block">
-                <h3 className="font-bold text-neutral-800 underline-offset-4 group-hover:underline dark:text-white">
+                <h3 className="text-lg font-bold text-neutral-800 underline-offset-4 group-hover:underline md:text-xl dark:text-white">
                   {industry.name}
                 </h3>
-                <p className="mt-2 leading-relaxed text-neutral-600 dark:text-neutral-400">
+                <p className="mt-2 leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
                   {industry.summary}
                 </p>
               </Link>

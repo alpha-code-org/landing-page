@@ -30,14 +30,14 @@ export const Faq = () => {
                 <span className="bg-brand-code/10 text-brand-code group-open:bg-brand-code flex size-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-300 group-open:text-white dark:bg-blue-400/10 dark:text-blue-400 dark:group-open:bg-blue-400 dark:group-open:text-neutral-900">
                   <item.icon className="size-5" aria-hidden />
                 </span>
-                <h3 className="flex-1 font-bold text-neutral-800 dark:text-white">
+                <h3 className="flex-1 text-lg font-bold text-neutral-800 dark:text-white">
                   {item.question}
                 </h3>
                 <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-neutral-300 text-neutral-500 transition-transform duration-300 group-open:rotate-45 dark:border-neutral-700 dark:text-neutral-400">
                   <Plus className="size-4" aria-hidden />
                 </span>
               </summary>
-              <p className="px-4 pb-5 leading-relaxed text-neutral-600 md:pr-5 md:pl-[4.75rem] dark:text-neutral-400">
+              <p className="px-4 pb-5 leading-relaxed text-neutral-600 md:pr-5 md:pl-[4.75rem] md:text-lg dark:text-neutral-400">
                 {item.answer}
               </p>
             </details>

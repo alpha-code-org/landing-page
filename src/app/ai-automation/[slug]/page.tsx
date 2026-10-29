@@ -86,7 +86,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             {industry.solutions.map((solution) => (
               <li
                 key={solution}
-                className="border-t border-neutral-300 pt-4 text-neutral-700 dark:border-neutral-800 dark:text-neutral-300"
+                className="border-t border-neutral-300 pt-4 text-neutral-700 md:text-lg dark:border-neutral-800 dark:text-neutral-300"
               >
                 {solution}
               </li>
@@ -99,15 +99,19 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <ol className="flex flex-col gap-6">
             {processSteps.map((step, i) => (
               <li key={step.title} className="flex gap-4">
-                <span className="text-brand-code font-bold">{i + 1}.</span>
+                <span className="text-brand-code text-lg font-bold md:text-xl">{i + 1}.</span>
                 <div>
-                  <h3 className="font-bold text-neutral-800 dark:text-white">{step.title}</h3>
-                  <p className="mt-1 text-neutral-600 dark:text-neutral-400">{step.description}</p>
+                  <h3 className="text-lg font-bold text-neutral-800 md:text-xl dark:text-white">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-neutral-600 md:text-lg dark:text-neutral-400">
+                    {step.description}
+                  </p>
                 </div>
               </li>
             ))}
           </ol>
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p className="text-neutral-600 md:text-lg dark:text-neutral-400">
             Our fee is a share of the savings the automation proves, and we sign an NDA before we
             look at anything.{" "}
             <Link

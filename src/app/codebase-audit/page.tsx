@@ -37,12 +37,16 @@ export default function CodebaseAuditPage() {
                 key={check.title}
                 className="border-t border-neutral-300 pt-4 dark:border-neutral-800"
               >
-                <h3 className="font-bold text-neutral-800 dark:text-white">{check.title}</h3>
-                <p className="mt-1 text-neutral-600 dark:text-neutral-400">{check.text}</p>
+                <h3 className="text-lg font-bold text-neutral-800 md:text-xl dark:text-white">
+                  {check.title}
+                </h3>
+                <p className="mt-1 text-neutral-600 md:text-lg dark:text-neutral-400">
+                  {check.text}
+                </p>
               </li>
             ))}
           </ul>
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p className="text-neutral-600 md:text-lg dark:text-neutral-400">
             Everything we see stays with you, and we sign an NDA before we look at any code.
           </p>
         </div>

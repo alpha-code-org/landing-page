@@ -51,8 +51,10 @@ export const HowItWorks = () => {
                     {index + 1}
                   </span>
                 </div>
-                <h3 className="font-bold text-neutral-800 dark:text-white">{step.title}</h3>
-                <p className="max-w-72 leading-relaxed text-neutral-600 dark:text-neutral-400">
+                <h3 className="text-lg font-bold text-neutral-800 md:text-xl dark:text-white">
+                  {step.title}
+                </h3>
+                <p className="max-w-72 leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
                   {step.description}
                 </p>
               </li>

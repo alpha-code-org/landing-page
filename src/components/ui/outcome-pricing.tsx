@@ -57,7 +57,7 @@ export const OutcomePricing = () => {
                 )}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <span className="font-medium text-neutral-600 dark:text-neutral-400">
+                <span className="font-medium text-neutral-600 md:text-lg dark:text-neutral-400">
                   {stage.when}
                 </span>
                 <span
@@ -70,13 +70,15 @@ export const OutcomePricing = () => {
                 >
                   {stage.figure}
                 </span>
-                <span className="text-neutral-700 dark:text-neutral-300">{stage.detail}</span>
+                <span className="text-neutral-700 md:text-lg dark:text-neutral-300">
+                  {stage.detail}
+                </span>
               </li>
             </Fragment>
           ))}
         </ol>
 
-        <p className="text-center text-neutral-600 dark:text-neutral-400">
+        <p className="text-center text-neutral-600 md:text-lg dark:text-neutral-400">
           No savings, no fee. Results are reported monthly, running costs passed on at cost.
         </p>
       </div>
