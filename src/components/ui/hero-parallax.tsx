@@ -95,7 +95,7 @@ const Title = memo(({ titleRef }: { titleRef: React.RefObject<HTMLDivElement | n
   return (
     <div
       ref={titleRef}
-      className="relative top-[50vh] left-[5%] z-20 w-full md:top-[40vh]"
+      className="relative top-[50vh] z-20 w-full px-[5%] md:top-[40vh]"
       style={{
         opacity: titleOpacity(0),
         willChange: "opacity",

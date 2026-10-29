@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CalendarCheck } from "lucide-react";
 import { AnimatedThemeToggler } from "./theme-toggle";
 import { ThemedLogo } from "./themed-logo";
 import { SectionLink } from "./section-link";
@@ -22,7 +23,7 @@ const Header = () => {
           </SectionLink>
           <Link
             href="/blog"
-            className="text-sm font-medium text-neutral-900 underline-offset-4 hover:underline dark:text-white"
+            className="hidden text-sm font-medium text-neutral-900 underline-offset-4 hover:underline md:inline dark:text-white"
           >
             Blog
           </Link>
@@ -31,9 +32,11 @@ const Header = () => {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-brand-code hover:bg-brand-alpha dark:hover:text-brand-code rounded-full px-4 py-1.5 text-sm font-bold text-white transition-colors dark:hover:bg-white"
+            aria-label="Book a free review"
+            className="bg-brand-code hover:bg-brand-alpha dark:hover:text-brand-code flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold text-white transition-colors sm:px-4 dark:hover:bg-white"
           >
-            <span className="sm:hidden">Free review</span>
+            <CalendarCheck aria-hidden className="size-4 sm:hidden" />
+            <span className="sm:hidden">Book</span>
             <span className="hidden sm:inline">Book a free review</span>
           </Link>
         </div>

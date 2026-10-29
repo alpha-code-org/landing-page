@@ -15,7 +15,7 @@ export const processSteps: Array<ProcessStepType> = [
   {
     icon: ClipboardList,
     title: "Clear plan",
-    description: "You see what to automate and what it saves.",
+    description: "We run the numbers on what you'll save.",
   },
   {
     icon: Wrench,

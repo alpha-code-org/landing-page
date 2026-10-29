@@ -96,8 +96,7 @@ export const AutomationWorkflow = () => {
               Watch the work do itself
             </h2>
             <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
-              Supplier invoices, read, checked, booked and matched to the bank without anyone
-              touching them.
+              Invoices read, checked, booked and reconciled. Hands-free.
             </p>
           </div>
 

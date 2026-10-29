@@ -11,7 +11,7 @@ export type WorkflowStepType = {
 export const invoiceWorkflow = {
   trigger: "New supplier invoice",
   manualMinutes: 12,
-  invoicesPerWeek: 60,
+  invoicesPerWeek: 550,
   hourlyCost: 30, // fully loaded cost of an hour of office staff time, in euros
   workingWeeks: 46, // after holidays
   steps: [
@@ -62,5 +62,5 @@ export const invoiceSavings = {
   automatedSeconds,
   weeklyHoursSaved,
   eurosPerInvoice: (savedSecondsPerInvoice / 3600) * hourlyCost,
-  eurosPerYear: Math.round((weeklyHoursSaved * workingWeeks * hourlyCost) / 100) * 100,
+  eurosPerYear: Math.round(weeklyHoursSaved * workingWeeks * hourlyCost),
 };
