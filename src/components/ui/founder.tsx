@@ -22,7 +22,7 @@ export const Founder = () => {
           <h2 className="text-2xl font-bold text-neutral-800 md:text-3xl dark:text-white">
             Hi, I&apos;m Mateo, founder of Alpha Code
           </h2>
-          <p className="leading-relaxed text-neutral-600 dark:text-neutral-400">
+          <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
             We are based in Zagreb and build software for companies across Europe and the US. You
             talk to me directly, from the first review to every improvement after launch.
           </p>
@@ -30,7 +30,7 @@ export const Founder = () => {
             href="https://www.linkedin.com/company/alpha-code-doo"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-code inline-flex items-center gap-2 self-center text-sm font-semibold underline-offset-4 hover:underline md:self-start dark:text-blue-400"
+            className="text-brand-code inline-flex items-center gap-2 self-center font-semibold underline-offset-4 hover:underline md:self-start dark:text-blue-400"
           >
             <Linkedin className="size-4" aria-hidden />
             Alpha Code on LinkedIn

@@ -34,7 +34,9 @@ export const OutcomePricing = () => {
           <h2 className="text-2xl font-bold text-neutral-800 md:text-4xl dark:text-white">
             We get paid when it pays off
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400">You pay for results, not hours.</p>
+          <p className="text-neutral-600 md:text-lg dark:text-neutral-400">
+            You pay for results, not hours.
+          </p>
         </div>
 
         <ol className="grid gap-3 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
@@ -55,7 +57,7 @@ export const OutcomePricing = () => {
                 )}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                <span className="font-medium text-neutral-600 dark:text-neutral-400">
                   {stage.when}
                 </span>
                 <span
@@ -74,7 +76,7 @@ export const OutcomePricing = () => {
           ))}
         </ol>
 
-        <p className="text-center text-sm text-neutral-600 dark:text-neutral-400">
+        <p className="text-center text-neutral-600 dark:text-neutral-400">
           No savings, no fee. Results are reported monthly, running costs passed on at cost.
         </p>
       </div>

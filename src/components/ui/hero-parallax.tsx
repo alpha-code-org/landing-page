@@ -113,7 +113,7 @@ const Title = memo(({ titleRef }: { titleRef: React.RefObject<HTMLDivElement | n
       <BookingButton className="bg-brand-code hover:text-brand-code z-20 border-slate-800 font-bold text-white transition-colors hover:bg-white">
         Book a free review
       </BookingButton>
-      <p className="relative z-20 mt-3 text-sm font-medium text-neutral-600 dark:text-neutral-400">
+      <p className="relative z-20 mt-3 font-medium text-neutral-600 dark:text-neutral-400">
         No obligation · You only pay for proven savings
       </p>
     </div>

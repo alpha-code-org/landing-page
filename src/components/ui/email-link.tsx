@@ -2,7 +2,7 @@ import { CONTACT_EMAIL } from "@/utils/links";
 
 // A quieter alternative under the booking buttons, for visitors not ready to schedule a call
 export const EmailLink = () => (
-  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+  <p className="text-neutral-600 dark:text-neutral-400">
     Prefer email?{" "}
     <a
       href={`mailto:${CONTACT_EMAIL}`}

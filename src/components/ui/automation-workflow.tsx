@@ -95,7 +95,7 @@ export const AutomationWorkflow = () => {
             <h2 className="text-2xl font-bold text-neutral-800 md:text-4xl dark:text-white">
               Watch the work do itself
             </h2>
-            <p className="leading-relaxed text-neutral-600 dark:text-neutral-400">
+            <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
               Supplier invoices, read, checked, booked and matched to the bank without anyone
               touching them.
             </p>
@@ -113,7 +113,7 @@ export const AutomationWorkflow = () => {
 
             <dl className="grid grid-cols-2 gap-4 border-t border-neutral-200 pt-5 dark:border-neutral-800">
               <div>
-                <dt className="text-sm text-neutral-600 dark:text-neutral-400">Per invoice</dt>
+                <dt className="text-neutral-600 dark:text-neutral-400">Per invoice</dt>
                 <dd className="mt-1 flex items-center gap-1.5 font-semibold text-neutral-800 tabular-nums dark:text-white">
                   <span className="text-neutral-400 line-through dark:text-neutral-500">
                     {manualMinutes} min
@@ -123,14 +123,14 @@ export const AutomationWorkflow = () => {
                 </dd>
               </div>
               <div>
-                <dt className="text-sm text-neutral-600 dark:text-neutral-400">Every week</dt>
+                <dt className="text-neutral-600 dark:text-neutral-400">Every week</dt>
                 <dd className="mt-1 font-semibold text-neutral-800 tabular-nums dark:text-white">
                   {Math.round(invoiceSavings.weeklyHoursSaved)} hours back
                 </dd>
               </div>
             </dl>
 
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
               Based on {hourlyCostLabel}/hour staff cost and {workingWeeks} working weeks.
             </p>
 
@@ -138,7 +138,7 @@ export const AutomationWorkflow = () => {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-code text-sm font-semibold underline-offset-4 hover:underline dark:text-blue-400"
+              className="text-brand-code font-semibold underline-offset-4 hover:underline dark:text-blue-400"
             >
               Get your exact numbers in a free review →
             </a>
@@ -152,10 +152,8 @@ export const AutomationWorkflow = () => {
               <div className="h-2 w-2 rounded-full bg-yellow-500" />
               <div className="h-2 w-2 rounded-full bg-green-500" />
             </div>
-            <p className="truncate text-sm font-medium text-neutral-700 dark:text-neutral-200">
-              {trigger}
-            </p>
-            <p className="ml-auto flex shrink-0 items-center gap-1.5 font-mono text-xs text-neutral-500 tabular-nums dark:text-neutral-400">
+            <p className="truncate font-medium text-neutral-700 dark:text-neutral-200">{trigger}</p>
+            <p className="ml-auto flex shrink-0 items-center gap-1.5 font-mono text-sm text-neutral-500 tabular-nums dark:text-neutral-400">
               <Clock className="size-3.5" aria-hidden />
               {elapsed.toFixed(1)} s
             </p>
@@ -172,7 +170,7 @@ export const AutomationWorkflow = () => {
 
           <div
             className={cn(
-              "flex items-center gap-2 border-t border-neutral-200 px-5 py-3 text-sm transition duration-500 ease-out md:px-6 dark:border-neutral-800",
+              "flex items-center gap-2 border-t border-neutral-200 px-5 py-3 transition duration-500 ease-out md:px-6 dark:border-neutral-800",
               isFinished ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
             )}
           >
@@ -184,7 +182,7 @@ export const AutomationWorkflow = () => {
             </span>
             <span
               className={cn(
-                "ml-auto shrink-0 rounded-full bg-green-500/10 px-2 py-0.5 text-xs font-semibold text-green-600 dark:text-green-400",
+                "ml-auto shrink-0 rounded-full bg-green-500/10 px-2 py-0.5 text-sm font-semibold text-green-600 dark:text-green-400",
                 isFinished && !reducedMotion && "animate-pop",
               )}
             >
@@ -340,7 +338,7 @@ const WorkflowStep = ({
           <div className="flex items-center gap-2">
             <p
               className={cn(
-                "truncate text-sm font-semibold transition-colors duration-300 md:text-base",
+                "truncate font-semibold transition-colors duration-300",
                 state === "pending"
                   ? "text-neutral-400 dark:text-neutral-500"
                   : "text-neutral-800 dark:text-white",
@@ -364,7 +362,7 @@ const WorkflowStep = ({
             )}
             <span
               className={cn(
-                "ml-auto shrink-0 font-mono text-xs text-neutral-500 tabular-nums transition duration-300 dark:text-neutral-400",
+                "ml-auto shrink-0 font-mono text-sm text-neutral-500 tabular-nums transition duration-300 dark:text-neutral-400",
                 state === "done" ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0",
               )}
             >
@@ -373,7 +371,7 @@ const WorkflowStep = ({
           </div>
 
           {/* Both lines share one grid cell, so swapping them never shifts the layout */}
-          <div className="mt-1 grid text-sm">
+          <div className="mt-1 grid text-sm md:text-base">
             <p
               className={cn(
                 "truncate text-neutral-600 [grid-area:1/1] dark:text-neutral-400",

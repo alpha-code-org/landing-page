@@ -13,7 +13,7 @@ export const Faq = () => {
           <h2 className="text-3xl font-bold text-neutral-800 md:text-5xl dark:text-white">
             Common questions
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p className="text-neutral-600 md:text-lg dark:text-neutral-400">
             Anything we missed? Ask us directly.
           </p>
           <EmailLink />

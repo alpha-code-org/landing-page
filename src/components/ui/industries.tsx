@@ -35,7 +35,7 @@ export const Industries = () => {
                 <h3 className="font-bold text-neutral-800 underline-offset-4 group-hover:underline dark:text-white">
                   {industry.name}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                <p className="mt-2 leading-relaxed text-neutral-600 dark:text-neutral-400">
                   {industry.summary}
                 </p>
               </Link>
@@ -47,7 +47,7 @@ export const Industries = () => {
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
-            className="self-center rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-900"
+            className="self-center rounded-full border border-neutral-300 px-5 py-2 font-medium text-neutral-800 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-900"
           >
             Show {industries.length - INITIAL_VISIBLE_COUNT} more industries
           </button>

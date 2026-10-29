@@ -31,14 +31,14 @@ export const Transparency = () => {
           <h2 className="text-3xl font-bold text-neutral-800 md:text-5xl dark:text-white">
             Here for <span className="text-green-600 dark:text-green-400">years</span>, not weeks
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p className="text-neutral-600 md:text-lg dark:text-neutral-400">
             Going live is where our work starts, not where it ends.
           </p>
           <ul className="flex flex-col items-center gap-3 md:items-start">
             {commitments.map((item) => (
               <li
                 key={item.text}
-                className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300"
+                className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300"
               >
                 <item.icon
                   className="text-brand-code size-4 shrink-0 dark:text-blue-400"
@@ -74,7 +74,7 @@ export const Transparency = () => {
               />
               <span
                 className={cn(
-                  "font-bold",
+                  "text-lg font-bold",
                   item.isOngoing
                     ? "text-green-600 dark:text-green-400"
                     : "text-neutral-800 dark:text-white",
@@ -82,7 +82,7 @@ export const Transparency = () => {
               >
                 {item.when}
               </span>
-              <span className="text-sm text-neutral-600 dark:text-neutral-400">{item.what}</span>
+              <span className="text-neutral-600 dark:text-neutral-400">{item.what}</span>
             </li>
           ))}
         </ol>
