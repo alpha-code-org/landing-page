@@ -9,7 +9,7 @@ const milestones = [
   { when: "Launch", what: "Automation goes live" },
   { when: "Month 1", what: "Monthly savings verified" },
   { when: "Year 1", what: "Watch business grow" },
-  { when: "Year 5+", what: "Still here, still running", isOngoing: true },
+  { when: "Year 5+", what: "Miles ahead of the competition", isOngoing: true },
 ];
 
 export const Transparency = () => {
