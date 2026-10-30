@@ -7,8 +7,8 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const milestones = [
   { when: "Launch", what: "Your automation goes live" },
-  { when: "Month 1", what: "Monthly reports on what it saved" },
-  { when: "Year 1", what: "Improved and extended as your business grows" },
+  { when: "Month 1", what: "Monthly savings verified" },
+  { when: "Year 1", what: "Extending as your business grows" },
   { when: "Year 5+", what: "Still here, still running", isOngoing: true },
 ];
 
