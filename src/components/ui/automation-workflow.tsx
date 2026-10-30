@@ -96,8 +96,8 @@ export const AutomationWorkflow = () => {
               Invoice processing, fully automated
             </h2>
             <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
-              Workflow automation that reads, checks, books and reconciles invoices, with no manual
-              data entry.
+              Workflow automation that reads, checks, books and reconciles invoices. No manual data
+              entry.
             </p>
           </div>
 
