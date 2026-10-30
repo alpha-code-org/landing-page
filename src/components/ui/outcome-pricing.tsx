@@ -62,10 +62,10 @@ export const OutcomePricing = () => {
                 </span>
                 <span
                   className={cn(
-                    "text-5xl font-bold tabular-nums md:text-6xl",
+                    "text-5xl tabular-nums md:text-6xl",
                     stage.isHighlight
-                      ? "text-green-600 dark:text-green-400"
-                      : "text-neutral-800 dark:text-white",
+                      ? "font-bold text-green-600 dark:text-green-400"
+                      : "text-neutral-600 dark:text-neutral-400",
                   )}
                 >
                   {stage.figure}
