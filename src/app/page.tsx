@@ -83,11 +83,13 @@ export default function Home() {
       <HowItWorks />
       <OutcomePricing />
       <Transparency />
-      <Founder />
+      <div className="bg-stone-200/30 dark:bg-transparent">
+        <Founder />
+      </div>
+      <Faq />
       <div className="bg-stone-200/30 dark:bg-transparent">
         <Typewriter />
       </div>
-      <Faq />
       <Blog />
     </main>
   );

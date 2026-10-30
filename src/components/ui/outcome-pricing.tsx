@@ -4,6 +4,8 @@ import { Fragment, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { BookingButton } from "./booking-button";
+import { EmailLink } from "./email-link";
 
 const feeStages = [
   { when: "Before it works", figure: "€0", detail: "No upfront fee" },
@@ -84,6 +86,13 @@ export const OutcomePricing = () => {
           </strong>{" "}
           Results are reported monthly, running costs passed on at cost.
         </p>
+
+        <div className="flex flex-col items-center gap-12">
+          <BookingButton className="bg-brand-code hover:text-brand-code border-slate-800 font-bold text-white transition-colors hover:bg-white">
+            Book a free review
+          </BookingButton>
+          <EmailLink />
+        </div>
       </div>
     </section>
   );

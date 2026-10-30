@@ -4,8 +4,6 @@ import { useRef } from "react";
 import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { processSteps } from "@/data/process";
-import { BookingButton } from "./booking-button";
-import { EmailLink } from "./email-link";
 
 export const HowItWorks = () => {
   const ref = useRef<HTMLElement>(null);
@@ -61,11 +59,6 @@ export const HowItWorks = () => {
             ))}
           </ol>
         </div>
-
-        <BookingButton className="bg-brand-code hover:text-brand-code border-slate-800 font-bold text-white transition-colors hover:bg-white">
-          Book a free review
-        </BookingButton>
-        <EmailLink />
       </div>
     </section>
   );
