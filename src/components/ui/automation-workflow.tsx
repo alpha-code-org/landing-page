@@ -385,7 +385,7 @@ const WorkflowStep = ({
             {state === "active" && (
               <p
                 className={cn(
-                  "animate-shimmer bg-size-[200%_100%] bg-clip-text font-medium text-transparent [grid-area:1/1]",
+                  "animate-shimmer bg-clip-text font-medium text-transparent [grid-area:1/1]",
                   step.ai
                     ? "bg-[linear-gradient(90deg,#7c3aed,#38bdf8,#7c3aed)]"
                     : "bg-[linear-gradient(90deg,#335aa6,#93c5fd,#335aa6)]",

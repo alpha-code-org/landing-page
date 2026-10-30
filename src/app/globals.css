@@ -26,7 +26,7 @@
   --animate-burst: burst 0.7s ease-out both;
   --animate-packet: packet 0.6s cubic-bezier(0.45, 0, 0.55, 1) both;
   --animate-reveal: reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
   --animate-sweep: sweep 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes fade-in {
@@ -151,12 +151,10 @@
     }
   }
 
+  /* Opacity runs on the compositor; animating background-position repaints every frame */
   @keyframes shimmer {
-    from {
-      background-position: 200% 0;
-    }
-    to {
-      background-position: -200% 0;
+    50% {
+      opacity: 0.5;
     }
   }
 
