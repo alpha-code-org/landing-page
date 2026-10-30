@@ -1,6 +1,6 @@
 import { ClipboardList, Search, Wrench, type LucideIcon } from "lucide-react";
 
-export type ProcessStepType = {
+type ProcessStepType = {
   icon: LucideIcon;
   title: string;
   description: string;

@@ -282,7 +282,7 @@ const ProductList = memo(
           }}
         >
           {infiniteProducts.map((product, index) => (
-            <ProductCard product={product} key={`${product.title}-${index}`} index={index} />
+            <ProductCard product={product} key={`${product.title}-${index}`} />
           ))}
         </div>
       </div>
@@ -295,14 +295,12 @@ ProductList.displayName = "ProductList";
 const ProductCard = memo(
   ({
     product,
-    index,
   }: {
     product: {
       title: string;
       link: string;
       thumbnail: string;
     };
-    index: number;
   }) => {
     return (
       <div className="group/product relative h-60 w-md shrink-0 transition-transform duration-500 ease-out hover:-translate-y-5 md:h-80 md:w-xl">

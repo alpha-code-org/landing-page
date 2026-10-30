@@ -84,7 +84,7 @@ const HeroHighlight = ({
   );
 };
 
-export const Highlight = ({
+const Highlight = ({
   children,
   className,
 }: {

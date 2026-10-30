@@ -51,7 +51,7 @@ export function Button({
 
 // A glow that travels around the border. It's a conic gradient spun with a CSS transform, so the
 // animation runs on the compositor (GPU) with no per-frame JavaScript or repaints.
-export const MovingBorder = ({
+const MovingBorder = ({
   duration = 2000,
   className,
 }: {

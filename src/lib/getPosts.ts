@@ -2,7 +2,7 @@ import path from "path";
 import { readdir } from "fs/promises";
 import type { MDXContent } from "mdx/types";
 
-export const POSTS_DIR = path.join(process.cwd(), "src/app/(posts)");
+const POSTS_DIR = path.join(process.cwd(), "src/app/(posts)");
 
 export type PostMetadata = {
   title: string;

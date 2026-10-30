@@ -8,7 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-export type FaqType = {
+type FaqType = {
   icon: LucideIcon;
   question: string;
   answer: string;

@@ -1,4 +1,4 @@
-export type IndustryType = {
+type IndustryType = {
   slug: string;
   name: string;
   summary: string; // the home page card, in the trade's own terms
