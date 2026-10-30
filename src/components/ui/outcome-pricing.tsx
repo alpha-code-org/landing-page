@@ -64,10 +64,12 @@ export const OutcomePricing = () => {
                 </span>
                 <span
                   className={cn(
-                    "text-5xl tabular-nums md:text-6xl",
+                    "text-4xl tabular-nums md:text-5xl",
                     stage.isHighlight
                       ? "text-green-600 dark:text-green-400"
-                      : "text-neutral-600 dark:text-neutral-400",
+                      : index === 0
+                        ? "text-neutral-800 dark:text-white"
+                        : "text-neutral-600 dark:text-neutral-400",
                   )}
                 >
                   {stage.figure}
