@@ -115,7 +115,7 @@ export const AutomationWorkflow = () => {
               <div>
                 <dt className="text-neutral-600 dark:text-neutral-400">Per invoice</dt>
                 <dd className="mt-1 flex items-center gap-1.5 font-semibold text-neutral-800 tabular-nums dark:text-white">
-                  <span className="text-neutral-400 line-through dark:text-neutral-500">
+                  <span className="text-neutral-500 line-through dark:text-neutral-400">
                     {manualMinutes} min
                   </span>
                   <ArrowRight className="size-4 text-neutral-400" aria-hidden />
@@ -340,7 +340,7 @@ const WorkflowStep = ({
               className={cn(
                 "truncate font-semibold transition-colors duration-300",
                 state === "pending"
-                  ? "text-neutral-400 dark:text-neutral-500"
+                  ? "text-neutral-500 dark:text-neutral-400"
                   : "text-neutral-800 dark:text-white",
               )}
             >
@@ -349,8 +349,10 @@ const WorkflowStep = ({
             {step.ai && (
               <span
                 className={cn(
-                  "inline-flex shrink-0 items-center gap-1 rounded-full bg-violet-100 px-2 py-0.5 text-[11px] font-semibold text-violet-700 transition-opacity duration-300 dark:bg-violet-500/15 dark:text-violet-300",
-                  state === "pending" && "opacity-50",
+                  "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-colors duration-300",
+                  state === "pending"
+                    ? "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400"
+                    : "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300",
                 )}
               >
                 <Sparkles
