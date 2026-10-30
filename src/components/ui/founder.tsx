@@ -23,8 +23,9 @@ export const Founder = () => {
             Hi, I&apos;m Mateo, founder of Alpha Code
           </h2>
           <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
-            We are based in Zagreb and build software for companies across Europe and the US. You
-            talk to me directly, from the first review to every improvement after launch.
+            We are an AI automation agency based in Zagreb that builds custom software for companies
+            across Europe and the US. You talk to me directly, from the first review to every
+            improvement after launch.
           </p>
           <Link
             href="https://www.linkedin.com/company/alpha-code-doo"

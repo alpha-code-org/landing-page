@@ -1,5 +1,7 @@
 import {
+  Bot,
   ClipboardList,
+  Code,
   Coins,
   Globe,
   Plug,
@@ -19,7 +21,13 @@ export const faq: Array<FaqType> = [
     icon: Sparkles,
     question: "What is AI automation for small businesses?",
     answer:
-      "AI automation takes over the repetitive work that fills a small team's day: retyping invoices into accounting software, answering the same enquiries, booking appointments and filling in paperwork. The work runs on its own, so your team saves hours every week and makes fewer mistakes.",
+      "AI automation is business process automation powered by AI. It takes over the repetitive work that fills a small team's day: manual data entry from invoices into accounting software, answering the same enquiries, booking appointments and filling in paperwork. The work runs on its own, so your team saves hours every week and makes fewer mistakes.",
+  },
+  {
+    icon: Bot,
+    question: "What is the difference between an AI chatbot and AI automation?",
+    answer:
+      "An AI chatbot answers questions in a chat window. AI automation also does the work behind them: with workflow automation and AI agents, an enquiry is answered, the appointment is booked and the details are saved in your software, without anyone stepping in.",
   },
   {
     icon: ClipboardList,
@@ -43,12 +51,18 @@ export const faq: Array<FaqType> = [
     icon: Plug,
     question: "Do we have to change the software we use?",
     answer:
-      "No. We build the automation around the tools you already use, such as your accounting software, calendar, email and booking sites.",
+      "No. We build integrations with the tools you already use, such as your accounting software, calendar, email and booking sites.",
+  },
+  {
+    icon: Code,
+    question: "Do you build custom software?",
+    answer:
+      "Yes. When existing tools can't do the job, we offer custom software development and connect it to the systems you already have. The free review shows whether it is worth building.",
   },
   {
     icon: Globe,
     question: "Do you work with businesses outside Croatia?",
     answer:
-      "Yes. We are a software studio from Zagreb, Croatia, and work with small and medium businesses across Europe and the US. Outside Zagreb we meet on a short video call.",
+      "Yes. We are an AI automation agency from Zagreb, Croatia, and work with small and medium businesses across Europe and the US. Outside Zagreb we meet on a short video call.",
   },
 ];

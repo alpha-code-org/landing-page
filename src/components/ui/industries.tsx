@@ -15,10 +15,10 @@ export const Industries = () => {
       <div className="mx-auto flex max-w-5xl flex-col gap-12">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
-            AI automation by industry
+            What we automate
           </p>
           <h2 className="text-2xl font-bold text-neutral-800 md:text-4xl dark:text-white">
-            What we automate
+            AI automation for your industry
           </h2>
         </div>
 

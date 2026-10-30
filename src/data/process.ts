@@ -20,6 +20,6 @@ export const processSteps: Array<ProcessStepType> = [
   {
     icon: Wrench,
     title: "We build it",
-    description: "It runs inside the tools you already use.",
+    description: "It integrates with tools you already use.",
   },
 ];
