@@ -64,7 +64,7 @@ export const OutcomePricing = () => {
                   className={cn(
                     "text-5xl tabular-nums md:text-6xl",
                     stage.isHighlight
-                      ? "font-bold text-green-600 dark:text-green-400"
+                      ? "text-green-600 dark:text-green-400"
                       : "text-neutral-600 dark:text-neutral-400",
                   )}
                 >
