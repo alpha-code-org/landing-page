@@ -87,10 +87,10 @@ export const Transparency = () => {
           </span>
           <div className="flex flex-col gap-2">
             <h3 className="text-lg font-bold text-neutral-800 md:text-xl dark:text-white">
-              Not worth building? We&apos;ll tell you
+              Not worth building?
             </h3>
             <p className="text-neutral-600 md:text-lg dark:text-neutral-400">
-              If it won&apos;t pay off or fit your long-term vision, we&apos;ll honestly say so.{" "}
+              If it won&apos;t pay off, we&apos;ll honestly say so.{" "}
               <strong className="font-semibold text-neutral-800 dark:text-white">
                 No cost to you.
               </strong>
