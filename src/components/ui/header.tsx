@@ -35,9 +35,8 @@ const Header = () => {
             aria-label="Book a free review"
             className="bg-brand-code hover:bg-brand-alpha dark:hover:text-brand-code flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold text-white transition-colors sm:px-4 dark:hover:bg-white"
           >
-            <CalendarCheck aria-hidden className="size-4 sm:hidden" />
-            <span className="sm:hidden">Book</span>
-            <span className="hidden sm:inline">Book a free review</span>
+            <CalendarCheck aria-hidden className="size-4" />
+            Book
           </Link>
         </div>
       </div>
