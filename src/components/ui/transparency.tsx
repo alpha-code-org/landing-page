@@ -6,27 +6,10 @@ import { cn } from "@/utils/cn";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const milestones = [
-  {
-    when: "Launch",
-    what: "Your automation goes live",
-    titleColor: "text-neutral-500 dark:text-neutral-500",
-  },
-  {
-    when: "Month 1",
-    what: "Monthly savings verified",
-    titleColor: "text-neutral-600 dark:text-neutral-400",
-  },
-  {
-    when: "Year 1",
-    what: "Extending as your business grows",
-    titleColor: "text-neutral-700 dark:text-neutral-300",
-  },
-  {
-    when: "Year 5+",
-    what: "Still here, still running",
-    titleColor: "text-green-600 dark:text-green-400",
-    isOngoing: true,
-  },
+  { when: "Launch", what: "Automation goes live" },
+  { when: "Month 1", what: "Monthly savings verified" },
+  { when: "Year 1", what: "Watch business grow" },
+  { when: "Year 5+", what: "Still here, still running", isOngoing: true },
 ];
 
 export const Transparency = () => {
@@ -82,7 +65,14 @@ export const Transparency = () => {
                 />
               </span>
               <span
-                className={cn("text-2xl font-bold tabular-nums md:text-3xl", item.titleColor)}
+                className={cn(
+                  "text-xl tabular-nums md:text-2xl",
+                  item.isOngoing
+                    ? "font-bold text-green-600 dark:text-green-400"
+                    : index === 0
+                      ? "text-neutral-800 dark:text-white"
+                      : "text-neutral-700 dark:text-neutral-300",
+                )}
               >
                 {item.when}
               </span>
