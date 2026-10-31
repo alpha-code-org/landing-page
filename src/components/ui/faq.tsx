@@ -4,7 +4,7 @@ import { EmailLink } from "./email-link";
 
 export const Faq = () => {
   return (
-    <section className="relative px-8 py-20 md:py-32">
+    <section id="faq" className="relative scroll-mt-12 px-8 py-20 md:py-32">
       <div className="mx-auto grid max-w-5xl items-start gap-10 md:grid-cols-[2fr_3fr] md:gap-16">
         <div className="flex flex-col gap-4 text-center md:sticky md:top-24 md:text-left">
           <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">

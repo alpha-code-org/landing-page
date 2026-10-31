@@ -21,12 +21,12 @@ const Header = () => {
           >
             Pricing
           </SectionLink>
-          <Link
-            href="/blog"
+          <SectionLink
+            id="faq"
             className="hidden text-sm font-medium text-neutral-900 underline-offset-4 hover:underline md:inline dark:text-white"
           >
-            Blog
-          </Link>
+            FAQ
+          </SectionLink>
           <AnimatedThemeToggler className="cursor-pointer" />
           <Link
             href={BOOKING_URL}
