@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Twitter, Github, Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 import { ThemedLogo } from "./themed-logo";
 import { industries } from "@/data/industries";
 import {
@@ -63,24 +63,6 @@ const Footer = () => {
               aria-label={`Email us at ${CONTACT_EMAIL}`}
             >
               <Mail size={24} color="currentColor" />
-            </Link>
-            <Link
-              href="https://twitter.com/matteoo_eth"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="opacity-80 transition-opacity hover:opacity-100"
-              aria-label="Follow us on Twitter"
-            >
-              <Twitter size={24} color="currentColor" />
-            </Link>
-            <Link
-              href="https://github.com/alpha-code-org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="opacity-80 transition-opacity hover:opacity-100"
-              aria-label="View our GitHub profile"
-            >
-              <Github size={24} color="currentColor" />
             </Link>
             <Link
               href="https://www.linkedin.com/company/alpha-code-doo"
