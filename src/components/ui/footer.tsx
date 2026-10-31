@@ -2,7 +2,13 @@ import Link from "next/link";
 import { Twitter, Github, Linkedin, Mail } from "lucide-react";
 import { ThemedLogo } from "./themed-logo";
 import { industries } from "@/data/industries";
-import { CONTACT_EMAIL } from "@/utils/links";
+import {
+  COMPANY_ADDRESS,
+  COMPANY_COURT,
+  COMPANY_MBS,
+  COMPANY_VAT,
+  CONTACT_EMAIL,
+} from "@/utils/links";
 
 const Footer = () => {
   return (
@@ -41,12 +47,30 @@ const Footer = () => {
         </nav>
         <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
-          <p className="mb-4 text-sm text-slate-600 md:mb-0 dark:text-slate-400">
-            &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.{" "}
-            <Link href="/privacy-policy" className="underline-offset-4 hover:underline">
-              Privacy Policy
-            </Link>
-          </p>
+          <div className="mb-4 flex flex-col gap-1 text-center text-sm text-slate-600 md:mb-0 md:text-left dark:text-slate-400">
+            <p>
+              &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.{" "}
+              <Link
+                href="/privacy-policy"
+                className="font-medium underline underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-white"
+              >
+                Privacy Policy
+              </Link>
+            </p>
+            <p className="flex flex-wrap justify-center gap-x-4 sm:gap-x-2 md:justify-start">
+              <span>{COMPANY_ADDRESS}</span>
+              <span aria-hidden className="hidden sm:inline">
+                ·
+              </span>
+              <span>
+                MBS: {COMPANY_MBS} ({COMPANY_COURT})
+              </span>
+              <span aria-hidden className="hidden sm:inline">
+                ·
+              </span>
+              <span>VAT: {COMPANY_VAT}</span>
+            </p>
+          </div>
           <div className="flex gap-4 text-neutral-700 sm:justify-center dark:text-white">
             <Link
               href={`mailto:${CONTACT_EMAIL}`}

@@ -1,4 +1,10 @@
-import { CONTACT_EMAIL } from "@/utils/links";
+import {
+  COMPANY_ADDRESS,
+  COMPANY_COURT,
+  COMPANY_MBS,
+  COMPANY_VAT,
+  CONTACT_EMAIL,
+} from "@/utils/links";
 import { pageMetadata } from "@/utils/seo";
 
 export const metadata = pageMetadata({
@@ -48,8 +54,9 @@ export default function PrivacyPolicyPage() {
 
         <Section title="Who we are">
           <p>
-            Alpha Code d.o.o., based in Zagreb, Croatia, is the data controller for this website.
-            For anything related to your personal data, email us at{" "}
+            Alpha Code d.o.o., {COMPANY_ADDRESS} (MBS: {COMPANY_MBS}, {COMPANY_COURT}, VAT:{" "}
+            {COMPANY_VAT}), is the data controller for this website. For anything related to your
+            personal data, email us at{" "}
             <a href={`mailto:${CONTACT_EMAIL}`} className={linkClassName}>
               {CONTACT_EMAIL}
             </a>
