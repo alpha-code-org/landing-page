@@ -74,7 +74,7 @@ const Footer = () => {
               <Twitter size={24} color="currentColor" />
             </Link>
             <Link
-              href="https://github.com/mateogalic112"
+              href="https://github.com/alpha-code-org"
               target="_blank"
               rel="noopener noreferrer"
               className="opacity-80 transition-opacity hover:opacity-100"
