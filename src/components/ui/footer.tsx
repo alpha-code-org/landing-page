@@ -42,7 +42,10 @@ const Footer = () => {
         <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
           <p className="mb-4 text-sm text-slate-600 md:mb-0 dark:text-slate-400">
-            &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.
+            &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.{" "}
+            <Link href="/privacy-policy" className="underline-offset-4 hover:underline">
+              Privacy Policy
+            </Link>
           </p>
           <div className="flex gap-4 text-neutral-700 sm:justify-center dark:text-white">
             <Link
