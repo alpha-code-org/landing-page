@@ -23,7 +23,7 @@ const Header = () => {
           </SectionLink>
           <SectionLink
             id="faq"
-            className="hidden text-sm font-medium text-neutral-900 underline-offset-4 hover:underline md:inline dark:text-white"
+            className="hidden text-sm font-medium text-neutral-900 underline-offset-4 hover:underline min-[360px]:inline dark:text-white"
           >
             FAQ
           </SectionLink>
