@@ -46,32 +46,17 @@ const Footer = () => {
           </Link>
         </nav>
         <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
-        <div className="flex w-full flex-col items-center justify-center pb-4 md:flex-row md:justify-between">
-          <div className="mb-4 flex flex-col gap-1 text-center text-sm text-slate-600 md:mb-0 md:text-left dark:text-slate-400">
-            <p>
-              &copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.{" "}
-              <Link
-                href="/privacy-policy"
-                className="font-medium underline underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-white"
-              >
-                Privacy Policy
-              </Link>
-            </p>
-            <p className="flex flex-wrap justify-center gap-x-4 sm:gap-x-2 md:justify-start">
-              <span>{COMPANY_ADDRESS}</span>
-              <span aria-hidden className="hidden sm:inline">
-                ·
-              </span>
-              <span>
-                MBS: {COMPANY_MBS} ({COMPANY_COURT})
-              </span>
-              <span aria-hidden className="hidden sm:inline">
-                ·
-              </span>
-              <span>VAT: {COMPANY_VAT}</span>
-            </p>
+        <div className="flex w-full flex-col items-center gap-4 pt-2 md:flex-row md:justify-between">
+          <div className="flex flex-col items-center gap-x-4 gap-y-1 text-center text-sm text-slate-600 sm:flex-row md:text-left dark:text-slate-400">
+            <p>&copy; {new Date().getFullYear()} Alpha Code d.o.o. All Rights Reserved.</p>
+            <Link
+              href="/privacy-policy"
+              className="font-medium underline underline-offset-4 transition-colors hover:text-neutral-900 dark:hover:text-white"
+            >
+              Privacy Policy
+            </Link>
           </div>
-          <div className="flex gap-4 text-neutral-700 sm:justify-center dark:text-white">
+          <div className="flex gap-4 text-neutral-700 dark:text-white">
             <Link
               href={`mailto:${CONTACT_EMAIL}`}
               className="opacity-80 transition-opacity hover:opacity-100"
@@ -108,6 +93,19 @@ const Footer = () => {
             </Link>
           </div>
         </div>
+        <p className="flex flex-col items-center gap-x-2 gap-y-1 pt-2 pb-6 text-center text-xs text-slate-600 md:items-start md:text-left lg:flex-row dark:text-slate-400">
+          <span>{COMPANY_ADDRESS}</span>
+          <span aria-hidden className="hidden lg:inline">
+            ·
+          </span>
+          <span>
+            MBS: {COMPANY_MBS} ({COMPANY_COURT})
+          </span>
+          <span aria-hidden className="hidden lg:inline">
+            ·
+          </span>
+          <span>VAT: {COMPANY_VAT}</span>
+        </p>
       </div>
     </footer>
   );
