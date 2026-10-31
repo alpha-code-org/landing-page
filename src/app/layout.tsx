@@ -14,8 +14,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: homeTitle,
   description: homeDescription,
-  keywords:
-    "AI automation, business process automation, AI automation for small businesses, AI automation agency, workflow automation, invoice automation, booking automation, AI for SMEs, custom software development, codebase audit, Alpha Code, Zagreb, Croatia",
   icons: {
     icon: "/favicon.ico",
   },
@@ -36,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("flex flex-col bg-stone-100 dark:bg-dark-bg", montserrat.className)}>
+      <body className={cn("dark:bg-dark-bg flex flex-col bg-stone-100", montserrat.className)}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <Header />
           {children}
