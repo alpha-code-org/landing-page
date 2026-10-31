@@ -34,17 +34,36 @@ const Footer = () => {
             ))}
           </ul>
         </nav>
-        <nav aria-label="Other services" className="flex flex-col gap-3 pb-6">
-          <h2 className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
-            Other services
-          </h2>
-          <Link
-            href="/codebase-audit"
-            className="self-start text-sm text-neutral-600 underline-offset-4 hover:underline dark:text-neutral-400"
-          >
-            Codebase audit
-          </Link>
-        </nav>
+        <div className="flex flex-col gap-6 pb-6">
+          <nav aria-label="Other services" className="flex flex-col gap-3">
+            <h2 className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
+              Other services
+            </h2>
+            <Link
+              href="/codebase-audit"
+              className="self-start text-sm text-neutral-600 underline-offset-4 hover:underline dark:text-neutral-400"
+            >
+              Codebase audit
+            </Link>
+            <Link
+              href="/modern-website-design"
+              className="self-start text-sm text-neutral-600 underline-offset-4 hover:underline dark:text-neutral-400"
+            >
+              Modern website design
+            </Link>
+          </nav>
+          <nav aria-label="Resources" className="flex flex-col gap-3">
+            <h2 className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
+              Resources
+            </h2>
+            <Link
+              href="/blog"
+              className="self-start text-sm text-neutral-600 underline-offset-4 hover:underline dark:text-neutral-400"
+            >
+              Blog
+            </Link>
+          </nav>
+        </div>
         <div className="h-px w-full bg-neutral-300 dark:bg-neutral-800" />
         <div className="flex w-full flex-col items-center gap-4 pt-2 md:flex-row md:justify-between">
           <div className="flex flex-col items-center gap-x-4 gap-y-1 text-center text-sm text-slate-600 sm:flex-row md:text-left dark:text-slate-400">

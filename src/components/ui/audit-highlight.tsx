@@ -23,7 +23,7 @@ export const AuditHighlight = ({ as: Heading = "h2" }: { as?: "h1" | "h2" }) => 
   );
 };
 
-const HeroHighlight = ({
+export const HeroHighlight = ({
   children,
   className,
   containerClassName,
@@ -84,7 +84,7 @@ const HeroHighlight = ({
   );
 };
 
-const Highlight = ({
+export const Highlight = ({
   children,
   className,
 }: {
