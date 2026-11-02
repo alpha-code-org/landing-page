@@ -79,13 +79,11 @@ export default function Home() {
       <HeroParallax />
       <Companies />
       <AutomationWorkflow />
+      <Transparency />
       <Industries />
       <HowItWorks />
       <OutcomePricing />
-      <Transparency />
-      <div className="bg-stone-200/30 dark:bg-transparent">
-        <Founder />
-      </div>
+      <Founder />
       <Faq />
       <div className="bg-stone-200/30 dark:bg-transparent">
         <Typewriter />
