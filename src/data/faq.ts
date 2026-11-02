@@ -1,14 +1,4 @@
-import {
-  Bot,
-  ClipboardList,
-  Code,
-  Coins,
-  Globe,
-  Plug,
-  ShieldCheck,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
+import { ClipboardList, Coins, Plug, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
 
 type FaqType = {
   icon: LucideIcon;
@@ -19,50 +9,32 @@ type FaqType = {
 export const faq: Array<FaqType> = [
   {
     icon: Sparkles,
-    question: "What is AI automation for small businesses?",
+    question: "What is AI automation?",
     answer:
-      "AI automation is business process automation powered by AI. It takes over the repetitive work that fills a small team's day: manual data entry from invoices into accounting software, answering the same enquiries, booking appointments and filling in paperwork. The work runs on its own, so your team saves hours every week and makes fewer mistakes.",
-  },
-  {
-    icon: Bot,
-    question: "What is the difference between an AI chatbot and AI automation?",
-    answer:
-      "An AI chatbot answers questions in a chat window. AI automation also does the work behind them: with workflow automation and AI agents, an enquiry is answered, the appointment is booked and the details are saved in your software, without anyone stepping in.",
+      "It means software handles your repetitive tasks for you, like copying invoices into your accounting system, answering common enquiries and booking appointments. Your team saves hours every week and makes fewer mistakes.",
   },
   {
     icon: ClipboardList,
-    question: "What does the free review include?",
+    question: "What is the free review?",
     answer:
-      "We go through your daily work with you and write down what could run on its own. You get a list of the specific places where time is being lost, with no obligation.",
+      "We look at your daily work together, then show you where time is being lost and which tasks could run on their own.",
   },
   {
     icon: Coins,
-    question: "How much does AI automation cost?",
+    question: "How much does it cost?",
     answer:
-      "The review is free. After that we use outcome-based pricing: before we start, we agree on a measurable result, such as hours saved each week, and our fee is 50% of the proven savings for the first year. After that, all the savings are yours. Running costs such as AI usage and hosting are passed on at cost.",
+      "The review is free. Before any work starts, we agree on a clear goal, such as hours saved each week. You pay us 50% of the proven savings for the first year, and after that all the savings are yours. You also cover running costs, such as AI usage and hosting, at the price we pay.",
   },
   {
     icon: ShieldCheck,
-    question: "Is our business data safe with you?",
+    question: "Is our data safe?",
     answer:
-      "Yes. Everything we see stays with you, and we gladly sign an NDA before we look at anything.",
+      "Yes. Everything we see stays with you, and we gladly sign a confidentiality agreement (NDA) before we look at anything.",
   },
   {
     icon: Plug,
-    question: "Do we have to change the software we use?",
+    question: "Do we need to change our software?",
     answer:
-      "No. We build integrations with the tools you already use, such as your accounting software, calendar, email and booking sites.",
-  },
-  {
-    icon: Code,
-    question: "Do you build custom software?",
-    answer:
-      "Yes. When existing tools can't do the job, we offer custom software development and connect it to the systems you already have. The free review shows whether it is worth building.",
-  },
-  {
-    icon: Globe,
-    question: "Do you work with businesses outside Croatia?",
-    answer:
-      "Yes. We are an AI automation agency from Zagreb, Croatia, and work with small and medium businesses across Europe and the US. Outside Zagreb we meet on a short video call.",
+      "No. We connect everything to the tools you already use, such as your accounting software, calendar, email and booking sites.",
   },
 ];
