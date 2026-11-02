@@ -6,7 +6,7 @@ export const WebsiteDesignHighlight = () => {
     <HeroHighlight>
       <div className="animate-fade-in-bounce mx-auto flex max-w-4xl flex-col items-center gap-12 px-4">
         <h1 className="text-center text-2xl leading-relaxed font-bold text-neutral-700 md:text-4xl lg:text-5xl lg:leading-snug dark:text-white">
-          We design websites that make{" "}
+          Modern website design that makes{" "}
           <Highlight className="whitespace-nowrap text-white">your business stand out</Highlight>
         </h1>
 
