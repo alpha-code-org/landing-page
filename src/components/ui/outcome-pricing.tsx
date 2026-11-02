@@ -83,8 +83,7 @@ export const OutcomePricing = () => {
         <p className="text-center text-neutral-600 md:text-lg dark:text-neutral-400">
           <strong className="font-semibold text-neutral-800 dark:text-white">
             No savings, no fee.
-          </strong>{" "}
-          Results are reported monthly, running costs passed on at cost.
+          </strong>
         </p>
       </div>
     </section>
