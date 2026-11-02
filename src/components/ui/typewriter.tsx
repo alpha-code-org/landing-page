@@ -83,7 +83,7 @@ export const Typewriter = ({
 
   return (
     <div className="dark:bg-dark-bg flex flex-col items-center justify-center px-8 py-16 md:py-20">
-      <p className="mb-4 text-lg text-neutral-600 uppercase sm:text-xl md:mb-0 dark:text-neutral-200">
+      <p className="mb-4 text-lg text-neutral-600 uppercase sm:text-xl md:mb-0 dark:text-neutral-400">
         Get ahead of the competition
       </p>
 
