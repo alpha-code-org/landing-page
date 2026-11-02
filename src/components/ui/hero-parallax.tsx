@@ -10,6 +10,9 @@ import { BookingButton } from "./booking-button";
 import { ThemedLogo } from "./themed-logo";
 
 const TITLE_FADE_DISTANCE = 200;
+// A fixed scroll distance, so the animation plays the same at every window height. Deriving it
+// from the hero's height minus the window's shrinks it to nothing on tall windows.
+const LIST_ANIMATION_DISTANCE = 600;
 
 const titleOpacity = (scrollY: number) => Math.max(0, 1 - scrollY / TITLE_FADE_DISTANCE);
 
@@ -43,14 +46,9 @@ const HeroParallax = () => {
           ticking = false;
           if (!ref.current) return;
 
-          const rect = ref.current.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
-          const elementHeight = rect.height;
-
-          const scrollTop = -rect.top;
-          const maxScroll = Math.max(1, elementHeight - windowHeight); // avoid 0
+          const scrollTop = -ref.current.getBoundingClientRect().top;
           // Values are clamped so writes stop once the hero is scrolled past
-          const progress = Math.max(0, Math.min(0.5, scrollTop / maxScroll));
+          const progress = Math.max(0, Math.min(0.5, scrollTop / LIST_ANIMATION_DISTANCE));
           const scrollY = Math.min(TITLE_FADE_DISTANCE, Math.max(0, scrollTop));
 
           if (scrollY !== lastScrollY && titleRef.current) {
