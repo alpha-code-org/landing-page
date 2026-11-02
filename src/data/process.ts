@@ -10,16 +10,16 @@ export const processSteps: Array<ProcessStepType> = [
   {
     icon: Search,
     title: "Free review",
-    description: "We find where your team loses time.",
+    description: "We find your time leaks.",
   },
   {
     icon: ClipboardList,
     title: "Clear plan",
-    description: "We run the numbers on what you'll save.",
+    description: "We calculate your savings.",
   },
   {
     icon: Wrench,
     title: "We build it",
-    description: "It integrates with tools you already use.",
+    description: "It plugs into your tools.",
   },
 ];
