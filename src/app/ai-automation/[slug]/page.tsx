@@ -65,7 +65,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <article className="mx-auto flex max-w-3xl flex-col gap-16 px-8">
+      <article className="mx-auto flex max-w-3xl flex-col gap-16 px-4 md:px-8">
         <header className="flex flex-col gap-6">
           <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
             AI automation by industry

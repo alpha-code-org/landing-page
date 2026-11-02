@@ -13,7 +13,7 @@ import {
 const Footer = () => {
   return (
     <footer className="dark:bg-dark-bg relative mt-auto w-full bg-stone-100 pt-8">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 md:px-8">
         <Link href="/" aria-label="Go to homepage">
           <ThemedLogo width={32} height={32} />
         </Link>

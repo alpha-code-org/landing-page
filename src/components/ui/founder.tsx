@@ -4,7 +4,7 @@ import { Linkedin } from "lucide-react";
 
 export const Founder = () => {
   return (
-    <section className="px-8 py-20 md:py-28">
+    <section className="px-4 py-20 md:px-8 md:py-28">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 text-center md:flex-row md:items-center md:gap-10 md:text-left">
         <Image
           src="/team/mateo.webp"

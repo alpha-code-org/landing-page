@@ -28,7 +28,7 @@ export default function CodebaseAuditPage() {
     <main>
       <AuditHighlight as="h1" />
 
-      <section className="dark:bg-dark-bg bg-stone-100 px-8 py-16 md:py-24">
+      <section className="dark:bg-dark-bg bg-stone-100 px-4 py-16 md:px-8 md:py-24">
         <div className="mx-auto flex max-w-3xl flex-col gap-6">
           <h2 className="text-2xl font-bold text-neutral-800 dark:text-white">What we look at</h2>
           <ul className="flex flex-col gap-4">

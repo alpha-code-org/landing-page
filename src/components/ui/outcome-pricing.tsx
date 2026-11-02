@@ -24,7 +24,7 @@ export const OutcomePricing = () => {
     <section
       ref={ref}
       id="pricing"
-      className="scroll-mt-12 bg-stone-200/30 px-8 py-20 md:py-32 dark:bg-transparent"
+      className="scroll-mt-12 bg-stone-200/30 px-4 py-20 md:px-8 md:py-32 dark:bg-transparent"
     >
       <div className="mx-auto flex max-w-5xl flex-col gap-12">
         <div className="flex flex-col items-center gap-4 text-center">

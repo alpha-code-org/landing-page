@@ -13,7 +13,7 @@ export const Companies = () => {
 
   return (
     <section className="relative py-20 md:py-32">
-      <div ref={ref} className="mx-auto flex max-w-5xl flex-col items-center gap-16 px-8">
+      <div ref={ref} className="mx-auto flex max-w-5xl flex-col items-center gap-16 px-4 md:px-8">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
             Businesses we&apos;ve worked with

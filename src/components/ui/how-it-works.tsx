@@ -10,7 +10,7 @@ export const HowItWorks = () => {
   const isInView = useIntersectionObserver(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="px-8 py-20 md:py-32">
+    <section ref={ref} className="px-4 py-20 md:px-8 md:py-32">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-12">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">

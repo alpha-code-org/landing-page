@@ -43,7 +43,7 @@ const rights = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="px-8 pt-28 pb-16 md:pt-36 md:pb-24">
+    <main className="px-4 pt-28 pb-16 md:px-8 md:pt-36 md:pb-24">
       <div className="mx-auto flex max-w-3xl flex-col gap-8">
         <header className="flex flex-col gap-3">
           <h1 className="text-3xl font-bold text-neutral-800 md:text-5xl dark:text-white">
