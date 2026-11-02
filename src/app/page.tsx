@@ -78,9 +78,9 @@ export default function Home() {
       />
       <HeroParallax />
       <Companies />
+      <Industries />
       <AutomationWorkflow />
       <Transparency />
-      <Industries />
       <HowItWorks />
       <OutcomePricing />
       <Founder />

@@ -16,7 +16,7 @@ export const companies = [
   },
   {
     name: "Longwood Labs",
-    website: "https://www.longwoodlabs.xyz/",
+    website: "https://www.linkedin.com/company/longwood-labs",
     logo: "/companies/longwood-labs.svg",
   },
   {
