@@ -90,10 +90,10 @@ export const AutomationWorkflow = () => {
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4 text-center md:text-left">
             <p className="text-sm font-medium tracking-widest text-neutral-600 uppercase dark:text-neutral-400">
-              AI automation in action
+              Invoice processing example
             </p>
             <h2 className="text-2xl font-bold text-neutral-800 md:text-4xl dark:text-white">
-              Invoice processing
+              AI automation in action
             </h2>
             <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
               Workflow automation that reads, checks, books and reconciles invoices.{" "}
