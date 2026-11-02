@@ -43,11 +43,8 @@ export const HowItWorks = () => {
                 )}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="text-brand-code dark:bg-dark-bg relative flex size-12 items-center justify-center rounded-full border border-neutral-300 bg-stone-100 dark:border-neutral-700 dark:text-blue-400">
+                <div className="text-brand-code dark:bg-dark-bg flex size-12 items-center justify-center rounded-full border border-neutral-300 bg-stone-100 dark:border-neutral-700 dark:text-blue-400">
                   <step.icon className="size-5" aria-hidden />
-                  <span className="bg-brand-code absolute -top-1.5 -right-1.5 flex size-5 items-center justify-center rounded-full text-[11px] font-bold text-white">
-                    {index + 1}
-                  </span>
                 </div>
                 <h3 className="text-lg font-bold text-neutral-800 md:text-xl dark:text-white">
                   {step.title}
