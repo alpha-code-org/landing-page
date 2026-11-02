@@ -32,7 +32,8 @@ export const OutcomePricing = () => {
             Outcome-based pricing
           </p>
           <h2 className="text-2xl font-bold text-neutral-800 md:text-4xl dark:text-white">
-            We get paid when it pays off
+            We only get paid when you{" "}
+            <span className="text-green-600 dark:text-green-400">save money</span>
           </h2>
           <p className="text-neutral-600 md:text-lg dark:text-neutral-400">
             You pay for results, not hours.
