@@ -24,8 +24,7 @@ export const Transparency = () => {
             Transparency
           </p>
           <h2 className="text-3xl font-bold text-neutral-800 md:text-5xl dark:text-white">
-            We don&apos;t leave after{" "}
-            <span className="text-green-600 dark:text-green-400">launch</span>
+            Numbers <span className="text-green-600 dark:text-green-400">don&apos;t lie</span>
           </h2>
           <p className="max-w-xl text-neutral-600 md:text-lg dark:text-neutral-400">
             We only do well when your business does.
