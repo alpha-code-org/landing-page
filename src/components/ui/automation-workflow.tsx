@@ -97,7 +97,7 @@ export const AutomationWorkflow = () => {
             </h2>
             <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
               Workflow automation that reads, checks, books and reconciles invoices.{" "}
-              <span className="text-neutral-800 dark:text-white">No manual data entry.</span>
+              <span className="font-semibold text-neutral-800 dark:text-white">No manual data entry.</span>
             </p>
           </div>
 

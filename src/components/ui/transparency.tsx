@@ -65,9 +65,9 @@ export const Transparency = () => {
               </span>
               <span
                 className={cn(
-                  "text-lg tabular-nums md:text-xl",
+                  "text-lg font-bold tabular-nums md:text-xl",
                   item.isOngoing
-                    ? "font-bold text-green-600 dark:text-green-400"
+                    ? "text-green-600 dark:text-green-400"
                     : index === 0
                       ? "text-neutral-800 dark:text-white"
                       : "text-neutral-700 dark:text-neutral-300",
