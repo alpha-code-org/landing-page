@@ -20,12 +20,10 @@ const FINISHED_HOLD_MS = 3200;
 // Steps play faster than real time, but AI steps still visibly take longer than the rest
 const stepDuration = (step: WorkflowStepType) => 700 + step.seconds * 350;
 
-const { trigger, steps, manualMinutes, invoicesPerWeek, hourlyCost, workingWeeks } =
-  invoiceWorkflow;
+const { trigger, steps, manualMinutes, invoicesPerWeek, teamSize } = invoiceWorkflow;
 const automatedLabel = `${invoiceSavings.automatedSeconds.toFixed(1)} s`;
 const yearlySavedLabel = formatEuro(invoiceSavings.eurosPerYear);
 const perInvoiceSavedLabel = formatEuro(invoiceSavings.eurosPerInvoice, 2);
-const hourlyCostLabel = formatEuro(hourlyCost);
 
 // Tweens a number towards `target` with requestAnimationFrame, so counters roll instead of jump
 function useCountUp(target: number, duration = 400) {
@@ -97,7 +95,9 @@ export const AutomationWorkflow = () => {
             </h2>
             <p className="leading-relaxed text-neutral-600 md:text-lg dark:text-neutral-400">
               Workflow automation that reads, checks, books and reconciles invoices.{" "}
-              <span className="font-semibold text-neutral-800 dark:text-white">No manual data entry.</span>
+              <span className="font-semibold text-neutral-800 dark:text-white">
+                No manual data entry.
+              </span>
             </p>
           </div>
 
@@ -105,7 +105,9 @@ export const AutomationWorkflow = () => {
             <div>
               <p className="flex flex-wrap items-baseline gap-x-2 text-green-600 tabular-nums dark:text-green-400">
                 <span className="text-4xl font-bold md:text-5xl">{yearlySavedLabel}</span>
-                <span className="text-lg font-semibold text-black md:text-xl dark:text-white">/ year</span>
+                <span className="text-lg font-semibold text-black md:text-xl dark:text-white">
+                  / year
+                </span>
               </p>
               <p className="mt-1 text-neutral-600 dark:text-neutral-400">
                 saved on {invoicesPerWeek} invoices a week
@@ -132,7 +134,7 @@ export const AutomationWorkflow = () => {
             </dl>
 
             <p className="text-sm text-neutral-500 dark:text-neutral-400">
-              Based on {hourlyCostLabel}/hour staff cost and {workingWeeks} working weeks.
+              Based on a {teamSize}-person accounting team.
             </p>
 
             <a

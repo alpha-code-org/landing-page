@@ -12,6 +12,7 @@ export const invoiceWorkflow = {
   trigger: "New supplier invoice",
   manualMinutes: 12,
   invoicesPerWeek: 550,
+  teamSize: 7, // accounting staff handling those invoices
   hourlyCost: 30, // fully loaded cost of an hour of office staff time, in euros
   workingWeeks: 46, // after holidays
   steps: [
