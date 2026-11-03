@@ -24,7 +24,7 @@ export const Faq = () => {
             <details
               key={item.question}
               open={index === 0}
-              className="group smooth-details open:border-brand-code/40 open:bg-brand-code/5 dark:bg-dark-bg rounded-2xl border border-neutral-300 bg-white transition-colors duration-300 hover:border-neutral-400 dark:border-neutral-800 dark:open:border-blue-400/40 dark:open:bg-blue-400/5 dark:hover:border-neutral-600"
+              className="group smooth-details open:border-brand-code/40 dark:bg-dark-bg rounded-2xl border border-neutral-300 bg-white transition-colors duration-300 hover:border-neutral-400 dark:border-neutral-800 dark:open:border-blue-400/40 dark:hover:border-neutral-600"
             >
               <summary className="flex cursor-pointer list-none items-center gap-4 p-4 md:p-5 [&::-webkit-details-marker]:hidden">
                 <span className="bg-brand-code/10 text-brand-code group-open:bg-brand-code flex size-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-300 group-open:text-white dark:bg-blue-400/10 dark:text-blue-400 dark:group-open:bg-blue-400 dark:group-open:text-neutral-900">
