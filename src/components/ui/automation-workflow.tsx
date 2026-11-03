@@ -103,11 +103,12 @@ export const AutomationWorkflow = () => {
 
           <div className="flex flex-col gap-5 rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
             <div>
-              <p className="text-4xl font-bold text-green-600 tabular-nums md:text-5xl dark:text-green-400">
-                {yearlySavedLabel}
+              <p className="flex flex-wrap items-baseline gap-x-2 text-green-600 tabular-nums dark:text-green-400">
+                <span className="text-4xl font-bold md:text-5xl">{yearlySavedLabel}</span>
+                <span className="text-lg font-semibold text-black md:text-xl dark:text-white">/ year</span>
               </p>
               <p className="mt-1 text-neutral-600 dark:text-neutral-400">
-                saved a year on {invoicesPerWeek} invoices a week
+                saved on {invoicesPerWeek} invoices a week
               </p>
             </div>
 
