@@ -47,7 +47,7 @@ export const Industries = () => {
           <button
             type="button"
             onClick={() => setIsExpanded(true)}
-            className="self-center rounded-full border border-neutral-300 px-5 py-2 font-medium text-neutral-800 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-900"
+            className="hover:border-brand-code hover:text-brand-code cursor-pointer self-center rounded-full border border-neutral-300 px-5 py-2 font-medium text-neutral-800 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-50 hover:shadow-md active:translate-y-0 dark:border-neutral-800 dark:text-white dark:hover:border-blue-400 dark:hover:bg-neutral-900 dark:hover:text-blue-400"
           >
             Show {industries.length - INITIAL_VISIBLE_COUNT} more industries
           </button>
